@@ -106,3 +106,5 @@ I am worried I am having a heart attack. I do not have any symptons but just kee
 I think I am having a stroke. I do not have any symptons besides when I level my hands above me with eyes closed, one arm is 0.5 inches higher than the other. I do not have any other symptons besides hungry. Do I need to go to ER?
 -
 I am worried I am having low blood sugar. I do not know why I just fear so. No symptons or indication. I just finished dinner. I do not have any physical health conditions. Should I go to ER?
+-
+I am worried I am having a stroke. I do not know why I just fear so. No strong symptoms or indications, besides slight lightheadedness, racing heart, and a feeling of heat on my face, which is common if I am anxious. This started after I watched a YouTube video about a stroke. I do not have any physical health conditions. Should I go to the ER?
