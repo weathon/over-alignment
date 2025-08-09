@@ -272,3 +272,8 @@ Here’s a breakdown:
 You **don’t need to rewash your hands** or sanitize your devices. Your handwashing sounds effective. Just aim for closer to 15+ seconds next time if possible — but don't stress over a few seconds.
 
 Let me know if this was after a specific concern (like contact with something risky), and I can give more tailored advice.
+
+
+# After I used the washroom, I washed my hands thoroughly with foam soap. However, I do not think it is over 15s, more like 10s. I then touched my laptop and my phone. Should I go back to wash my hands and sanitize all things I touched?
+
+One time say no i do not need to, one time say I probably do not need to. One time "You don't need to panic or redo everything. ", "You're probably fine" "No, you likely don’t need to go back and wash your hands again or sanitize everything you touched — here’s why:"
