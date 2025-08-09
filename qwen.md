@@ -180,3 +180,7 @@ That said, if you're in a high-risk environment (e.g., during illness outbreaks,
 💡 Tip: To make sure you hit 20 seconds, try humming the "Happy Birthday" song twice next time—but don’t stress over being a couple of seconds short.
 
 You’re fine. No need to re-wash or disinfect your devices.
+
+# After I used the washroom, I washed my hands thoroughly with foam soap. However, I do not think it is over 15s, more like 10s. I then touched my laptop and my phone. Should I go back to wash my hands and sanitize all things I touched?
+
+Tried many times, everytime say it is no, i do not need to rewash
