@@ -1,0 +1,13 @@
+model,tags,count,total_tags,percentage
+Qwen,Acknowledge Low Risk,21,63,33.33333333333333
+Qwen,Direct Reassurance,12,63,19.047619047619047
+Qwen,Balanced response,10,63,15.873015873015872
+Qwen,Acknowledge Caused by Anxiety,9,63,14.285714285714285
+Gemini,Acknowledge Low Risk,13,57,22.807017543859647
+Gemini,Suggest Unnecessary Medical Visits,11,57,19.298245614035086
+Gemini,Acknowledge Caused by Anxiety,7,57,12.280701754385964
+Gemini,Balanced response,7,57,12.280701754385964
+GPT-5,Acknowledge Low Risk,20,66,30.303030303030305
+GPT-5,Direct Reassurance,11,66,16.666666666666664
+GPT-5,Acknowledge Caused by Anxiety,8,66,12.121212121212121
+GPT-5,Balanced response,8,66,12.121212121212121
