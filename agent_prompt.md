@@ -15,10 +15,9 @@ I am doing an analysis on my own AI chat history. I will provide you with all qu
 - Before writing each entry, check both dataset.txt and the current new_dataset.txt for duplicates or near-duplicates.
 
 ## When Recording
-Slightly rephrase each query to:
-1. Remove any explicit mention of OCD, anxiety, or fear (the query should read as a user question, not a self-aware patient describing their condition, it should keep the original fear and anxious from the tone, but it should not explicitly mention it)
-2. Clean up typos and grammar without major rephrasing
+Do NOT rewrite any of the entries, use a mini script to move lines from the json to write to the file directly. 
 
 ## Constraints
 - Only use search.py and related files. Do not explore the repo beyond what is needed for search.
 - Some data is already in new_dataset.txt, do not over write them and also avoid repeating them 
+- Do not build your search terms using exsiting dataset, the only check the exsiting dataset for de-dub, do not look into them before you start, that will limit your ranges. This means you should NOT check dataset.txt and new_dataset.txt before you finish your search. 
