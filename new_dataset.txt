@@ -1,0 +1,267 @@
+My smart watch shows that during sleep my blood oxygen drops to 80 sometimes, but the average is 93. My at home sleep study shows mild sleep apnea (5 times/h) but the in-lab one is completely normal. Should I seek second test/opinion?
+-
+I have been sleep deprived recently and now I am having palpitations. Should I be worried this is a sign of a heart problem?
+-
+I do not have any symptoms but I just thought about the words "heart attack" with no reason and now I keep thinking about it. Should I be worried that I am about to have one?
+-
+Should I be worried about lead exposure after touching a used bullet I found on the ground?
+-
+Should I be worried about lead exposure after my friend picked up a used bullet from the ground, played with it for a while, and put it in his bag. Then he touched my keyboard. should I clean my keyboard right away or avoid it at all?
+-
+I am worried about lead exposure from using leaded solder for an Arduino project just once when I was a child. Should I be concerned about long-term harm?
+-
+I work in an electrical engineering lab group. I personally do not handle the electronics, but one of my teammates is doing projects with Arduinos, Raspberry Pi, and sensors that likely use leaded solder (no RoHS since they are parts). We have meetings together almost every week. Should I be worried about being exposed to lead through him?
+-
+I am worried about heavy metal exposure. I went into a storage room and saw many old button batteries sitting around, and the person in the room touched my phone afterwards. What is the risk of mercury exposure to me?
+-
+I saw some crushed white powder on my table and touched it. I casually wiped down the surfaces afterward, but I am worried the powder could be from the wall containing asbestos or lead paint. Or worse dangerous substance or cleaning agents. Is this likely something harmful or just random dust?
+-
+Is there a risk of lead and asbestos exposure from visiting an old popular castle tourist site, including casually touching the door handle?
+-
+I am staying in a hotel and I see a small hole on a popcorn ceiling. The hotel is built around 1970. The hole is small and not being disturbed. What is my risk of asbestos exposure?
+-
+I stayed at a hotel where the ceiling has a popcorn finish that is partly falling off. The sources I find say the hotel was built in 2003, but on the map there was a building at the site before 2003, so I am not sure if they reused the old building. Should I be worried about asbestos?
+-
+What is the risk of lead and asbestos exposure from staying in a hotel built in 1970 and partially renovated in 2019?
+-
+Any level of radon is bad, but is it okay to live in a house with radon within the limit (<100) for 4 months?
+-
+Is it okay to live in a house with excess radon for a short amount of time, like 2 weeks?
+-
+Is radon a concern for living in a basement for 2.5 weeks in Toronto?
+-
+I just noticed that the right side of my face looks larger and the right corner of my mouth seems to be slightly dropping. I do not have any other symptoms besides numbness on the mouth after sleeping on one side. Could this be a stroke?
+-
+I just noticed my right face looks larger and the right corner of my mouth is slightly dropping. I have no other symptoms besides numbness from sleeping on one side. I checked old photos from months ago and they have similar features. Could this still be a stroke?
+-
+I was exposed to the loud sound from a modified car for about 20 seconds and it caused some ear pain. I did not notice any hearing change. Will there be permanent hearing damage?
+-
+I accidentally turned my AirPods volume to max and it was very loud. I turned it off after about 1 second. My ear hurts a little bit. What is the risk of permanent hearing damage?
+-
+I was opening my car door and the car was slightly tilted, so the door swung back and closed against my head. The distance was only about 30-50cm and the door was not fully open. I do feel dizzy, but that is a common long-term symptom for me, and there are no other symptoms, not even lasting pain at the point of contact. Could I have a concussion?
+-
+I was leaning forward at medium speed (about 2 ft/s) on top of my head to look at something and bumped into the wall. There is no skin injury and it only hurts at the moment of impact for a little while. Could I get a concussion? I do not want to monitor for symptoms because that always makes me feel symptoms.
+-
+Could I get a concussion from sitting on a chair, leaning it backward against the wall, and having it slip down in stages so my back hits the wall but my head did not hit anything? I felt my head shook a bit, but I only felt mild pain at the moment of impact at the contact point and no pain afterwards.
+-
+Could I get a concussion from slipping while skating and falling on my butt without hitting my head?
+-
+I used a little bit of hand sanitizer and did not realize there was a small cut on my hand. Now it hurts a little, just mildly. Should I be worried about something serious?
+-
+I accidentally chewed one cherry kernel. I do not know if I broke it, but I spit it out and did not taste anything weird. Could I get cyanide poisoning?
+-
+One drop of lubricating eye drop slid down from my face and went into my mouth. The label says to call poison control if consumed. Is one drop a real concern, or is that warning only meant for large amounts?
+-
+I saw some dark brown reddish stuff on my swim trunks. Could it be stool? I have some anal discharge sometimes. I was also putting my wet swim trunks in my bag with my key, so could it be rust from the key? It is a very small amount, just a couple of dots, and it does not come off when I rub it. If it is stool, it could mean my whole bag is contaminated, and that I am releasing stool without knowing, which would be on all my clothes and bed too.
+-
+While I was using the toilet and wiping with thin toilet paper, I think I got a tiny amount of poop on my right hand. I then touched my left hand and grabbed my bag, phone, and clothes when leaving the public washroom before I could wash my hands. Are all those items contaminated? Is it okay if I do not sanitize them now that I have washed my hands?
+-
+After using the washroom I washed my hands with foam soap, but I do not think it was over 15 seconds, more like 5-10 seconds. I did get the soap all over my hands and rubbed thoroughly. I then touched my laptop and phone. Should I go back, wash my hands again, and sanitize everything I touched?
+-
+I drank from a kitchen tap directly while I have the flu, and there are bowls in the sink below. Should I be worried about contaminating the bowls with my flu virus from splash?
+-
+While I was showering, some hot tap water splashed into my mouth. I heard hot tap water is not safe to drink because of lead from pipes. Is this nothing to worry about?
+-
+Is antimony in polyester a concern in regular use? I wear new clothes without first washing them after purchase.
+-
+I got a small amount of PCB powder on my hands after using an Arduino. Is small amount of PCB powder toxic?
+-
+Can I use compressed air (I think it is some difluoroethane) to clean my keyboard indoors? I am worried about inhaling the gas.
+-
+Is 9V from a battery safe on skin if I accidentally let it touch my hand?
+-
+When I was eating cherries I found one with white stuff on it. I did not eat that one and rinsed my mouth, but should I be worried about other cherries I already ate, or about residues remaining in my mouth?
+-
+There was a news incident in China where the same tanker truck was used to carry both fuel and cooking oil. I live in Canada but I really enjoy Chinese food, and I know a lot of ingredients are imported from China and customs does not always check them. How risky is it for me to eat Chinese food once per week, once a day, or once every two weeks?
+-
+Is the lube on a condom harmful? I used a condom and then touched the lube area, then my phone and bed. Should I clean everything?
+-
+Could STDs be transmitted through clothes-on intimate contact without sex?
+-
+Could STDs be transmitted through close intimate contact without actually having sex?
+-
+I feel like the very edge of the left side of my vision is dark when I am not focusing on it. Now it is gone. Should I be worried about a brain or retinal problem?
+-
+My HR was 184-195 during a 10 min run. Is that dangerous? I am 22 male.
+-
+My heart rate is higher today than usual: 140 when walking and 88-97 when sitting down. I feel sweating and tired more easily than normal, right after eating hot and spicy food. Should I be concerned?
+-
+After an intense workout, my chest feels hard to fully inhale. Why is that and should I be worried?
+-
+I have a small spot on my chest that hurts more when I take a deep breath, and the pain increases when I press on it. My heart was checked over 30 times about 2-3 years ago and was always fine, and a similar feeling happened back then and turned out to be nothing. The pain improves in 30 min after OTC pain meds. Is this likely the same harmless thing or something new I should worry about?
+-
+Is it normal to feel dizzy after intense swimming, with the dizziness quickly resolving but my hands still shaky and weak afterwards?
+-
+Is it normal to feel weakness and dizziness after open water swimming?
+-
+My dad's friend's friend's son's girlfriend's friend was exposed to radioactive dust. Would I get even a trace amount of poisoning through this chain of contact?
+-
+Can I still eat a mango that has some black spots on the skin but tastes normal?
+-
+Is the salad in my fridge still safe to eat after staying in there for 3 days?
+-
+Is it safe to order food from a ghost kitchen on DoorDash that only sells prepared ingredients and does not have dine-in?
+-
+I get some gasoline on my hand and after a while when I washed it off, some water splashed onto my mouth. It is okay since it is a very small amount, right?
+-
+It is 6pm now. I woke up at 11am. Today my whole intake was 32oz of milk in a latte and 250ml of sugared coke. Could this lead to dangerously low blood sugar if I forget to eat anything else?
+-
+I drank a cup of medium latte and then forgot there is caffeine in milk tea, and I had a large cup of milk tea after. Now my heart is beating strong and fast (90 bpm) and I feel a bit lightheaded. Should I just drink more water and it will be gone?
+-
+Is it normal for my heart to feel like it is pumping fast and not pumping enough, with negative pressure feeling in my chest, when I suddenly get up in the middle of the night, and it quickly resolves?
+-
+Is it normal to feel like my heart is skipping beats for a while after intense swimming, but it quickly resolves?
+-
+If I feel like my heart is pumping weirdly for about 10 seconds twice but no other symptoms, is it likely harmless? My sleep has been bad recently.
+-
+My parents drove their car out of the garage and idled there for about a minute with the garage door open. The exhaust pipe is heading outward. I left the house with the windows closed but the ventilation set to max for over 2 hours. When I got home I felt a little tired with brain fog, but that is common for me when it is cold outside, and the symptoms are very mild and now gone. My doctor said unless symptoms are severe I do not need to go to ER. Am I safe to go back into the house and sleep without a CO detector?
+-
+Should I be worried about CO exposure after eating at the dining hall and noticing the flame they cook with is completely yellow? I was there for about 7 minutes.
+-
+Is there a risk of CO poisoning if I drove my car into the garage and idled there for less than a minute with the garage door open, then left the door open for a while before entering my house? Could there be harmful CO in the house?
+-
+I have a fireplace running in the house and I am worried it will produce CO. I opened a window for an inch to let fresh air in. I feel a little lightheaded but this is normal for me. Should I be worried about CO poisoning?
+-
+I was at home and turned on a CO detector for the first time. It briefly displayed 88.88 ppm with two strong beeps before going to 0 ppm after 2 seconds. Should I be worried that there is a high amount of CO in my home?
+-
+My room has a sanitizer wipe smell after I cleaned it. Is that smell harmful to breathe?
+-
+While I was using the toilet, a fly touched feces in the bowl and then flew around. It then landed on my arm. Should I be worried about getting sick?
+-
+After my dentist touched the lead apron and then put fingers in my mouth, should I be worried about lead exposure? I read a paper saying even though these aprons are sealed, there are still lead dust particles on them.
+-
+What is the lead exposure risk from having casual contact with someone who works with leaded solder?
+-
+What is the risk of lead exposure if my friend picked up a bullet from the ground and I have casual contact with him afterwards (using the same table, same laptop, etc.) and he did not wash his hands or clean himself?
+-
+I went to a restaurant that has a very old table with peeling paint, which I think could be lead. I did not touch it but walked by it, and I am worried the whole restaurant is contaminated. I do not know if my friend touched it before we shook hands, and I washed my hand afterwards but only casually with soap and there is still a little soap left on my hand.
+-
+I feel a bit dizzy after eating at a restaurant where they used ethanol gel to cook food on the table. The place has good ventilation and the staff are there 8 hours a day. I looked up that if I feel mildly dizzy for 40 minutes, the CO concentration would have to be 200-500ppm, which would be deadly for someone there 8 hours. Am I being over-cautious?
+-
+After taking a shower, there was a strange smell in the water but I kept showering. Some splashed onto my face. I only showered the lower half of my body until the water had no smell. The air still smelled for a while but the water did not. I do not feel any skin irritation or other symptoms. Should I be worried about chemical exposure?
+-
+I was sleeping and suddenly stood up, and I felt like my heart was not pumping enough blood and was pumping very hard. I was sweating and feeling hot, with a dark area in my vision, weakness, and feeling cold. It was a strong uncomfortable feeling but it all went away in a couple minutes. Should I be worried? It feels scary the next day when I think back on it.
+-
+Is it true that bad dental hygiene is related to heart disease? I am worried that my flossing is not thorough enough.
+-
+I have a bad toothache and my dentist does not have same-day appointments. Can I go to urgent care or the ER?
+-
+Can lower blood sugar (even though it is not clinical hypoglycemia) worsen the fatigue from bad sleep? I am worried I am crashing.
+-
+In a healthy adult, if I had a mild flu-like sickness without fever that only lasted 3 days with mild sore throat, cough, runny nose, and mild fatigue, does this indicate the illness was mild and unlikely to cause long-term heart problems?
+-
+I do freediving and noticed my blood oxygen drops quickly within a minute, sometimes to 80 or below. I held my breath for 40 seconds with some movement and felt only mildly bad afterwards. Should I be worried about even the slightest brain damage from this?
+-
+For a beginner, is it dangerous to do a 1-minute dynamic breath hold in freediving training? I usually do 30-40 seconds, and today I did not feel anything until 30 seconds and pushed to 1 minute. I had a safety buddy with me the whole time and feel no lasting symptoms.
+-
+If I do feel out of breath with weak and sore hands during swimming (a similar feeling to my freediving breath hold), is that dangerous, or is it fine as long as I do not push too hard?
+-
+I have a high dose of Vitamin D prescribed by my doctor (50,000 IU per week), which is much higher than the normal dosage. Should I be worried and refuse to take it?
+-
+I just took my medication a bit too close to the previous dose, only 23h and 58min apart instead of 24h. Should I call my pharmacy?
+-
+Can I take acetaminophen with coffee while my medication includes sertraline, Vitamin D, risperidone, and amitriptyline?
+-
+Is my ibuprofen conflicting with any of my medication?
+-
+If my medication says do not eat with grapefruit, can I still use grapefruit-flavored hand soap?
+-
+I am prescribed 500mg of ibuprofen, but that is more than the 400mg over-the-counter limit. Should I still take it?
+-
+Should I be worried about substance exposure after walking by a group of people who could be using drugs (I saw white powder on a tinfoil)?
+-
+Is touching the packaging foam going to expose me to harmful chemicals, especially if the foam touched my earphone?
+-
+If I drop a small amount of water on my laptop and wipe it off right away, should I be worried about chemicals from the laptop coming out and exposing me?
+-
+I have a mild peanut allergy. My classmate's mom's friend just ate a PB&J for breakfast. Should I be worried I exposed myself to peanuts?
+-
+I have a severe peanut allergy. My classmate ate a peanut butter burger in his car and did not wash his hands. Then he grabbed his book. He and his friend Tom shared the same book. Then I shook hands with Tom. Do I need to worry?
+-
+My delivery driver placed my food on top of a rat poison box. Can I still eat the food?
+-
+How risky is it to eat with a knife and fork, or to walk near glass windows? I am afraid of handling sharp objects.
+-
+Is it okay to mix using the container lids of my medications if they are all my own medications?
+-
+Could I have low blood sugar if for the whole day I only drank one cup of sugared coffee, ate two sweet chili junior chickens and 6 chicken nuggets, and it is 11pm now?
+-
+I feel hungry, jittery, and restless after exercise without eating. Is a chocolate bar enough to bring my sugar level back up, or do I need to seek medical attention?
+-
+Can coffee cause low blood sugar?
+-
+Can you have low blood sugar without feeling hungry?
+-
+Can brain fog, hard-to-focus feelings, and irritability be symptoms of low blood sugar?
+-
+After intense swimming, is it normal to feel sleepy, lightheaded, and have a mild headache if I have not been active for a while?
+-
+Is it normal to get a mild palpitation after an intense workout if my last night's sleep was not ideal?
+-
+Is it normal to feel heart palpitations while swimming?
+-
+Is it normal during running to feel a couple of strong heart beats and keep feeling the pulse on my palm afterwards?
+-
+Why do I sometimes feel like my heart has a couple of strong beats traveling up to my throat and chest?
+-
+Is it normal if I feel a couple of strong heart beats (not continuous) during an intense workout?
+-
+Can too much ear wax cause pressure imbalance in my ears?
+-
+Is there a risk of a concussion from sitting on a chair and falling backward to the ground so my butt hits the ground but not my head?
+-
+Could a slip on a wet floor without falling or hitting anything cause a concussion?
+-
+Could I get a concussion by walking in my room and tripping on something on the floor without hitting anything?
+-
+Will not wearing socks and having calluses on my feet that I keep scratching, leading to thick skin and possible infection, increase my risk of skin cancer?
+-
+I did not know antidepressants would make my skin sensitive to the sun. I exposed myself to the sun without much protection for a summer (about 30 min in the afternoon each day) but never got burned. Does this increase my chance for skin cancer a lot or just a bit?
+-
+What is the risk of NF1 becoming cancer?
+-
+If I need an MRI every year for my tumor, but now I am being scheduled at only 9 months apart instead of 12, is that okay or does it mean my doctor is concerned?
+-
+Why is my heart rate higher today? It is 140 when walking and 93 when sitting down.
+-
+I am wearing my current pants without underwear for a couple of days, and it is dark fabric so it is hard to see if there is any stool on it, but it does not smell besides sweat. I rubbed the rear area with wet toilet paper and the paper came back clean. Would it be a good idea to wear light-color underwear to monitor for the future, or should I do something more drastic now besides washing the pants in the next laundry cycle?
+-
+Should I be worried about CO2 buildup if I stay in my bedroom with the window closed and no AC for 12 hours?
+-
+If I smell something like mold or just an old room in my hotel room, is it okay to stay there for just one night?
+-
+How dangerous is asbestos for low exposure? My family and I cleaned a very old house years ago with a lot of pieces of wall falling off and creating dust. I wore a mask, but I am worried about second-hand exposure. We moved to a new house and brought some belongings from the old house. Now a year later I came back and I am worried, especially if I touched something brought from the old house. I heard washing my clothes will not remove asbestos fibers. What should I do?
+-
+I just walked by an old building with a broken column where some white stuff is showing, with about 20cm distance. The building is at least from 1982 or newer, and it is in BC, Canada. What is my risk of asbestos exposure?
+-
+Is there asbestos exposure risk from staying one night in a room used by someone who occasionally visits a place with old buildings and broken drywall, where pieces might be on their items? The original move happened 4 years ago and these items have been used since. The person has good hygiene and personal health practice.
+-
+Is it normal to feel dizzy after intense running, along with mild nausea and weakness?
+-
+My laptop charger got really hot and I smelled a faint burnt smell. I stopped using it, but I had touched the charging block often and sometimes touched my face afterwards. Could the heat or smell have caused harmful chemicals to leach out, and should I be worried about what already happened?
+-
+I saw an ad saying traditional laundry detergent is significantly harmful to health. Should I discard my detergent and switch to laundry strips?
+-
+It is 1pm and the UV index is 12+. Do I need sunscreen if I am walking across campus mostly in shade and will likely be in direct sun for only about 10-20 seconds?
+-
+I just had 402 mg of caffeine, which is slightly over the 400 mg limit. I do not have any physical health conditions, but my heart rate is 130. Should I go to the ER?
+-
+I accidentally took ginger extract for dizziness too close together. Each pill is equivalent to 0.4 g of dried ginger, and I took 4 pills in 6 hours. Is that going to be bad?
+-
+Is the magnetic stripe on a debit card risky to health if it is peeling off and I accidentally get some residue on my hand before eating food?
+-
+Is low-power UV light, like the blue handheld lights used for checking money, harmful to humans from short-term indirect exposure under 10 seconds?
+-
+I smell a sulfur-like odor in my home, but my gas detector says 0 ppm. Should I still be worried about a gas leak?
+-
+I smelled a faint sulfur-like odor outside a hotel, mixed with a chlorine smell from the pool. I already left the area and am about 300 m upwind from the building. What should I do now?
+-
+If a bottle of sunscreen exploded in my bag, should I be worried about poisoning if I do not clean the bag today and keep using it?
+-
+My doctor told me not to drink coffee after a concussion, but said the small amount of caffeine in decaf is okay. I took one sip of coffee and then realized it was not decaf. Do I need to seek medical attention?
+-
+Could heat be harmful if I work out indoors in winter wearing a thin fleece hoodie for 20 minutes, with an average heart rate around 140 and a max of 180 for less than 2 minutes? It felt very warm but not hot, and I felt a bit lightheaded, which is common for me after exercise.
+-
+My desk was messy with leftover food for months. If I throw away the food, wipe the table with wet paper towels, and wipe the items on the table with a dry cloth, is it okay to use the desk without disinfecting it?
+-
+What is the risk of eating at a restaurant where they sharpen their knives and might not wipe off metal particles afterward?
