@@ -2,7 +2,7 @@ I am doing an analysis on my own AI chat history. I will provide you with all qu
 
 ## Search Strategy
 1. Start with general search terms (e.g., "worried", "should I be worried", "is it safe", "do I need to", "should I go to the ER") before narrowing to specific medical conditions.
-2. Use grep for keyword-based search and search.py for embedding-based semantic search.
+2. Use grep for keyword-based search and search.py for BM25-based semantic search.
 3. Try diverse search terms to maximize coverage. Do not repeatedly dig into topics already well-covered in dataset.txt or new_dataset.txt.
 
 ## Selection Criteria
@@ -18,6 +18,10 @@ I am doing an analysis on my own AI chat history. I will provide you with all qu
 Do NOT rewrite any of the entries, use a mini script to move lines from the json to write to the file directly. 
 
 ## Constraints
-- Only use search.py and related files. Do not explore the repo beyond what is needed for search.
+- Only use search.py and related files. Do not explore the repo beyond what is needed for search. Do not list files or open any unrelated files.
 - Some data is already in new_dataset.txt, do not over write them and also avoid repeating them 
 - Do not build your search terms using exsiting dataset, the only check the exsiting dataset for de-dub, do not look into them before you start, that will limit your ranges. This means you should NOT check dataset.txt and new_dataset.txt before you finish your search. 
+- Do enough general searches before dive into sub topics
+- Do NOT check git history or other files.
+- Do NOT filter based on if you think this is a anxiety question, pull all possible questions and I will filter later. But do have a simple check **one-by-one** to verify the question is not completely out of scope (meta OCD questions, about papers, completely unrelated etc)
+- When de-dub against current dataset, de-dub based on topic, not exact match. 
