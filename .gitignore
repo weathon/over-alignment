@@ -3,3 +3,4 @@ full_chat.txt
 all_chats.json
 fear_chats.json
 *.pkl
+nohup.out
