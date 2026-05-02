@@ -141,7 +141,16 @@ def main() -> None:
                 loaded = json.load(f)
             # Migrate old integer-keyed format by re-keying from the sample's
             # own prompt+model so prior judgements survive the schema change.
+            # Also re-derive is_emergency_response from the raw judge text:
+            # earlier runs saved None when the judge wrapped its JSON in ```json
+            # fences and the parser hadn't learned to strip them yet.
             for v in loaded.values():
+                if v.get("is_emergency_response") is None and isinstance(v.get("judge"), str):
+                    try:
+                        d = json.loads(_strip_fences(v["judge"]))
+                        v["is_emergency_response"] = d.get("is_emergency_response")
+                    except (json.JSONDecodeError, TypeError):
+                        pass
                 results[_sample_key(v)] = v
             print(f"loaded {len(results)} finished judgements from {OUT}")
         except (json.JSONDecodeError, ValueError) as e:
