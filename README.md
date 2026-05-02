@@ -17,6 +17,9 @@ The dataset also includes a held-out set of genuine emergencies, so models are s
   - [019ddda9-c0ce-762e-8f41-e1a0c655cc7e.csv](data/019ddda9-c0ce-762e-8f41-e1a0c655cc7e.csv) — human annotator labels used to derive `gt_level` in the judge pipeline
   - [019ddda9-c0ce-762e-8f41-e1a0c655cc7e_sampled_questions_only.csv](data/019ddda9-c0ce-762e-8f41-e1a0c655cc7e_sampled_questions_only.csv) — 50 sampled source questions extracted from the annotator CSV as `id,query` only, excluding blacklist prompts and checked for fuzzy duplicate / blacklist overlap
   - [results.json](data/results.json) — per-(prompt, model) responses for the over-caution set (written by `bench_dataset.py`, read by `eval.py`)
+  - `dataset_exam.json` / `dataset_exam.txt` — over-caution prompts rewritten as third-person multiple-choice exam questions (written by `rewrite_to_exam.py`)
+  - `dataset_real_emergency_exam.json` — real-emergency prompts rewritten the same way (written by `rewrite_real_emergency_to_exam.py`)
+  - `results_exam.json` / `results_real_emergency_exam.json` — per-(prompt, model) A/B/C/D answers from the exam-framing pipeline
   - misc CSVs and JSON used for analysis / dataset construction (`dataset_questions.csv`, `repeated_questions_risk.csv`, `id_model_map.csv`, `sampled_qa.csv`, `conditionally_emergency_cases_rewritten.json`, `results_emotion.json`, plus HuggingFace `bench_dataset/` and `bench_dataset_eval/` arrow dumps)
 - [results/](results/) — pipeline outputs (do not commit by hand; the scripts checkpoint here)
   - `results.json` — legacy copy of the over-caution responses
@@ -67,6 +70,33 @@ python scripts/eval.py                 & python scripts/eval_real_emergency.py  
 ```
 
 All four scripts are **resumable**: each writes a flat list / dict keyed by `(prompt, model)` and skips finished entries on rerun. Bench scripts checkpoint every 200 completions; both eval scripts do the same. Ctrl-C is handled — partial state is flushed before exit.
+
+### Exam-framing pipeline (probing the framing effect)
+
+A separate pipeline tests the same scenarios in **third-person multiple-choice exam form** instead of first-person worried-patient chat. Same clinical content, different framing — the question becomes "what is the medical risk level of this scenario?" with four labelled choices (Negligible / Low / Moderate / High → A / B / C / D), and the model must answer with one letter (enforced via OpenRouter structured outputs).
+
+Why: a model that "learned to say A on exams" would game the over-caution metric, but if it also flunks real emergencies it's caught. So the exam framing is run on **both** splits and reported together.
+
+```bash
+# 1. Rewrite both splits into exam-style prompts via glm-5.1:cloud (uses OLLAMA_API_KEY)
+python scripts/rewrite_to_exam.py                    # data/dataset.txt → data/dataset_exam.json (+ .txt for inspection)
+python scripts/rewrite_real_emergency_to_exam.py     # HealthBench emergent rows → data/dataset_real_emergency_exam.json
+
+# 2. Bench both splits (A/B/C/D structured output, uses OPENROUTER_API_KEY)
+python scripts/bench_dataset_exam.py                 # → data/results_exam.json
+python scripts/bench_real_emergency_exam.py          # → data/results_real_emergency_exam.json
+
+# 3. Metrics — single combined table across both splits
+python scripts/compute_metrics_exam_combined.py
+# or per-split:
+python scripts/compute_metrics_exam.py
+python scripts/compute_metrics_real_emergency_exam.py
+```
+
+Important quirks:
+- The over-caution rewrite source-of-truth is **`data/dataset_exam.json`** (`{original, exam}` pairs), NOT `dataset_exam.txt`. The `.txt` is a derived view for human inspection. Bench results carry an `original` field so gt_level lookup never depends on positional alignment between files.
+- Real-emergency gt is fixed at `D` (level 3) for the whole split — every row is physician-agreed emergent — so the only metric is recognition rate (% answered D).
+- The model list in `bench_dataset_exam.py` and `bench_real_emergency_exam.py` is intentionally a smaller subset than the main pipeline (5 models). Keep them in sync with each other.
 
 ### Reasoning-effort sweep
 
