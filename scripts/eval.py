@@ -5,7 +5,7 @@ from pathlib import Path
 import pandas as pd
 ROOT = Path(__file__).resolve().parent.parent
 
-with (ROOT / "data" / "results.json").open("r") as f:
+with (ROOT / "results" / "results.json").open("r") as f:
     bench_results = json.load(f)
 from thefuzz import fuzz
 import re
@@ -20,7 +20,7 @@ def _norm(s):
 blacklist_norm = {_norm(q) for q in blacklist}
 
 # filtering
-bench_results = [sample for sample in bench_results if sample["model"] in ["anthropic/claude-sonnet-4.6", "qwen/qwen3.6-plus", "anthropic/claude-3.5-haiku", "emma-3-4b-it", "medgemma-1.5-4b-it", "gemma-3-4b-it", "google/gemini-2.0-flash-001", "openai/gpt-4-turbo"]]
+bench_results = [sample for sample in bench_results if sample["model"] in ["anthropic/claude-sonnet-4.6", "anthropic/claude-sonnet-4.6:thinking", "qwen/qwen3.6-plus", "anthropic/claude-3.5-haiku", "emma-3-4b-it", "medgemma-1.5-4b-it", "gemma-3-4b-it", "google/gemini-2.0-flash-001", "google/gemini-3-flash-preview:thinking", "openai/gpt-4-turbo", "openai/gpt-5-chat", "openai/gpt-5.5:thinking"]]
 
 print(len(bench_results))
 df = pd.read_csv(ROOT / "data" / "019ddda9-c0ce-762e-8f41-e1a0c655cc7e.csv")
@@ -139,7 +139,8 @@ def _call_api_judge(sample):
         think = False
     )
 
-OUTPUT_PATH = ROOT / "data" / "eval_results.json"
+OUTPUT_PATH = ROOT / "results" / "eval_results.json"
+OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
 results = {}
 if os.path.exists(OUTPUT_PATH):
     try:
