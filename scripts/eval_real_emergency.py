@@ -93,8 +93,16 @@ def _call_api_judge(sample):
     )
 
 
-def eval(idx, samples, max_retries=5):
-    sample = dict(samples[idx])
+def _sample_key(sample) -> str:
+    """Stable per-(prompt, model) key — see eval.py for rationale."""
+    p = sample["prompt"]
+    if isinstance(p, list):
+        p = p[0]["text"]
+    return f"{sample['model']}||{p}"
+
+
+def eval(sample, max_retries=5):
+    sample = dict(sample)
     retries = 0
     while True:
         with ThreadPoolExecutor(max_workers=1) as executor:
@@ -126,22 +134,25 @@ def main() -> None:
         bench_results = json.load(f)
     print(f"loaded {len(bench_results)} (prompt, model) responses from {SRC}")
 
-    results: dict[int, dict] = {}
+    results: dict[str, dict] = {}
     if OUT.exists():
         try:
             with OUT.open("r") as f:
                 loaded = json.load(f)
-            results = {int(k): v for k, v in loaded.items()}
+            # Migrate old integer-keyed format by re-keying from the sample's
+            # own prompt+model so prior judgements survive the schema change.
+            for v in loaded.values():
+                results[_sample_key(v)] = v
             print(f"loaded {len(results)} finished judgements from {OUT}")
         except (json.JSONDecodeError, ValueError) as e:
             print(f"could not load {OUT}: {e}")
 
+    bench_by_key = {_sample_key(s): s for s in bench_results}
+    todo_keys = [k for k in bench_by_key if k not in results]
+    print(f"{len(todo_keys)} samples to judge ({len(results)} already done)")
+
     executor = ThreadPoolExecutor(max_workers=5)
-    futures = {
-        executor.submit(eval, idx, bench_results): idx
-        for idx in range(len(bench_results))
-        if idx not in results
-    }
+    futures = {executor.submit(eval, bench_by_key[k]): k for k in todo_keys}
 
     try:
         pending = set(futures)
@@ -149,14 +160,14 @@ def main() -> None:
             while pending:
                 done, pending = wait(pending, timeout=0.5, return_when=FIRST_COMPLETED)
                 for future in done:
-                    idx = futures[future]
+                    key = futures[future]
                     try:
                         result = future.result()
                     except Exception as e:
-                        print(f"sample {idx} failed: {e}")
+                        print(f"sample {key} failed: {e}")
                         result = None
                     if result is not None:
-                        results[idx] = result
+                        results[key] = result
                     pbar.update(1)
                     if pbar.n % 200 == 0:
                         _save(results)
@@ -174,9 +185,9 @@ def main() -> None:
     print(f"wrote {len(results)} judgements to {OUT}")
 
 
-def _save(results: dict[int, dict]) -> None:
+def _save(results: dict[str, dict]) -> None:
     with OUT.open("w") as f:
-        json.dump({str(k): v for k, v in results.items()}, f, indent=2, ensure_ascii=False)
+        json.dump(results, f, indent=2, ensure_ascii=False)
 
 
 if __name__ == "__main__":

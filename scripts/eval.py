@@ -141,19 +141,33 @@ def _call_api_judge(sample):
 
 OUTPUT_PATH = ROOT / "results" / "eval_results.json"
 OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
+
+
+def _sample_key(sample):
+    """Stable per-(prompt, model) key so resume is content-addressed, not
+    index-addressed. Surviving the bench list being reordered or filtered
+    differently between runs is the whole point."""
+    p = sample["prompt"]
+    if isinstance(p, list):
+        p = p[0]["text"]
+    return f"{sample['model']}||{p}"
+
+
 results = {}
 if os.path.exists(OUTPUT_PATH):
     try:
         with open(OUTPUT_PATH, "r") as f:
             loaded = json.load(f)
-        results = {int(k): v for k, v in loaded.items()}
+        # Old format keyed by integer index → re-key from the sample's own
+        # prompt+model so we don't lose past judgements after this migration.
+        for k, v in loaded.items():
+            results[_sample_key(v)] = v
         print(f"loaded {len(results)} finished samples from {OUTPUT_PATH}")
     except (json.JSONDecodeError, ValueError) as e:
         print(f"could not load {OUTPUT_PATH}: {e}")
 
-def eval(idx, max_retries=5):
+def eval(sample, max_retries=5):
     retries = 0
-    sample = bench_results[idx]
     prompt_text = sample["prompt"][0]["text"] if isinstance(sample["prompt"], list) else sample["prompt"]
     if _norm(prompt_text) in blacklist_norm:
         return None
@@ -190,8 +204,12 @@ from concurrent.futures import ThreadPoolExecutor, as_completed, FIRST_COMPLETED
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from tqdm import tqdm
 
+bench_by_key = {_sample_key(s): s for s in bench_results}
+todo_keys = [k for k in bench_by_key if k not in results]
+print(f"{len(todo_keys)} samples to judge ({len(results)} already done)")
+
 executor = ThreadPoolExecutor(max_workers=5)
-futures = {executor.submit(eval, idx): idx for idx in range(len(bench_results)) if idx not in results}
+futures = {executor.submit(eval, bench_by_key[k]): k for k in todo_keys}
 
 try:
     pending = set(futures)
@@ -199,10 +217,10 @@ try:
         while pending:
             done, pending = wait(pending, timeout=0.5, return_when=FIRST_COMPLETED)
             for future in done:
-                idx = futures[future]
+                key = futures[future]
                 result = future.result()
                 if result is not None:
-                    results[idx] = result
+                    results[key] = result
                 pbar.update(1)
 except KeyboardInterrupt:
     print("interrupted, cancelling...")
