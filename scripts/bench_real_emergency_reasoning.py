@@ -1,13 +1,12 @@
-"""Generate model responses for the over-caution benchmark.
+"""Reasoning-effort sweep for the real-emergency split.
 
-Reads prompts from data/dataset.txt (one per "\\n-\\n"-separated block), fans
-out across the model list (no-reasoning baselines plus :thinking variants for
-reasoning-capable models), and writes a flat list of {prompt, model, response}
-dicts to data/results.json. Resumes from any prior run by skipping
-(prompt, model) pairs already present in the output file.
+Same call shape as bench_real_emergency.py, but restricted to three models
+and sweeping reasoning.effort across {minimal, low, medium, high}. Each
+(model, effort) pair is stored under a local id of the form
+`<base_id>:reasoning=<effort>` so they don't collide on resume.
 
-Extracted from notebooks/bench_dataset.ipynb so it can be rerun headless and
-checkpointed by the harness without spinning up a Jupyter kernel.
+Output: results/results_real_emergency_reasoning_sweep.json (separate from
+the main run).
 """
 
 import json
@@ -25,8 +24,9 @@ from openai import OpenAI
 from tqdm import tqdm
 
 ROOT = Path(__file__).resolve().parent.parent
-SRC = ROOT / "data" / "dataset.txt"
-OUT = ROOT / "data" / "results.json"
+SRC = ROOT / "data" / "consensus_2025-05-09-20-00-46.jsonl"
+OUT = ROOT / "results" / "results_real_emergency_reasoning_sweep.json"
+OUT.parent.mkdir(parents=True, exist_ok=True)
 
 dotenv.load_dotenv()
 client = OpenAI(
@@ -34,57 +34,55 @@ client = OpenAI(
     api_key=os.getenv("OPENROUTER_API_KEY"),
 )
 
-"""Model-id convention:
-- A bare id (e.g. "anthropic/claude-sonnet-4.6") is the no-reasoning baseline;
-  we pass reasoning.effort=none on the API call.
-- A trailing `:thinking` is OUR local marker, NOT an OpenRouter route. We strip
-  it before calling and pass reasoning.effort=high.
-- A `:online` segment IS an OpenRouter route suffix (forces web search) and
-  stays on the wire. `:online:thinking` therefore means route=`<id>:online`
-  with reasoning.effort=high.
-- Results are stored under the full local id so reasoning/online variants
-  don't collide on resume.
-"""
-
-models = [
-    "google/gemini-2.0-flash-001",
-    "google/gemini-2.5-flash",
+BASE_MODELS = [
+    "openai/gpt-5.5",
     "google/gemini-3-flash-preview",
-    "google/gemini-3-flash-preview:thinking",
-    "google/gemini-3-flash-preview:online",
-    "openai/gpt-5.3-chat",
-    "openai/gpt-5-chat",
-    "openai/gpt-5.5:thinking",
-    "openai/gpt-4.1",
-    "openai/gpt-4o-2024-11-20",
-    "openai/gpt-4o-2024-05-13",
-    "openai/gpt-4-turbo",
-    "openai/gpt-3.5-turbo",
     "anthropic/claude-sonnet-4.6",
-    "anthropic/claude-sonnet-4.6:thinking",
-    "x-ai/grok-4.20",
-    "anthropic/claude-3.5-haiku",
-    "anthropic/claude-3.7-sonnet",
-    "anthropic/claude-sonnet-4",
-    "qwen/qwen3.6-plus",
 ]
 
-THINKING_SUFFIX = ":thinking"
+EFFORT_LEVELS = ["minimal", "low", "medium", "high"]
+
+REASONING_PREFIX = ":reasoning="
+
+models = [f"{m}{REASONING_PREFIX}{e}" for m in BASE_MODELS for e in EFFORT_LEVELS]
 
 
 def resolve_model(model_id: str) -> tuple[str, str]:
-    """Return (openrouter_route, reasoning_effort). Strips a trailing
-    `:thinking` (local marker) but preserves any `:online` segment, which is
-    a real OpenRouter route flag that forces web search."""
-    if model_id.endswith(THINKING_SUFFIX):
-        return model_id[: -len(THINKING_SUFFIX)], "high"
-    return model_id, "none"
+    """Return (openrouter_route, reasoning_effort). The trailing
+    `:reasoning=<level>` is a local marker — strip it before calling and
+    pass the level through as reasoning.effort."""
+    idx = model_id.rfind(REASONING_PREFIX)
+    if idx == -1:
+        return model_id, "none"
+    return model_id[:idx], model_id[idx + len(REASONING_PREFIX):]
 
 
-def load_prompts(path: Path) -> list[str]:
-    with path.open("r") as f:
-        raw = f.read().split("\n-\n")
-    return [p.strip() for p in raw if p.strip()]
+def extract_real_emergency_prompts(path: Path) -> list[str]:
+    """Pull the user prompt out of every HealthBench row that physicians flagged
+    as a real emergency referral. Single-turn rows only — multi-turn would
+    change the response shape relative to bench_dataset.ipynb."""
+    prompts: list[str] = []
+    seen: set[str] = set()
+    with path.open("r", encoding="utf-8") as f:
+        for line in f:
+            line = line.strip()
+            if not line:
+                continue
+            row = json.loads(line)
+            tags = set(row.get("example_tags", []))
+            if "theme:emergency_referrals" not in tags:
+                continue
+            if "physician_agreed_category:emergent" not in tags:
+                continue
+            convo = row.get("prompt") or []
+            if len(convo) != 1 or convo[0].get("role") != "user":
+                continue
+            text = (convo[0].get("content") or "").strip()
+            if not text or text in seen:
+                continue
+            seen.add(text)
+            prompts.append(text)
+    return prompts
 
 
 def _call_api(sample):
@@ -113,8 +111,8 @@ def eval(sample, max_retries=5):
         with ThreadPoolExecutor(max_workers=1) as executor:
             future = executor.submit(_call_api, sample)
             try:
-                # Reasoning runs (effort=high) need more headroom than the 60s baseline.
-                timeout = 240 if THINKING_SUFFIX in sample["model"] else 60
+                _, effort = resolve_model(sample["model"])
+                timeout = 240 if effort in {"medium", "high"} else 90
                 completion = future.result(timeout=timeout)
                 if completion.choices[0].message.content:
                     sample["response"] = completion.choices[0].message.content
@@ -130,16 +128,13 @@ def eval(sample, max_retries=5):
 
 
 def main() -> None:
-    prompts = load_prompts(SRC)
-    print(f"loaded {len(prompts)} prompts from {SRC}")
+    prompts = extract_real_emergency_prompts(SRC)
+    print(f"extracted {len(prompts)} real-emergency prompts")
 
     ds = [{"prompt": p, "model": m} for p in prompts for m in models]
-    print(f"{len(ds)} (prompt, model) samples to evaluate")
+    print(f"{len(ds)} (prompt, model) samples to evaluate "
+          f"({len(BASE_MODELS)} models × {len(EFFORT_LEVELS)} effort levels)")
 
-    # Some legacy rows store the prompt as the OpenAI list-of-content shape
-    # ([{"type":"text","text":"..."}]) instead of a bare string — normalise
-    # before using it as a dict key, otherwise the resume dict-comp blows up
-    # with TypeError: unhashable type: 'list'.
     def _prompt_str(p):
         return p[0]["text"] if isinstance(p, list) else p
 
@@ -147,16 +142,13 @@ def main() -> None:
     if OUT.exists():
         try:
             with OUT.open("r") as f:
-                prior = json.load(f)
-            done = {(_prompt_str(s["prompt"]), s["model"]): s for s in prior}
+                loaded = json.load(f)
+            done = {(_prompt_str(s["prompt"]), s["model"]): s for s in loaded}
             for idx, sample in enumerate(ds):
                 match = done.get((sample["prompt"], sample["model"]))
                 if match is not None:
                     results[idx] = match
-            print(
-                f"loaded {len(results)} finished samples from {OUT}; "
-                f"{len(ds) - len(results)} remaining"
-            )
+            print(f"loaded {len(results)} finished samples from {OUT}")
         except (json.JSONDecodeError, ValueError) as e:
             print(f"could not load {OUT}: {e}")
 

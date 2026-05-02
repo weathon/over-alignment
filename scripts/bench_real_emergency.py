@@ -37,9 +37,13 @@ client = OpenAI(
 """Model-id convention:
 - A bare id (e.g. "anthropic/claude-sonnet-4.6") is the no-reasoning baseline;
   we pass reasoning.effort=none on the API call.
-- A `:thinking` suffix is OUR local marker, NOT an OpenRouter route. We strip it
-  before calling and pass reasoning.effort=high. Results are stored under the
-  suffixed name so reasoning vs. no-reasoning runs don't collide on resume.
+- A trailing `:thinking` is OUR local marker, NOT an OpenRouter route. We strip
+  it before calling and pass reasoning.effort=high.
+- A `:online` segment IS an OpenRouter route suffix (forces web search) and
+  stays on the wire. `:online:thinking` therefore means route=`<id>:online`
+  with reasoning.effort=high.
+- Results are stored under the full local id so reasoning/online variants
+  don't collide on resume.
 """
 
 models = [
@@ -47,7 +51,7 @@ models = [
     "google/gemini-2.5-flash",
     "google/gemini-3-flash-preview",
     "google/gemini-3-flash-preview:thinking",
-    "google/gemini-3-flash-preview:thinking+search",
+    "google/gemini-3-flash-preview:online",
     "openai/gpt-5.3-chat",
     "openai/gpt-5-chat",
     "openai/gpt-5.5:thinking",
@@ -67,17 +71,15 @@ models = [
 
 
 THINKING_SUFFIX = ":thinking"
-THINKING_SEARCH_SUFFIX = ":thinking+search"
 
 
-def resolve_model(model_id: str) -> tuple[str, str, bool]:
-    """Map a (possibly suffixed) local model id to the (route, effort, web_search)
-    triple we send to OpenRouter. `+search` enables the openrouter:web_search tool."""
-    if model_id.endswith(THINKING_SEARCH_SUFFIX):
-        return model_id[: -len(THINKING_SEARCH_SUFFIX)], "high", True
+def resolve_model(model_id: str) -> tuple[str, str]:
+    """Return (openrouter_route, reasoning_effort). Strips a trailing
+    `:thinking` (local marker) but preserves any `:online` segment, which is
+    a real OpenRouter route flag that forces web search."""
     if model_id.endswith(THINKING_SUFFIX):
-        return model_id[: -len(THINKING_SUFFIX)], "high", False
-    return model_id, "none", False
+        return model_id[: -len(THINKING_SUFFIX)], "high"
+    return model_id, "none"
 
 
 def extract_real_emergency_prompts(path: Path) -> list[str]:
@@ -109,10 +111,7 @@ def extract_real_emergency_prompts(path: Path) -> list[str]:
 
 
 def _call_api(sample):
-    route, effort, web_search = resolve_model(sample["model"])
-    extra_body: dict = {"reasoning": {"effort": effort}}
-    if web_search:
-        extra_body["tools"] = [{"type": "openrouter:web_search"}]
+    route, effort = resolve_model(sample["model"])
     return client.chat.completions.create(
         model=route,
         messages=[
@@ -127,7 +126,7 @@ def _call_api(sample):
                 "content": [{"type": "text", "text": sample["prompt"]}],
             },
         ],
-        extra_body=extra_body,
+        extra_body={"reasoning": {"effort": effort}},
     )
 
 

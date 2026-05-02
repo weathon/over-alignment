@@ -4,3 +4,4 @@ all_chats.json
 fear_chats.json
 *.pkl
 nohup.out
+__pycache__/
