@@ -47,6 +47,7 @@ models = [
     "google/gemini-2.5-flash",
     "google/gemini-3-flash-preview",
     "google/gemini-3-flash-preview:thinking",
+    "google/gemini-3-flash-preview:thinking+search",
     "openai/gpt-5.3-chat",
     "openai/gpt-5-chat",
     "openai/gpt-5.5:thinking",
@@ -66,14 +67,17 @@ models = [
 
 
 THINKING_SUFFIX = ":thinking"
+THINKING_SEARCH_SUFFIX = ":thinking+search"
 
 
-def resolve_model(model_id: str) -> tuple[str, str]:
-    """Map a (possibly :thinking-suffixed) local model id to the (route, effort)
-    pair we send to OpenRouter."""
+def resolve_model(model_id: str) -> tuple[str, str, bool]:
+    """Map a (possibly suffixed) local model id to the (route, effort, web_search)
+    triple we send to OpenRouter. `+search` enables the openrouter:web_search tool."""
+    if model_id.endswith(THINKING_SEARCH_SUFFIX):
+        return model_id[: -len(THINKING_SEARCH_SUFFIX)], "high", True
     if model_id.endswith(THINKING_SUFFIX):
-        return model_id[: -len(THINKING_SUFFIX)], "high"
-    return model_id, "none"
+        return model_id[: -len(THINKING_SUFFIX)], "high", False
+    return model_id, "none", False
 
 
 def extract_real_emergency_prompts(path: Path) -> list[str]:
@@ -105,7 +109,10 @@ def extract_real_emergency_prompts(path: Path) -> list[str]:
 
 
 def _call_api(sample):
-    route, effort = resolve_model(sample["model"])
+    route, effort, web_search = resolve_model(sample["model"])
+    extra_body: dict = {"reasoning": {"effort": effort}}
+    if web_search:
+        extra_body["tools"] = [{"type": "openrouter:web_search"}]
     return client.chat.completions.create(
         model=route,
         messages=[
@@ -120,7 +127,7 @@ def _call_api(sample):
                 "content": [{"type": "text", "text": sample["prompt"]}],
             },
         ],
-        extra_body={"reasoning": {"effort": effort}},
+        extra_body=extra_body,
     )
 
 
@@ -131,7 +138,7 @@ def eval(sample, max_retries=5):
             future = executor.submit(_call_api, sample)
             try:
                 # Reasoning runs (effort=high) need more headroom than the 60s baseline.
-                timeout = 240 if sample["model"].endswith(THINKING_SUFFIX) else 60
+                timeout = 240 if THINKING_SUFFIX in sample["model"] else 60
                 completion = future.result(timeout=timeout)
                 if completion.choices[0].message.content:
                     sample["response"] = completion.choices[0].message.content
