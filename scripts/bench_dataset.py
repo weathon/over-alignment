@@ -128,12 +128,19 @@ def main() -> None:
     ds = [{"prompt": p, "model": m} for p in prompts for m in models]
     print(f"{len(ds)} (prompt, model) samples to evaluate")
 
+    # Some legacy rows store the prompt as the OpenAI list-of-content shape
+    # ([{"type":"text","text":"..."}]) instead of a bare string — normalise
+    # before using it as a dict key, otherwise the resume dict-comp blows up
+    # with TypeError: unhashable type: 'list'.
+    def _prompt_str(p):
+        return p[0]["text"] if isinstance(p, list) else p
+
     results: dict[int, dict] = {}
     if OUT.exists():
         try:
             with OUT.open("r") as f:
                 prior = json.load(f)
-            done = {(s["prompt"], s["model"]): s for s in prior}
+            done = {(_prompt_str(s["prompt"]), s["model"]): s for s in prior}
             for idx, sample in enumerate(ds):
                 match = done.get((sample["prompt"], sample["model"]))
                 if match is not None:

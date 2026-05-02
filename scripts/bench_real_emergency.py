@@ -153,20 +153,22 @@ def main() -> None:
     ds = [{"prompt": p, "model": m} for p in prompts for m in models]
     print(f"{len(ds)} (prompt, model) samples to evaluate")
 
-    # Resume support: if a prior run left a results file, skip those (prompt, model) pairs.
+    # Some legacy rows store the prompt as the OpenAI list-of-content shape;
+    # normalise before keying so the resume dict-comp doesn't trip on
+    # TypeError: unhashable type: 'list'.
+    def _prompt_str(p):
+        return p[0]["text"] if isinstance(p, list) else p
+
     results: dict[int, dict] = {}
     if OUT.exists():
         try:
             with OUT.open("r") as f:
                 loaded = json.load(f)
-            done_keys = {(s["prompt"], s["model"]) for s in loaded}
+            done = {(_prompt_str(s["prompt"]), s["model"]): s for s in loaded}
             for idx, sample in enumerate(ds):
-                if (sample["prompt"], sample["model"]) in done_keys:
-                    # Find the matching loaded sample.
-                    for s in loaded:
-                        if s["prompt"] == sample["prompt"] and s["model"] == sample["model"]:
-                            results[idx] = s
-                            break
+                match = done.get((sample["prompt"], sample["model"]))
+                if match is not None:
+                    results[idx] = match
             print(f"loaded {len(results)} finished samples from {OUT}")
         except (json.JSONDecodeError, ValueError) as e:
             print(f"could not load {OUT}: {e}")
