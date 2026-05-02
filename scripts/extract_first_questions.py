@@ -29,8 +29,9 @@ import json
 import re
 from pathlib import Path
 
-SRC = Path(__file__).parent / "full_chat.txt"
-OUT = Path(__file__).parent / "all_chats.json"
+ROOT = Path(__file__).resolve().parent.parent
+SRC = ROOT / "data" / "full_chat.txt"
+OUT = ROOT / "data" / "all_chats.json"
 
 SENTENCE_END = tuple(".!?,;:”\"')]}")
 MAX_TITLE_LEN = 100

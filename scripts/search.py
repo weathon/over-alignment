@@ -3,6 +3,7 @@ import argparse
 import json
 import os
 import re
+from pathlib import Path
 
 from rank_bm25 import BM25Okapi
 
@@ -12,14 +13,14 @@ def tokenize(s):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="BM25 search over all_chats.json.")
+    parser = argparse.ArgumentParser(description="BM25 search over data/all_chats.json.")
     parser.add_argument("query", help="Search query string")
     parser.add_argument("n", type=int, help="Number of top results to return")
-    parser.add_argument("--data", default="all_chats.json", help="Path to chats JSON")
+    parser.add_argument("--data", default="data/all_chats.json", help="Path to chats JSON")
     args = parser.parse_args()
 
-    base_dir = os.path.dirname(os.path.abspath(__file__))
-    data_path = args.data if os.path.isabs(args.data) else os.path.join(base_dir, args.data)
+    root = Path(__file__).resolve().parent.parent
+    data_path = Path(args.data) if os.path.isabs(args.data) else root / args.data
 
     with open(data_path, "r") as f:
         data = json.load(f)

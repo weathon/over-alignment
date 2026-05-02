@@ -1,0 +1,460 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Figure 1a</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* paper-warm neutrals */
+    --ink:        oklch(0.28 0.02 270);
+    --ink-soft:   oklch(0.45 0.02 270);
+    --ink-mute:   oklch(0.62 0.015 270);
+    --paper:      oklch(0.995 0.004 90);
+    --rule:       oklch(0.88 0.01 270);
+
+    /* (a) calibrated vs cautious — mint vs peach */
+    --good-bg:    oklch(0.965 0.035 160);
+    --good-edge:  oklch(0.78 0.09 160);
+    --good-ink:   oklch(0.42 0.10 160);
+
+    --bad-bg:     oklch(0.965 0.04 30);
+    --bad-edge:   oklch(0.80 0.10 30);
+    --bad-ink:    oklch(0.48 0.13 30);
+
+    /* (b) two datasets — mist blue vs warm sand */
+    --hb-bg:      oklch(0.965 0.03 230);
+    --hb-edge:    oklch(0.78 0.08 230);
+    --hb-ink:     oklch(0.42 0.10 230);
+
+    --ours-bg:    oklch(0.965 0.04 70);
+    --ours-edge:  oklch(0.80 0.09 70);
+    --ours-ink:   oklch(0.46 0.10 60);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:oklch(0.97 0.005 90);color:var(--ink);font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  body{display:flex;flex-direction:column;align-items:center;gap:32px;padding:36px 20px 60px}
+
+  /* paper-figure container — single column ~ 520px */
+  .figure{
+    width: 540px;
+    background: var(--paper);
+    border-radius: 8px;
+    padding: 22px 18px 18px;
+    box-shadow: 0 1px 0 rgba(0,0,0,.04), 0 8px 24px -16px rgba(40,30,60,.10);
+  }
+
+  .row{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+
+  /* panel = one half */
+  .panel{
+    display:flex; flex-direction:column; gap:10px;
+    padding: 12px 10px 14px;
+    border-radius: 14px;
+    position:relative;
+  }
+
+  /* wobble filter applied to bordered svg shapes via class */
+  .panel-head{
+    display:flex; align-items:center; justify-content:center; gap:8px;
+    font-family: Inter, system-ui, sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 1;
+    padding: 2px 4px 8px;
+    height: 28px;
+    white-space: nowrap;
+    letter-spacing: .01em;
+  }
+  .panel-head svg{flex:0 0 auto}
+
+  .card{
+    border-radius: 12px;
+    padding: 9px 11px 11px;
+    font-size: 10.5px;
+    line-height: 1.42;
+    letter-spacing: 0.005em;
+    color: var(--ink);
+    position:relative;
+  }
+  .card-title{
+    font-family: Inter, system-ui, sans-serif;
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    line-height: 1;
+    margin: 0 0 6px;
+    text-align:center;
+  }
+  .card-body{
+    text-align:center;
+    color: var(--ink);
+    font-size: 10.5px;
+    line-height: 1.5;
+  }
+
+  /* role row: tiny geometric icon + card */
+  .role{
+    display:grid;
+    grid-template-columns: 28px 1fr;
+    gap: 8px;
+    align-items:flex-start;
+  }
+
+  /* (a) equal-height cards across left/right columns via JS-set min-height */
+  .panel.good .role, .panel.bad .role{ align-items:center; }
+  .panel.good .role .card, .panel.bad .role .card{ display:flex; flex-direction:column; justify-content:center; }
+  .panel.good .role-icon, .panel.bad .role-icon{ margin-top: 0; align-self: center; }
+  .role-icon{
+    width:28px; height:28px;
+    display:flex;align-items:center;justify-content:center;
+    margin-top: 6px;
+  }
+
+  /* ===== (a) palette assignment ===== */
+  .panel.good{ background: color-mix(in oklab, var(--good-bg) 55%, var(--paper)); }
+  .panel.good .panel-head{ color: var(--good-ink); }
+  .panel.good .card{ background: var(--good-bg); border: 1.4px solid var(--good-edge); }
+  .panel.good .card-title{ color: var(--good-ink); }
+
+  .panel.bad{ background: color-mix(in oklab, var(--bad-bg) 55%, var(--paper)); }
+  .panel.bad .panel-head{ color: var(--bad-ink); }
+  .panel.bad .card{ background: var(--bad-bg); border: 1.4px solid var(--bad-edge); }
+  .panel.bad .card-title{ color: var(--bad-ink); }
+
+  /* ===== (b) palette assignment ===== */
+  .panel.hb{ background: color-mix(in oklab, var(--hb-bg) 55%, var(--paper)); }
+  .panel.hb .panel-head{ color: var(--hb-ink); }
+  .panel.hb .card{ background: var(--hb-bg); border: 1.4px solid var(--hb-edge); }
+  .panel.hb .card-title{ color: var(--hb-ink); }
+
+  .panel.ours{ background: color-mix(in oklab, var(--ours-bg) 55%, var(--paper)); }
+  .panel.ours .panel-head{ color: var(--ours-ink); }
+  .panel.ours .card{ background: var(--ours-bg); border: 1.4px solid var(--ours-edge); }
+  .panel.ours .card-title{ color: var(--ours-ink); }
+
+  /* hand-drawn wobble: applied to inner svg path/rect strokes via filter */
+  .wobble{ filter: url(#wobble); }
+
+  /* sub-caption under each figure */
+  .sublabel{
+    text-align:center;
+    font-size: 10.5px;
+    color: var(--ink-soft);
+    margin-top: 12px;
+    line-height: 1.45;
+    padding: 0 28px;
+  }
+  .sublabel b{ font-weight:600; color: var(--ink); }
+
+  /* the connecting takeaway under (a) */
+  .takeaway{
+    margin: 14px 6px 2px;
+    font-family: Inter, system-ui, sans-serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 11px;
+    line-height: 1.45;
+    text-align:center;
+    color: var(--ink-soft);
+  }
+
+  /* figure caption */
+  .caption{
+    width: 540px;
+    text-align:center;
+    color: var(--ink);
+    font-size: 11px;
+    line-height: 1.55;
+    margin-top: -10px;
+  }
+  .caption .num{ font-weight:600 }
+
+  /* gentle rotations to feel hand-placed */
+  .panel.good   .card:nth-child(1){ transform: rotate(-0.25deg); }
+  .panel.good   .card:nth-child(2){ transform: rotate( 0.20deg); }
+  .panel.good   .card:nth-child(3){ transform: rotate(-0.15deg); }
+  .panel.bad    .card:nth-child(1){ transform: rotate( 0.20deg); }
+  .panel.bad    .card:nth-child(2){ transform: rotate(-0.25deg); }
+  .panel.bad    .card:nth-child(3){ transform: rotate( 0.15deg); }
+  .panel.hb  > .card{ transform: rotate(-0.2deg); }
+  .panel.ours> .card{ transform: rotate( 0.2deg); }
+
+  /* the connector arrow between cards — aligned to card column (offset by icon column) */
+  .connector{
+    display:grid;
+    grid-template-columns: 28px 1fr;
+    gap: 8px;
+    height: 12px; margin: -2px 0;
+    color: var(--ink-mute);
+  }
+  .connector::before{ content:""; }
+  .connector svg{ justify-self:center; align-self:center; }
+
+  /* subtle paper grain — clipped by inner ::before, NOT by figure overflow */
+  .figure{ position:relative; }
+  .figure::before{
+    content:""; position:absolute; inset:0; pointer-events:none;
+    border-radius:inherit;
+    background-image: radial-gradient(rgba(60,40,30,.025) 1px, transparent 1px);
+    background-size: 4px 4px;
+    mix-blend-mode: multiply;
+    opacity:.55;
+    overflow:hidden;
+  }
+  .figure > *{ position:relative; }
+
+  /* (b) long-text card sizing — flex column so cards stretch equally */
+  .panel.hb, .panel.ours{ display:flex; flex-direction:column; }
+  .panel.hb .role, .panel.ours .role{ flex: 1 1 auto; }
+  .panel.hb .card, .panel.ours .card{
+    display:flex; flex-direction:column;
+    height: 100%;
+  }
+  .panel.hb .card-body, .panel.ours .card-body{
+    text-align:left;
+    font-size: 10.25px;
+    line-height: 1.55;
+    flex: 1 1 auto;
+  }
+
+  /* compact stats footer inside (b) cards */
+  .stats{
+    display:flex; flex-wrap:wrap; gap:5px;
+    margin-top: 10px;
+    padding-top: 8px;
+    border-top: 1px dashed currentColor;
+  }
+  .panel.hb .stats{ color: var(--hb-edge); }
+  .panel.ours .stats{ color: var(--ours-edge); }
+  .stats > span:not(.sep){
+    display: inline-block;
+    font-family: Inter, system-ui, sans-serif;
+    font-size: 8.5px;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    padding: 3px 7px;
+    border-radius: 999px;
+    border: 1px solid currentColor;
+    line-height: 1;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .stats .sep{ display:none; }
+  .panel.hb .stats > span:not(.sep){ color: var(--hb-ink); border-color: var(--hb-edge); background: color-mix(in oklab, var(--hb-bg) 65%, white); }
+  .panel.ours .stats > span:not(.sep){ color: var(--ours-ink); border-color: var(--ours-edge); background: color-mix(in oklab, var(--ours-bg) 65%, white); }
+
+  /* second row of (b): smaller "Query Type" panels with no header */
+  .diff-row{ margin-top: 4px; }
+  .diff-panel{ padding-top: 4px !important; padding-bottom: 8px !important; }
+  .diff-panel .card-body{ text-align:left; font-size: 10.25px; line-height: 1.5; }
+  .diff-panel .card{ height:auto !important; }
+  .diff-panel .role{ flex: 0 0 auto !important; }
+
+  /* a/b sub-grid (paper-style) — grid rows align sublabels */
+  .pair{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr auto;
+    gap: 18px;
+    width: 1120px;
+    max-width: 96vw;
+  }
+  .pair > div{ display:flex; flex-direction:column; }
+  .pair > div > .figure{ flex: 1 1 auto; display:flex; flex-direction:column; }
+  .pair > div > .sublabel{ margin-top: auto; }
+
+  @media print{
+    body{background:white;padding:0}
+    .figure{box-shadow:none;border:none}
+  }
+</style>
+</head>
+<style>body{background:white !important;padding:0 !important;gap:0 !important}.pair{width:auto !important;display:block !important}.figure{box-shadow:none !important}.figure::before{display:none !important}</style>
+<body>
+<svg width="0" height="0" style="position:absolute"><defs>
+<filter id="wobble" x="-8%" y="-8%" width="116%" height="116%"><feTurbulence type="fractalNoise" baseFrequency="0.045" numOctaves="2" seed="3"/><feDisplacementMap in="SourceGraphic" scale="2.6"/></filter>
+<filter id="wobble2" x="-8%" y="-8%" width="116%" height="116%"><feTurbulence type="fractalNoise" baseFrequency="0.06" numOctaves="2" seed="9"/><feDisplacementMap in="SourceGraphic" scale="2.2"/></filter>
+</defs></svg>
+<div class="pair" style="display:block;"><!-- ============== (a) ============== -->
+<div>
+<div class="figure" id="figA">
+  <div class="row">
+
+    <!-- GOOD -->
+    <section class="panel good">
+      <div class="panel-head">
+        <!-- check-in-circle, geometric -->
+        <svg width="20" height="20" viewBox="0 0 24 24" class="wobble" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="9"/>
+          <path d="M7.5 12.5l3 3 6-6.5"/>
+        </svg>
+        Calibrated Response
+      </div>
+
+      <div class="role">
+        <div class="role-icon">
+          <!-- user: circle + arc -->
+          <svg width="22" height="22" viewBox="0 0 24 24" class="wobble" fill="none" stroke="var(--good-ink)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="9" r="3.4"/>
+            <path d="M5 20c1.3-3.6 4-5.2 7-5.2s5.7 1.6 7 5.2"/>
+          </svg>
+        </div>
+        <div class="card">
+          <p class="card-title">User Query</p>
+          <p class="card-body">I suddenly noticed a small cut on my leg. I don't know how I got there. Do I need a rabies shot?</p>
+        </div>
+      </div>
+
+      <div class="connector">
+        <svg width="14" height="12" viewBox="0 0 14 12" class="wobble" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M7 1.5v8.5"/><path d="M3.5 7l3.5 3.5L10.5 7"/>
+        </svg>
+      </div>
+
+      <div class="role">
+        <div class="role-icon">
+          <!-- model: rounded square + 2 dots (eyes) -->
+          <svg width="22" height="22" viewBox="0 0 24 24" class="wobble" fill="none" stroke="var(--good-ink)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="4" y="6" width="16" height="13" rx="3.5"/>
+            <circle cx="9.5" cy="12.5" r="1.1" fill="var(--good-ink)"/>
+            <circle cx="14.5" cy="12.5" r="1.1" fill="var(--good-ink)"/>
+            <path d="M12 6V3.2"/>
+            <circle cx="12" cy="2.6" r=".9" fill="var(--good-ink)"/>
+          </svg>
+        </div>
+        <div class="card">
+          <p class="card-title">Model Response</p>
+          <p class="card-body">If you have a cut and don't know how you got it, it's <b>highly unlikely</b> that you need a rabies shot.</p>
+        </div>
+      </div>
+
+      <div class="connector">
+        <svg width="14" height="12" viewBox="0 0 14 12" class="wobble" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M7 1.5v8.5"/><path d="M3.5 7l3.5 3.5L10.5 7"/>
+        </svg>
+      </div>
+
+      <div class="role">
+        <div class="role-icon">
+          <!-- outcome good: shield-ish / triangle -->
+          <svg width="22" height="22" viewBox="0 0 24 24" class="wobble" fill="none" stroke="var(--good-ink)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3l7 3v5c0 4.5-3 8.2-7 10-4-1.8-7-5.5-7-10V6l7-3z"/>
+            <path d="M8.8 12.2l2.4 2.4 4-4.4"/>
+          </svg>
+        </div>
+        <div class="card">
+          <p class="card-title">Outcome</p>
+          <p class="card-body">Appropriate reassurance, reduced unnecessary worry, and better user experience.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- BAD -->
+    <section class="panel bad">
+      <div class="panel-head">
+        <!-- triangle exclaim -->
+        <svg width="20" height="20" viewBox="0 0 24 24" class="wobble" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 3.5L21 19.5H3z"/>
+          <path d="M12 10v4.5"/>
+          <circle cx="12" cy="17" r=".9" fill="currentColor"/>
+        </svg>
+        Overly Cautious Response
+      </div>
+
+      <div class="role">
+        <div class="role-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" class="wobble" fill="none" stroke="var(--bad-ink)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="9" r="3.4"/>
+            <path d="M5 20c1.3-3.6 4-5.2 7-5.2s5.7 1.6 7 5.2"/>
+          </svg>
+        </div>
+        <div class="card">
+          <p class="card-title">User Query</p>
+          <p class="card-body">I suddenly noticed a small cut on my leg. I don't know how I got there. Do I need a rabies shot?</p>
+        </div>
+      </div>
+
+      <div class="connector">
+        <svg width="14" height="12" viewBox="0 0 14 12" class="wobble" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M7 1.5v8.5"/><path d="M3.5 7l3.5 3.5L10.5 7"/>
+        </svg>
+      </div>
+
+      <div class="role">
+        <div class="role-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" class="wobble" fill="none" stroke="var(--bad-ink)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="4" y="6" width="16" height="13" rx="3.5"/>
+            <circle cx="9.5" cy="12.5" r="1.1" fill="var(--bad-ink)"/>
+            <circle cx="14.5" cy="12.5" r="1.1" fill="var(--bad-ink)"/>
+            <path d="M12 6V3.2"/>
+            <circle cx="12" cy="2.6" r=".9" fill="var(--bad-ink)"/>
+          </svg>
+        </div>
+        <div class="card">
+          <p class="card-title">Model Response</p>
+          <p class="card-body">You should consult a healthcare professional <b>immediately</b>.</p>
+        </div>
+      </div>
+
+      <div class="connector">
+        <svg width="14" height="12" viewBox="0 0 14 12" class="wobble" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M7 1.5v8.5"/><path d="M3.5 7l3.5 3.5L10.5 7"/>
+        </svg>
+      </div>
+
+      <div class="role">
+        <div class="role-icon">
+          <!-- outcome bad: shield with x -->
+          <svg width="22" height="22" viewBox="0 0 24 24" class="wobble" fill="none" stroke="var(--bad-ink)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3l7 3v5c0 4.5-3 8.2-7 10-4-1.8-7-5.5-7-10V6l7-3z"/>
+            <path d="M9.5 10.5l5 5M14.5 10.5l-5 5"/>
+          </svg>
+        </div>
+        <div class="card">
+          <p class="card-title">Outcome</p>
+          <p class="card-body">Increased anxiety, unnecessary escalation, and worse user experience.</p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <p class="takeaway">Overly cautious responses, while well-intentioned, can lead to severe negative outcomes.</p>
+</div>
+</div></div>
+<script>
+function equalize(){
+  document.querySelectorAll('.figure').forEach(fig => {
+    const panels = fig.querySelectorAll('.panel.good, .panel.bad');
+    if(panels.length !== 2) return;
+    const leftRoles  = panels[0].querySelectorAll('.role');
+    const rightRoles = panels[1].querySelectorAll('.role');
+    const n = Math.min(leftRoles.length, rightRoles.length);
+    for(let i=0;i<n;i++){
+      leftRoles[i].querySelector('.card').style.minHeight = '';
+      rightRoles[i].querySelector('.card').style.minHeight = '';
+    }
+    requestAnimationFrame(() => {
+      for(let i=0;i<n;i++){
+        const lc = leftRoles[i].querySelector('.card');
+        const rc = rightRoles[i].querySelector('.card');
+        const h = Math.max(lc.offsetHeight, rc.offsetHeight);
+        lc.style.minHeight = h+'px';
+        rc.style.minHeight = h+'px';
+      }
+    });
+  });
+}
+window.addEventListener('load', equalize);
+window.addEventListener('resize', equalize);
+if(document.fonts && document.fonts.ready) document.fonts.ready.then(equalize);
+</script>
+</body></html>
