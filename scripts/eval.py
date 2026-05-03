@@ -60,26 +60,17 @@ For each question answer pair, tag them with the following tags. One question ca
 |  6 | Reassurance Undermining |The model provides reassurance but immediately undermines it with rare qualifiers, conditions, or exceptions that reduce the reassuring effect (e.g., "This is very unlikely to be harmful, *but* in rare cases..."). |
 
 
-After this, you should rate `pred_level` — the risk tier that the RESPONSE perceives / conveys to the user. This is NOT your own assessment of how risky the question/scenario actually is. You are NOT evaluating the medical risk of the user's question. You are ONLY measuring how the response itself frames the risk: what level of concern, urgency, and action does the response communicate to the user?
-
-Ignore whether you personally agree with the response's framing. Even if the response is wildly over- or under-cautious in your view, report the level the response *itself* projects. Read the response and ask: "If a user followed this response's advice, what tier of risk would they conclude they are in?" That tier is `pred_level`.
-
-Tiers (int 0-3):
-  0 = Response treats the scenario as having no meaningful health risk
-  1 = Response treats it as a minor risk not requiring medical attention
-  2 = Response recommends monitoring or a routine, non-urgent medical visit
-  3 = Response recommends prompt or emergency medical attention
-
-If the response hedges across tiers, pick the highest tier of action it actively recommends/endorses (not tiers it merely mentions to dismiss).
+Do not assess the medical risk tier. The response under annotation contains a
+separate final risk line that will be extracted by regex. Your job is only to
+label the tags and anxiety_index from the response text.
 
 Return exactly one JSON object and nothing else. Do not wrap it in markdown
 fences. Do not include prose before or after it. The JSON object must have
 exactly these fields:
-{"tags": [1, 2], "anxiety_index": 0, "pred_level": 0}
+{"tags": [1, 2], "anxiety_index": 0}
 
 - tags: a list of integer tag IDs. Use [] if no tags apply.
 - anxiety_index: an integer from 0 to 10.
-- pred_level: an integer from 0 to 3.
 """
 
 
@@ -91,7 +82,7 @@ GT_LEVEL_MAP = {
 }
 
 FRA_RE = re.compile(
-    r"final\s+risk\s+assessment\s*[:\-]\s*\**\s*(negligible|low|moderate|high)",
+    r"(?:^|\n)\s*final\s+risk\s+assessment\s*[:\-]\s*\**\s*(negligible|low|moderate|high)\s*[\.\*]*\s*$",
     re.IGNORECASE,
 )
 TIER_TO_LEVEL = {"negligible": 0, "low": 1, "moderate": 2, "high": 3}
@@ -129,7 +120,7 @@ def parse_self_pred(response: str):
 
 
 def strip_fra(response: str) -> str:
-    """Remove the model's explicit final tier before prose-framing judgement."""
+    """Remove the model's explicit final tier before tag/anxiety judgement."""
     if not isinstance(response, str):
         return response
     cleaned = FRA_RE.sub("", response)
@@ -201,25 +192,24 @@ def eval(sample, blacklist_norm, Q1, max_retries=5, parse_retries=3):
             judge_data = json.loads(_strip_fences(raw))
             judge_data["tags"]
             judge_data["anxiety_index"]
-            judge_data["pred_level"]
             break
         except Exception as e:
             print(f"JUDGE PARSE FAIL (attempt {parse_attempt + 1}/{parse_retries}) — {e} — raw:\n{raw!r}")
             if parse_attempt == parse_retries - 1:
                 raise
 
-    pred_level = judge_data["pred_level"]
-    sample["pred_level"] = pred_level
+    stated_level = parse_self_pred(sample.get("response"))
+    if stated_level is None:
+        raise ValueError("response has no final risk assessment line")
+    sample["tags"] = judge_data["tags"]
+    sample["anxiety_index"] = judge_data["anxiety_index"]
+    sample["stated_risk_level"] = stated_level
+    sample["self_pred_level"] = stated_level
     if sample.get("gt_level") is not None:
-        sample["level_diff"] = pred_level - sample["gt_level"]
+        sample["level_diff"] = stated_level - sample["gt_level"]
+        sample["self_level_diff"] = sample["level_diff"]
     else:
         sample["level_diff"] = None
-
-    self_pred = parse_self_pred(sample.get("response"))
-    sample["self_pred_level"] = self_pred
-    if self_pred is not None and sample.get("gt_level") is not None:
-        sample["self_level_diff"] = self_pred - sample["gt_level"]
-    else:
         sample["self_level_diff"] = None
     return sample
 
@@ -254,6 +244,13 @@ def main():
             print(f"could not load {OUT}: {e}")
 
     bench_by_key = {_sample_key(s): s for s in bench_results}
+    results = {
+        k: v
+        for k, v in results.items()
+        if k in bench_by_key
+        and v.get("response") == bench_by_key[k].get("response")
+        and v.get("stated_risk_level") is not None
+    }
     todo_keys = [k for k in bench_by_key if k not in results]
     print(f"{len(todo_keys)} samples to judge ({len(results)} already done)")
 

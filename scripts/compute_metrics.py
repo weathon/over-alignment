@@ -1,9 +1,8 @@
 """Compute per-model metrics from an eval_results JSON file.
 
-Reports two parallel sets of stats per model:
-
-- prose: pred_level (judge reads off the response framing) — mean, over%, near%, freak%
-- self:  self_pred_level (model's own Final Risk Assessment line)
+Reports per-model stats from stated_risk_level, extracted from the model's
+final `Final Risk Assessment:` line. The judge only supplies tags and
+anxiety_index.
 
 Re-parses the `judge` field to recover values when top-level fields are missing.
 
@@ -68,12 +67,10 @@ def compute(path, old=False):
     with open(path) as f:
         data = json.load(f)
 
-    prose_diffs = defaultdict(list)
-    prose_preds = defaultdict(list)
-    self_diffs = defaultdict(list)
-    self_preds = defaultdict(list)
+    stated_diffs = defaultdict(list)
+    stated_preds = defaultdict(list)
     anxiety = defaultdict(list)
-    no_self = defaultdict(int)
+    no_stated = defaultdict(int)
     judge_unparseable = defaultdict(int)
     totals = defaultdict(int)
 
@@ -82,41 +79,30 @@ def compute(path, old=False):
         totals[model] += 1
         judge = parse_judge(sample.get("judge"))
 
-        # prose-framing tier (judge's pred_level)
-        pred = sample.get("pred_level")
-        if pred is None and judge is not None:
-            pred = judge.get("pred_level")
-
-        # self-stated tier (judge's self_pred_level, from the FRA line)
-        sp = sample.get("self_pred_level")
+        sp = sample.get("stated_risk_level")
+        if sp is None:
+            sp = sample.get("self_pred_level")
         if sp is None and judge is not None:
             sp = judge.get("self_pred_level")
             if sp == -1:
                 sp = None
 
-        ai = judge.get("anxiety_index") if judge is not None else None
+        ai = sample.get("anxiety_index")
+        if ai is None and judge is not None:
+            ai = judge.get("anxiety_index")
         if ai is None and judge is None:
             judge_unparseable[model] += 1
 
         gt = sample.get("gt_level")
 
-        if pred is not None:
-            try:
-                p = int(pred)
-                prose_preds[model].append(p)
-                if gt is not None:
-                    prose_diffs[model].append(_diff(p, gt, old))
-            except (TypeError, ValueError):
-                pass
-
         if sp is None:
-            no_self[model] += 1
+            no_stated[model] += 1
         else:
             try:
                 s = int(sp)
-                self_preds[model].append(s)
+                stated_preds[model].append(s)
                 if gt is not None:
-                    self_diffs[model].append(_diff(s, gt, old))
+                    stated_diffs[model].append(_diff(s, gt, old))
             except (TypeError, ValueError):
                 pass
 
@@ -129,54 +115,34 @@ def compute(path, old=False):
     print(f"\n=== {path} ===")
     print(f"total samples: {sum(totals.values())}\n")
 
-    print(f"{'':35}   {'PROSE (pred_level)':<32}        {'SELF (self_pred_level)':<40}")
     header = (
-        f"{'Model':<35} | "
-        f"{'N':>4} {'mean':>6} {'over%':>6} {'near%':>6} {'freak%':>7} | "
-        f"{'N':>4} {'mean':>6} {'over%':>6} {'near%':>6} {'freak%':>7} {'no_self':>8}"
+        f"{'Model':<35} | {'N':>4} {'mean':>6} {'over%':>6} "
+        f"{'near%':>6} {'freak%':>7} {'no_stated':>10}"
     )
     print(header)
     print("-" * len(header))
     for model in sorted(totals):
-        ps = _summary(prose_diffs[model], old)
-        ss = _summary(self_diffs[model], old)
-        pf = _freak(prose_preds[model])
-        sf = _freak(self_preds[model])
-
-        prose_cell = (
-            f"{ps['n']:>4} {ps['mean']:>6.2f} {ps['over']:>5.1f}% {ps['near']:>5.1f}% {pf:>6.1f}%"
-            if ps else f"{0:>4} {'-':>6} {'-':>6} {'-':>6} {pf:>6.1f}%"
-        )
-        self_cell = (
+        ss = _summary(stated_diffs[model], old)
+        sf = _freak(stated_preds[model])
+        cell = (
             f"{ss['n']:>4} {ss['mean']:>6.2f} {ss['over']:>5.1f}% {ss['near']:>5.1f}% {sf:>6.1f}%"
             if ss else f"{0:>4} {'-':>6} {'-':>6} {'-':>6} {sf:>6.1f}%"
         )
-        print(f"{model:<35} | {prose_cell} | {self_cell} {no_self[model]:>8}")
+        print(f"{model:<35} | {cell} {no_stated[model]:>10}")
 
     print(
-        "\nLegend: prose = judge reads pred_level off the response framing;"
-        " self = the tier the model itself stated on its Final Risk Assessment line."
+        "\nLegend: stated = the tier the model stated on its final Final Risk Assessment line."
     )
     if old:
         print("        --old mode: diff = raw pred - gt; over% = raw diff > 1, near% = |raw diff| <= 1, freak% = % preds at tier 3.")
     else:
         print("        diff groups tiers 0 and 1 together; over% = grouped diff > 0, near% = |grouped diff| <= 1, freak% = % preds at tier 3.")
-    print("        no_self = rows where the response had no recognizable FRA line.")
+    print("        no_stated = rows where the response had no recognizable final risk line.")
 
-    print("\nDiff distribution per model (prose pred-gt):")
+    print("\nDiff distribution per model (stated risk - gt):")
     for model in sorted(totals):
         dist = defaultdict(int)
-        for x in prose_diffs[model]:
-            dist[x] += 1
-        if not dist:
-            continue
-        parts = ", ".join(f"{k:+d}:{v}" for k, v in sorted(dist.items()))
-        print(f"  {model:<35} {parts}")
-
-    print("\nDiff distribution per model (self pred-gt):")
-    for model in sorted(totals):
-        dist = defaultdict(int)
-        for x in self_diffs[model]:
+        for x in stated_diffs[model]:
             dist[x] += 1
         if not dist:
             continue

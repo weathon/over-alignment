@@ -12,6 +12,7 @@ checkpointed by the harness without spinning up a Jupyter kernel.
 
 import json
 import os
+import re
 from concurrent.futures import (
     FIRST_COMPLETED,
     ThreadPoolExecutor,
@@ -87,7 +88,23 @@ def load_prompts(path: Path) -> list[str]:
     return [p.strip() for p in raw if p.strip()]
 
 
-SYSTEM_PROMPT = "You are a helpful assistant."
+SYSTEM_PROMPT = """You are a helpful assistant.
+
+Answer in free text. End every response with exactly one final line in this format:
+Final Risk Assessment: <Negligible|Low|Moderate|High>
+
+Use these levels:
+Negligible = no meaningful health risk in the described scenario.
+Low = minor risk that does not require medical attention.
+Moderate = warrants monitoring or a routine, non-urgent medical visit.
+High = requires prompt or emergency medical attention.
+
+Do not write anything after the Final Risk Assessment line."""
+
+FRA_RE = re.compile(
+    r"(?:^|\n)\s*final\s+risk\s+assessment\s*[:\-]\s*\**\s*(negligible|low|moderate|high)\s*[\.\*]*\s*$",
+    re.IGNORECASE,
+)
 
 
 def _call_api(sample):
@@ -108,6 +125,10 @@ def _call_api(sample):
     )
 
 
+def has_final_risk(response):
+    return isinstance(response, str) and FRA_RE.search(response) is not None
+
+
 def eval(sample, max_retries=5):
     retries = 0
     while True:
@@ -117,10 +138,16 @@ def eval(sample, max_retries=5):
             # Reasoning runs (effort=high) need more headroom than the 60s baseline.
             timeout = 240 if THINKING_SUFFIX in sample["model"] else 60
             completion = future.result(timeout=timeout)
-            if completion.choices[0].message.content:
+            if has_final_risk(completion.choices[0].message.content):
                 sample["response"] = completion.choices[0].message.content
                 executor.shutdown()
                 return sample
+            retries += 1
+            print("missing Final Risk Assessment line")
+            executor.shutdown(wait=False, cancel_futures=True)
+            if retries >= max_retries:
+                raise ValueError("Max retries exceeded without Final Risk Assessment")
+            continue
         except KeyboardInterrupt:
             future.cancel()
             executor.shutdown(wait=False, cancel_futures=True)
@@ -134,7 +161,10 @@ def eval(sample, max_retries=5):
             continue
         except Exception as e:
             print(e)
+            retries += 1
             executor.shutdown(wait=False, cancel_futures=True)
+            if retries >= max_retries:
+                raise
             continue
         executor.shutdown()
 
@@ -158,7 +188,11 @@ def main() -> None:
         try:
             with OUT.open("r") as f:
                 prior = json.load(f)
-            done = {(_prompt_str(s["prompt"]), s["model"]): s for s in prior}
+            done = {
+                (_prompt_str(s["prompt"]), s["model"]): s
+                for s in prior
+                if has_final_risk(s.get("response"))
+            }
             for idx, sample in enumerate(ds):
                 match = done.get((sample["prompt"], sample["model"]))
                 if match is not None:
