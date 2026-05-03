@@ -4,7 +4,7 @@ Reports caution-diff (pred_level - gt_level) and anxiety_index distributions per
 Re-parses the `judge` field to recover values when top-level pred_level/anxiety_index
 are missing.
 
-Usage: python3 scripts/compute_metrics.py [data/eval_results.json ...]
+Usage: python3 scripts/compute_metrics.py [results/eval_results.json ...]
 """
 import json
 import re
@@ -154,7 +154,7 @@ def compute(path):
 
 def main():
     root = Path(__file__).resolve().parent.parent
-    paths = sys.argv[1:] or [str(root / "data" / "eval_results.json")]
+    paths = sys.argv[1:] or [str(root / "results" / "eval_results.json")]
     for p in paths:
         compute(p)
 

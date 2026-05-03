@@ -3,7 +3,7 @@
 Reads prompts from data/dataset.txt (one per "\\n-\\n"-separated block), fans
 out across the model list (no-reasoning baselines plus :thinking variants for
 reasoning-capable models), and writes a flat list of {prompt, model, response}
-dicts to data/results.json. Resumes from any prior run by skipping
+dicts to results/results.json. Resumes from any prior run by skipping
 (prompt, model) pairs already present in the output file.
 
 Extracted from notebooks/bench_dataset.ipynb so it can be rerun headless and
@@ -26,7 +26,8 @@ from tqdm import tqdm
 
 ROOT = Path(__file__).resolve().parent.parent
 SRC = ROOT / "data" / "dataset.txt"
-OUT = ROOT / "data" / "results.json"
+OUT = ROOT / "results" / "results.json"
+OUT.parent.mkdir(parents=True, exist_ok=True)
 
 dotenv.load_dotenv()
 client = OpenAI(

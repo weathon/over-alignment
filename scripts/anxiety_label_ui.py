@@ -1,7 +1,7 @@
 """Gradio UI to collect human ground-truth anxiety_index labels and correlate
 them against the over-caution judge's predicted anxiety_index.
 
-Source data: data/eval_results.json (over-caution judge output).
+Source data: results/eval_results.json (over-caution judge output).
 Labels written to: results/anxiety_labels.json.
 
 The judge's anxiety_index is loaded server-side but is NEVER sent to the
@@ -22,7 +22,7 @@ import numpy as np
 from scipy.stats import pearsonr, spearmanr
 
 ROOT = Path(__file__).resolve().parent.parent
-SRC = ROOT / "data" / "eval_results.json"
+SRC = ROOT / "results" / "eval_results.json"
 OUT = ROOT / "results" / "anxiety_labels.json"
 OUT.parent.mkdir(parents=True, exist_ok=True)
 

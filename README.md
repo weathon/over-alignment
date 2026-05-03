@@ -16,16 +16,16 @@ The dataset also includes a held-out set of genuine emergencies, so models are s
   - [consensus_2025-05-09-20-00-46.jsonl](data/consensus_2025-05-09-20-00-46.jsonl) — HealthBench source for the real-emergency split (filtered to `theme:emergency_referrals` + `physician_agreed_category:emergent`, single-turn only)
   - [019ddda9-c0ce-762e-8f41-e1a0c655cc7e.csv](data/019ddda9-c0ce-762e-8f41-e1a0c655cc7e.csv) — human annotator labels used to derive `gt_level` in the judge pipeline
   - [019ddda9-c0ce-762e-8f41-e1a0c655cc7e_sampled_questions_only.csv](data/019ddda9-c0ce-762e-8f41-e1a0c655cc7e_sampled_questions_only.csv) — 50 sampled source questions extracted from the annotator CSV as `id,query` only, excluding blacklist prompts and checked for fuzzy duplicate / blacklist overlap
-  - [results.json](data/results.json) — per-(prompt, model) responses for the over-caution set (written by `bench_dataset.py`, read by `eval.py`)
   - `dataset_exam.json` / `dataset_exam.txt` — over-caution prompts rewritten as third-person multiple-choice exam questions (written by `rewrite_to_exam.py`)
   - `dataset_real_emergency_exam.json` — real-emergency prompts rewritten the same way (written by `rewrite_real_emergency_to_exam.py`)
-  - `results_exam.json` / `results_real_emergency_exam.json` — per-(prompt, model) A/B/C/D answers from the exam-framing pipeline
-  - misc CSVs and JSON used for analysis / dataset construction (`dataset_questions.csv`, `repeated_questions_risk.csv`, `id_model_map.csv`, `sampled_qa.csv`, `conditionally_emergency_cases_rewritten.json`, `results_emotion.json`, plus HuggingFace `bench_dataset/` and `bench_dataset_eval/` arrow dumps)
+  - misc CSVs and JSON used for analysis / dataset construction (`dataset_questions.csv`, `repeated_questions_risk.csv`, `id_model_map.csv`, `sampled_qa.csv`, `conditionally_emergency_cases_rewritten.json`, plus HuggingFace `bench_dataset/` and `bench_dataset_eval/` arrow dumps)
 - [results/](results/) — pipeline outputs (do not commit by hand; the scripts checkpoint here)
-  - `results.json` — legacy copy of the over-caution responses
+  - `results.json` — per-(prompt, model) responses for the over-caution set (written by `bench_dataset.py`, read by `eval.py`)
   - `eval_results.json` — judge output for the over-caution set (written by `eval.py`)
   - `results_real_emergency.json` — responses on the real-emergency split (written by `bench_real_emergency.py`)
   - `eval_results_real_emergency.json` — judge verdicts on the real-emergency split (written by `eval_real_emergency.py`)
+  - `results_exam.json` / `results_real_emergency_exam.json` — per-(prompt, model) free-text answers from the exam-framing pipeline
+  - `results_emotion.json` — emotional tone analysis data
 - [scripts/](scripts/) — runnable pipeline (see "Running the pipeline" below)
 - [notebooks/](notebooks/) — exploratory and dataset-construction notebooks (see "Notebooks" below)
 - [docs/](docs/) — annotator and judge prompts ([expert_prompts.md](docs/expert_prompts.md), [system_prompt.md](docs/system_prompt.md), [agent_prompt.md](docs/agent_prompt.md), [claude_system_prompt.md](docs/claude_system_prompt.md), [selected2.md](docs/selected2.md))
@@ -36,7 +36,7 @@ The dataset also includes a held-out set of genuine emergencies, so models are s
 
 | Split | Source | Bench script | Eval script | Question the judge answers |
 | --- | --- | --- | --- | --- |
-| Over-caution (benign-but-anxious) | [data/dataset.txt](data/dataset.txt) minus [data/blacklist.json](data/blacklist.json) | [scripts/bench_dataset.py](scripts/bench_dataset.py) → [data/results.json](data/results.json) | [scripts/eval.py](scripts/eval.py) → [results/eval_results.json](results/eval_results.json) | Tags + `anxiety_index` (0–10) + `pred_level` (0–3); diff vs. human `gt_level` is the over/under-caution signal |
+| Over-caution (benign-but-anxious) | [data/dataset.txt](data/dataset.txt) minus [data/blacklist.json](data/blacklist.json) | [scripts/bench_dataset.py](scripts/bench_dataset.py) → [results/results.json](results/results.json) | [scripts/eval.py](scripts/eval.py) → [results/eval_results.json](results/eval_results.json) | Tags + `anxiety_index` (0–10) + `pred_level` (0–3); diff vs. human `gt_level` is the over/under-caution signal |
 | Real-emergency sanity check | HealthBench `consensus_2025-05-09-...jsonl`, filtered to physician-agreed emergent | [scripts/bench_real_emergency.py](scripts/bench_real_emergency.py) → [results/results_real_emergency.json](results/results_real_emergency.json) | [scripts/eval_real_emergency.py](scripts/eval_real_emergency.py) → [results/eval_results_real_emergency.json](results/eval_results_real_emergency.json) | Single binary: did the response direct the user to seek immediate / emergency care? |
 
 The real-emergency split exists because a model that just learns "stop being cautious" would game the over-caution benchmark. We score on both axes and plot them together.
@@ -83,8 +83,8 @@ python scripts/rewrite_to_exam.py                    # data/dataset.txt → data
 python scripts/rewrite_real_emergency_to_exam.py     # HealthBench emergent rows → data/dataset_real_emergency_exam.json
 
 # 2. Bench both splits (A/B/C/D structured output, uses OPENROUTER_API_KEY)
-python scripts/bench_dataset_exam.py                 # → data/results_exam.json
-python scripts/bench_real_emergency_exam.py          # → data/results_real_emergency_exam.json
+python scripts/bench_dataset_exam.py                 # → results/results_exam.json
+python scripts/bench_real_emergency_exam.py          # → results/results_real_emergency_exam.json
 
 # 3. Metrics — single combined table across both splits
 python scripts/compute_metrics_exam_combined.py
@@ -139,8 +139,7 @@ Both bench scripts use `ThreadPoolExecutor(max_workers=30)` against the OpenRout
 
 - **Prompt shape normalization.** A handful of legacy rows store the prompt as the OpenAI list-of-content shape (`[{"type":"text","text":"..."}]`) instead of a bare string. The `_prompt_str` / `_sample_key` helpers normalize before keying — preserve them or the resume dicts blow up with `TypeError: unhashable type: 'list'`.
 - **Resume keys are content-addressed.** `eval.py` and `eval_real_emergency.py` both key by `f"{model}||{prompt}"` (see `_sample_key`) so rerunning with a different ordering or a new model added doesn't invalidate prior judgements. There's also a one-time migration in `eval_real_emergency.py` that re-derives `is_emergency_response` from saved judge text — earlier judge runs returned `None` because the model wrapped its JSON in ` ```json ` fences and the parser hadn't learned to strip them.
-- **`bench_dataset.py` writes to `data/results.json`, not `results/`.** Historical inconsistency. `eval.py` reads from the same `data/` path. Don't "fix" it without also updating `eval.py` and any notebooks that read the file.
-- **`compute_metrics.py` default path is stale.** It defaults to `data/eval_results.json`; the real file is `results/eval_results.json`. Always pass the path explicitly: `python scripts/compute_metrics.py results/eval_results.json`.
+- Bench/eval outputs live under `results/`. Source datasets and rewrite inputs live under `data/`.
 
 ## Judge rubric (over-caution split)
 
@@ -172,7 +171,7 @@ The figures in [figures/](figures/) are produced from the notebooks (currently [
 - [real_emergency.ipynb](notebooks/real_emergency.ipynb) — derivation of the real-emergency split
 - [eval.ipynb](notebooks/eval.ipynb) — over-caution metrics and figures
 - [healthbench.ipynb](notebooks/healthbench.ipynb) — comparison against HealthBench
-- [emotion_eval.ipynb](notebooks/emotion_eval.ipynb) — emotional tone analysis (uses `data/results_emotion.json`)
+- [emotion_eval.ipynb](notebooks/emotion_eval.ipynb) — emotional tone analysis (uses `results/results_emotion.json`)
 - [gt.ipynb](notebooks/gt.ipynb) — human ground-truth processing
 
 ## Auxiliary scripts
@@ -185,7 +184,7 @@ The figures in [figures/](figures/) are produced from the notebooks (currently [
 
 If you (the agent) are picking this up cold:
 
-1. Check [data/results.json](data/results.json) and [results/results_real_emergency.json](results/results_real_emergency.json) exist before running an eval — the eval scripts crash if their inputs are missing.
+1. Check [results/results.json](results/results.json) and [results/results_real_emergency.json](results/results_real_emergency.json) exist before running an eval — the eval scripts crash if their inputs are missing.
 2. Adding a model: append to **both** `models` lists (`bench_dataset.py` and `bench_real_emergency.py`), pick the right id-suffix variant per the convention above, then rerun the bench then the eval. Both will skip already-done samples. The reasoning-sweep scripts have their own `BASE_MODELS` / `EFFORT_LEVELS` constants — edit those if you want to extend the sweep.
 3. Adding prompts: append a `\n-\n` block to [data/dataset.txt](data/dataset.txt). New (prompt, model) pairs will be picked up automatically on resume.
 4. If you change the judge prompt or schema in `eval*.py`, **delete** the existing `results/eval_results*.json` first — the resume logic doesn't know the schema changed and will keep old judgements.

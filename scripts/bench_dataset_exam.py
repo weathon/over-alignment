@@ -27,7 +27,8 @@ from tqdm import tqdm
 
 ROOT = Path(__file__).resolve().parent.parent
 SRC = ROOT / "data" / "dataset_exam.json"
-OUT = ROOT / "data" / "results_exam.json"
+OUT = ROOT / "results" / "results_exam.json"
+OUT.parent.mkdir(parents=True, exist_ok=True)
 
 dotenv.load_dotenv()
 client = OpenAI(
