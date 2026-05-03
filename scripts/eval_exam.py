@@ -38,13 +38,13 @@ import os
 from concurrent.futures import ThreadPoolExecutor, TimeoutError as FuturesTimeout, FIRST_COMPLETED, wait
 
 import dotenv
-from ollama import Client
+from openai import OpenAI
 from tqdm import tqdm
 
 dotenv.load_dotenv()
-client = Client(
-    host="https://ollama.com",
-    headers={'Authorization': 'Bearer ' + os.environ.get('OLLAMA_API_KEY')}
+client = OpenAI(
+    base_url="https://openrouter.ai/api/v1",
+    api_key=os.environ.get("OPENROUTER_API_KEY"),
 )
 
 eval_system_prompt = """
@@ -142,8 +142,8 @@ def _call_api_judge(sample):
     sample["gt_level"] = GT_LEVEL_MAP.get(human_gt.strip(), None) if human_gt else None
 
     response_for_judge = strip_fra(sample["response"])
-    return client.chat(
-        model="glm-5.1:cloud",
+    return client.chat.completions.create(
+        model="glm-5.1",
         messages=[
             {"role": "system", "content": eval_system_prompt},
             {
@@ -151,7 +151,7 @@ def _call_api_judge(sample):
                 "content": "Q: " + sample["prompt"] + "\nA: " + response_for_judge,
             },
         ],
-        think=True,
+        extra_body={"reasoning": {"effort": "low"}},
     )
 
 
@@ -209,16 +209,17 @@ def eval(sample, max_retries=5, parse_retries=3):
                     raise TimeoutError("Max retries exceeded")
                 continue
 
-        sample["judge"] = completion.message.content
-        sample["judge_thinking"] = completion.message.thinking
+        message = completion.choices[0].message
+        sample["judge"] = message.content
+        sample["judge_thinking"] = message.model_extra.get("reasoning")
         try:
-            judge_data = json.loads(_strip_fences(completion.message.content))
+            judge_data = json.loads(_strip_fences(message.content))
             judge_data["tags"]
             judge_data["anxiety_index"]
             judge_data["pred_level"]
             break
         except (json.JSONDecodeError, KeyError, TypeError) as e:
-            print(f"JUDGE PARSE FAIL (attempt {parse_attempt + 1}/{parse_retries}) — {e} — raw:\n{completion.message.content!r}")
+            print(f"JUDGE PARSE FAIL (attempt {parse_attempt + 1}/{parse_retries}) — {e} — raw:\n{message.content!r}")
             if parse_attempt == parse_retries - 1:
                 raise
 

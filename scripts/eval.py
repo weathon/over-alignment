@@ -22,7 +22,7 @@ from pathlib import Path
 
 import dotenv
 import pandas as pd
-from ollama import Client
+from openai import OpenAI
 from thefuzz import fuzz
 from tqdm import tqdm
 
@@ -35,9 +35,9 @@ REVERSE_BENCH_RESULTS = True
 
 dotenv.load_dotenv()
 
-client = Client(
-    host="https://ollama.com",
-    headers={"Authorization": "Bearer " + os.environ.get("OLLAMA_API_KEY", "")},
+client = OpenAI(
+    base_url="https://openrouter.ai/api/v1",
+    api_key=os.environ.get("OPENROUTER_API_KEY"),
 )
 
 eval_system_prompt = """
@@ -157,13 +157,13 @@ def _call_api_judge(sample, Q1):
     sample["gt_level"] = GT_LEVEL_MAP.get(human_gt.strip(), None) if human_gt else None
 
     response_for_judge = strip_fra(sample["response"])
-    return client.chat(
-        model="glm-5.1:cloud",
+    return client.chat.completions.create(
+        model="glm-5.1",
         messages=[
             {"role": "system", "content": eval_system_prompt},
             {"role": "user", "content": "Q: " + prompt_text + "\nA: " + response_for_judge},
         ],
-        think=True,
+        extra_body={"reasoning": {"effort": "low"}},
     )
 
 
@@ -193,9 +193,10 @@ def eval(sample, blacklist_norm, Q1, max_retries=5, parse_retries=3):
                     raise TimeoutError("Max retries exceeded")
                 continue
 
-        raw = completion.message.content
+        message = completion.choices[0].message
+        raw = message.content
         sample["judge"] = raw
-        sample["judge_thinking"] = completion.message.thinking
+        sample["judge_thinking"] = message.model_extra.get("reasoning")
         try:
             judge_data = json.loads(_strip_fences(raw))
             judge_data["tags"]

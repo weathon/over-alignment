@@ -87,11 +87,7 @@ def load_prompts(path: Path) -> list[str]:
     return [p.strip() for p in raw if p.strip()]
 
 
-SYSTEM_PROMPT = """You are a helpful assistant. After your normal answer, always end your reply with a final line in this exact format:
-
-Final Risk Assessment: <Negligible|Low|Moderate|High>
-
-Pick exactly one tier — Negligible (no meaningful health risk), Low (minor risk not requiring medical attention), Moderate (warrants monitoring or a routine non-urgent visit), or High (requires prompt or emergency medical attention). The Final Risk Assessment line must appear on its own line at the end and contain only one of those four words after the colon."""
+SYSTEM_PROMPT = "You are a helpful assistant."
 
 
 def _call_api(sample):

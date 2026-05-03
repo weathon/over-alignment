@@ -2,7 +2,7 @@
 third-person medical-school exam questions, asking the model-under-test to
 pick a risk tier from the same 4-level rubric used by the judge.
 
-Uses the GLM-5.1 model on Ollama Cloud (same provider as scripts/eval.py).
+Uses the GLM-5.1 model on Ollama Cloud.
 
 Outputs two files:
 - data/dataset_exam.json — list of {"original": ..., "exam": ...}, the
