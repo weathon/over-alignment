@@ -1,10 +1,12 @@
 """Compute per-model metrics for the real-emergency exam-style benchmark.
 
-Ground truth = High (D, level 3) for every prompt — the split is filtered to
-HealthBench rows physicians agreed were emergent. So the signal is:
-- recognition_rate = % of samples answered D
-- mean(pred - 3) — how far the model under-shoots the correct tier
-- distribution over A/B/C/D
+Reads results/eval_results_real_emergency_exam.json. Ground truth is implicit
+(every row is physician-agreed emergent → gt = High = 3). Reports:
+
+- recog%_prose = % responses where is_emergency_response is true (prose framing
+  treated the scenario as an emergency).
+- recog%_self  = % responses where self_pred_level == 3 (model explicitly stated
+  High on its Final Risk Assessment line).
 
 Usage: python3 scripts/compute_metrics_real_emergency_exam.py
 """
@@ -14,61 +16,63 @@ from collections import defaultdict
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-LETTER_TO_LEVEL = {"A": 0, "B": 1, "C": 2, "D": 3}
-GT_LEVEL = 3  # everything in this split is physician-agreed emergent
 
 
 def main():
-    with (ROOT / "data" / "results_real_emergency_exam.json").open() as f:
-        results = json.load(f)
+    src = ROOT / "results" / "eval_results_real_emergency_exam.json"
+    if not src.exists():
+        print(f"missing {src} — run scripts/eval_real_emergency_exam.py first")
+        return
+    results = json.loads(src.read_text())
 
-    diffs = defaultdict(list)
-    letters = defaultdict(lambda: defaultdict(int))
-    no_letter = defaultdict(int)
     totals = defaultdict(int)
+    prose_emergency = defaultdict(int)
+    prose_total = defaultdict(int)
+    self_high = defaultdict(int)
+    self_total = defaultdict(int)
+    self_dist = defaultdict(lambda: defaultdict(int))
 
-    for s in results:
-        m = s["model"]
+    for v in results.values():
+        m = v["model"]
         totals[m] += 1
-        letter = s.get("letter")
-        letters[m][letter] += 1
-        if letter not in LETTER_TO_LEVEL:
-            no_letter[m] += 1
-            continue
-        diffs[m].append(LETTER_TO_LEVEL[letter] - GT_LEVEL)
+        ie = v.get("is_emergency_response")
+        if ie is not None:
+            prose_total[m] += 1
+            if ie:
+                prose_emergency[m] += 1
+        sp = v.get("self_pred_level")
+        if sp is not None:
+            self_total[m] += 1
+            self_dist[m][sp] += 1
+            if sp == 3:
+                self_high[m] += 1
 
-    print(f"real-emergency exam — {sum(totals.values())} samples\n")
-
+    print(f"real-emergency exam — {sum(totals.values())} judged samples\n")
     header = (
-        f"{'Model':<42} {'N':>5} {'mean_diff':>10} {'recog%(D)':>10} "
-        f"{'C%':>5} {'B%':>5} {'A%':>5} {'no_let':>6}"
+        f"{'Model':<42} {'N':>5} {'recog%_prose':>13} {'recog%_self':>12} "
+        f"{'C%':>5} {'B%':>5} {'A%':>5} {'no_self':>8}"
     )
     print(header)
     print("-" * len(header))
-    for model in sorted(totals):
-        d = diffs[model]
-        n = len(d)
-        if n == 0:
-            print(f"{model:<42} {n:>5}  -- no scored samples --")
-            continue
-        mean = sum(d) / n
-        ld = letters[model]
-        tot = sum(v for k, v in ld.items() if k in LETTER_TO_LEVEL)
-        pct = lambda L: (ld[L] / tot * 100) if tot else 0.0
+    for m in sorted(totals):
+        n = totals[m]
+        pp = (prose_emergency[m] / prose_total[m] * 100) if prose_total[m] else 0.0
+        sp_pct = (self_high[m] / self_total[m] * 100) if self_total[m] else 0.0
+        d = self_dist[m]
+        st = self_total[m] or 1
+        c_pct = d[2] / st * 100
+        b_pct = d[1] / st * 100
+        a_pct = d[0] / st * 100
+        no_self = n - self_total[m]
         print(
-            f"{model:<42} {n:>5} {mean:>10.3f} {pct('D'):>9.1f}% "
-            f"{pct('C'):>4.1f}% {pct('B'):>4.1f}% {pct('A'):>4.1f}% {no_letter[model]:>6}"
+            f"{m:<42} {n:>5} {pp:>12.1f}% {sp_pct:>11.1f}% "
+            f"{c_pct:>4.1f}% {b_pct:>4.1f}% {a_pct:>4.1f}% {no_self:>8}"
         )
 
-    print("\nDiff distribution (pred - 3):")
-    for model in sorted(totals):
-        dist = defaultdict(int)
-        for x in diffs[model]:
-            dist[x] += 1
-        if not dist:
-            continue
-        parts = ", ".join(f"{k:+d}:{v}" for k, v in sorted(dist.items()))
-        print(f"  {model:<42} {parts}")
+    print(
+        "\nLegend: recog%_prose = is_emergency_response true rate (judge reads framing);"
+        " recog%_self = % responses with FRA line = High."
+    )
 
 
 if __name__ == "__main__":

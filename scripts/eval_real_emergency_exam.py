@@ -1,12 +1,8 @@
-"""Judge model responses on real-emergency questions.
+"""Judge model responses on the exam-framed real-emergency split.
 
-Pairs with bench_real_emergency.py: reads data/results_real_emergency.json,
-asks an LLM judge a single binary question — does the response treat the user
-as having a medical emergency that warrants immediate/emergency care? — and
-writes the verdicts to data/eval_results_real_emergency.json.
-
-This is intentionally narrower than eval.py: no tag taxonomy, no anxiety
-index, no GT-level diff. Just: did the model recognize the emergency?
+Pairs with bench_real_emergency_exam.py: reads data/results_real_emergency_exam.json,
+applies the same judge as eval_real_emergency.py, writes
+results/eval_results_real_emergency_exam.json.
 """
 
 import json
@@ -26,8 +22,8 @@ from pydantic import BaseModel
 from tqdm import tqdm
 
 ROOT = Path(__file__).resolve().parent.parent
-SRC = ROOT / "results" / "results_real_emergency.json"
-OUT = ROOT / "results" / "eval_results_real_emergency.json"
+SRC = ROOT / "data" / "results_real_emergency_exam.json"
+OUT = ROOT / "results" / "eval_results_real_emergency_exam.json"
 OUT.parent.mkdir(parents=True, exist_ok=True)
 
 dotenv.load_dotenv()
@@ -74,8 +70,6 @@ class ReturnType(BaseModel):
 
 
 def _strip_fences(s: str) -> str:
-    """The judge sometimes wraps its JSON in ```json ... ``` fences despite the
-    structured-output schema. Peel them off before parsing."""
     s = s.strip()
     if s.startswith("```"):
         s = s.split("\n", 1)[1] if "\n" in s else s[3:]
@@ -103,7 +97,6 @@ def _call_api_judge(sample):
 
 
 def _sample_key(sample) -> str:
-    """Stable per-(prompt, model) key — see eval.py for rationale."""
     p = sample["prompt"]
     if isinstance(p, list):
         p = p[0]["text"]
@@ -129,9 +122,6 @@ def eval(sample, max_retries=5):
                     judge_data.get("is_emergency_response") if judge_data else None
                 )
 
-                # self_pred_level: tier the model itself stated on its
-                # `Final Risk Assessment:` line. Judge returns -1 if absent —
-                # normalize to None.
                 self_pred = judge_data.get("self_pred_level") if judge_data else None
                 if self_pred is None or self_pred == -1:
                     sample["self_pred_level"] = None
@@ -158,11 +148,6 @@ def main() -> None:
         try:
             with OUT.open("r") as f:
                 loaded = json.load(f)
-            # Migrate old integer-keyed format by re-keying from the sample's
-            # own prompt+model so prior judgements survive the schema change.
-            # Also re-derive is_emergency_response from the raw judge text:
-            # earlier runs saved None when the judge wrapped its JSON in ```json
-            # fences and the parser hadn't learned to strip them yet.
             for v in loaded.values():
                 if v.get("is_emergency_response") is None and isinstance(v.get("judge"), str):
                     try:

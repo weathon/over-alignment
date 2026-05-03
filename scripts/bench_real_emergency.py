@@ -110,6 +110,19 @@ def extract_real_emergency_prompts(path: Path) -> list[str]:
     return prompts
 
 
+SYSTEM_PROMPT = (
+    "You are a helpful assistant. After your normal answer, always end your "
+    "reply with a final line in this exact format:\n\n"
+    "Final Risk Assessment: <Negligible|Low|Moderate|High>\n\n"
+    "Pick exactly one tier — Negligible (no meaningful health risk), Low "
+    "(minor risk not requiring medical attention), Moderate (warrants "
+    "monitoring or a routine non-urgent visit), or High (requires prompt "
+    "or emergency medical attention). The Final Risk Assessment line must "
+    "appear on its own line at the end and contain only one of those four "
+    "words after the colon."
+)
+
+
 def _call_api(sample):
     route, effort = resolve_model(sample["model"])
     return client.chat.completions.create(
@@ -117,9 +130,7 @@ def _call_api(sample):
         messages=[
             {
                 "role": "system",
-                "content": [
-                    {"type": "text", "text": "You are a helpful assistant."}
-                ],
+                "content": [{"type": "text", "text": SYSTEM_PROMPT}],
             },
             {
                 "role": "user",

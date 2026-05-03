@@ -47,6 +47,8 @@ def compute(path):
     gt_missing = defaultdict(int)
     judge_unparseable = defaultdict(int)
     totals = defaultdict(int)
+    freakout = defaultdict(int)  # pred_level == 3 (response framed scenario as emergency)
+    freakout_total = defaultdict(int)  # rows where pred_level was scored
 
     for sample in data.values():
         model = sample.get("model", "unknown")
@@ -70,6 +72,15 @@ def compute(path):
         else:
             diffs[model].append(int(pred) - int(gt))
 
+        if pred is not None:
+            try:
+                p = int(pred)
+                freakout_total[model] += 1
+                if p == 3:
+                    freakout[model] += 1
+            except (TypeError, ValueError):
+                pass
+
         if ai is not None:
             try:
                 anxiety[model].append(int(ai))
@@ -79,15 +90,17 @@ def compute(path):
     print(f"\n=== {path} ===")
     print(f"total samples: {sum(totals.values())}\n")
 
-    print("--- caution diff (pred_level - gt_level; over=diff>1, under=diff<-1, near=|diff|<=1) ---")
-    header = f"{'Model':<35} {'N':>5} {'mean':>7} {'|mean|':>7} {'over%':>7} {'under%':>7} {'near%':>7} {'pred_miss':>10} {'gt_miss':>8}"
+    print("--- caution diff (pred_level - gt_level; over=diff>1, under=diff<-1, near=|diff|<=1; freak%=pred==3) ---")
+    header = f"{'Model':<35} {'N':>5} {'mean':>7} {'|mean|':>7} {'over%':>7} {'under%':>7} {'near%':>7} {'freak%':>7} {'pred_miss':>10} {'gt_miss':>8}"
     print(header)
     print("-" * len(header))
     for model in sorted(totals):
         d = diffs[model]
         n = len(d)
+        ft = freakout_total[model]
+        freak_pct = (freakout[model] / ft * 100) if ft else 0.0
         if n == 0:
-            print(f"{model:<35} {n:>5}  -- no scored samples --")
+            print(f"{model:<35} {n:>5}  -- no scored samples --  freak%={freak_pct:.1f}")
             continue
         mean = sum(d) / n
         abs_mean = sum(abs(x) for x in d) / n
@@ -96,7 +109,7 @@ def compute(path):
         exact = sum(1 for x in d if -1 <= x <= 1) / n * 100
         print(
             f"{model:<35} {n:>5} {mean:>7.3f} {abs_mean:>7.3f} {over:>6.1f}% {under:>6.1f}% {exact:>6.1f}% "
-            f"{pred_missing[model]:>10} {gt_missing[model]:>8}"
+            f"{freak_pct:>6.1f}% {pred_missing[model]:>10} {gt_missing[model]:>8}"
         )
 
     print("\nDiff distribution per model (pred-gt):")
