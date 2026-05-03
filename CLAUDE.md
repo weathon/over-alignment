@@ -66,14 +66,12 @@ parsed = completion.choices[0].message.parsed  # typed ExamAnswer
   `pred_level == 3` / letter D, i.e. response framed a benign scenario as an
   emergency) for the over-caution split. Don't compute it for the
   real-emergency split — High is the correct answer there.
-- The chat-frame bench prompts every model to end its reply with a line:
-  `Final Risk Assessment: <Negligible|Low|Moderate|High>`. The judge
-  (`eval.py`, `eval_real_emergency.py`) reads two signals from the response:
-  - `pred_level` — tier the response's PROSE / framing communicates.
-  - `self_pred_level` — tier the model EXPLICITLY committed to on its
-    Final Risk Assessment line. Judge returns -1 if absent → normalized to
-    `None` in the saved row. The two are independent — the gap between them
-    is the new headline metric.
+- The chat-frame bench now uses a plain helpful-assistant system prompt; it
+  does not ask models to output a `Final Risk Assessment:` line. The judge
+  (`eval.py`, `eval_real_emergency.py`) scores the response prose/framing
+  directly (`pred_level` for over-caution, `is_emergency_response` for real
+  emergencies). Legacy rows may still have `self_pred_level` parsed from old
+  final-risk lines, but new chat-frame runs should leave it as `None`.
 
 ## Exam-framing pipeline
 
@@ -120,3 +118,7 @@ parsed = completion.choices[0].message.parsed  # typed ExamAnswer
   OpenRouter; pass `reasoning.effort=high` instead. `:online` IS a real
   OpenRouter route suffix and stays on the wire. See `resolve_model()` in
   the bench scripts.
+
+
+## Python Runtime
+Always use the python env called `neg` from conda

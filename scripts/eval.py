@@ -257,7 +257,7 @@ def main():
     todo_keys = [k for k in bench_by_key if k not in results]
     print(f"{len(todo_keys)} samples to judge ({len(results)} already done)")
 
-    executor = ThreadPoolExecutor(max_workers=5)
+    executor = ThreadPoolExecutor(max_workers=10)
     futures = {executor.submit(eval, bench_by_key[k], blacklist_norm, Q1): k for k in todo_keys}
 
     try:
