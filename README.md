@@ -133,7 +133,7 @@ Python deps: `openai`, `ollama`, `python-dotenv`, `tqdm`, `pydantic`, `thefuzz`,
 
 ### Concurrency / timeouts
 
-Both bench scripts use `ThreadPoolExecutor(max_workers=30)` against the OpenRouter API, with a per-call timeout of **60s** for non-thinking variants and **240s** for `:thinking` variants. Up to 5 retries per sample. Both eval scripts use `max_workers=5` against the OpenRouter `glm-5.1` judge with `reasoning.effort=low` and a 60s timeout.
+Both bench scripts use `ThreadPoolExecutor(max_workers=30)` against the OpenRouter API, with a per-call timeout of **60s** for non-thinking variants and **240s** for `:thinking` variants. Up to 5 retries per sample. Both eval scripts use `max_workers=5` against the OpenRouter `deepseek/deepseek-v4-flash` judge with `reasoning.effort=low` and a 60s timeout.
 
 ### Important quirks (read before editing)
 

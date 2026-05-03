@@ -143,7 +143,7 @@ def _call_api_judge(sample):
 
     response_for_judge = strip_fra(sample["response"])
     return client.chat.completions.create(
-        model="glm-5.1",
+        model="deepseek/deepseek-v4-flash",
         messages=[
             {"role": "system", "content": eval_system_prompt},
             {

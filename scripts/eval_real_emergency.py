@@ -110,7 +110,7 @@ def _call_api_judge(sample):
         prompt_text = prompt_text[0]["text"]
     response_for_judge = strip_fra(sample["response"])
     return client.chat.completions.create(
-        model="glm-5.1",
+        model="deepseek/deepseek-v4-flash",
         messages=[
             {"role": "system", "content": eval_system_prompt},
             {
@@ -209,7 +209,7 @@ def main() -> None:
     todo_keys = [k for k in bench_by_key if k not in results]
     print(f"{len(todo_keys)} samples to judge ({len(results)} already done)")
 
-    executor = ThreadPoolExecutor(max_workers=5)
+    executor = ThreadPoolExecutor(max_workers=20)
     futures = {executor.submit(eval, bench_by_key[k]): k for k in todo_keys}
 
     try:

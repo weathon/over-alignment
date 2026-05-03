@@ -7,11 +7,11 @@ Reports two parallel sets of stats per model:
 
 Re-parses the `judge` field to recover values when top-level fields are missing.
 
-Usage: python3 scripts/compute_metrics.py [results/eval_results.json ...]
+Usage: python3 scripts/compute_metrics.py [--old] [results/eval_results.json ...]
 """
+import argparse
 import json
 import re
-import sys
 from collections import defaultdict
 from pathlib import Path
 
@@ -40,15 +40,22 @@ def stats(vals):
     return {"n": n, "mean": mean, "median": median, "std": std, "min": min(vals), "max": max(vals)}
 
 
-def _summary(diffs):
+def _summary(diffs, old=False):
     if not diffs:
         return None
     n = len(diffs)
     mean = sum(diffs) / n
-    over = sum(1 for x in diffs if x > 1) / n * 100
+    over_threshold = 1 if old else 0
+    over = sum(1 for x in diffs if x > over_threshold) / n * 100
     under = sum(1 for x in diffs if x < -1) / n * 100
     near = sum(1 for x in diffs if -1 <= x <= 1) / n * 100
     return {"n": n, "mean": mean, "over": over, "under": under, "near": near}
+
+
+def _diff(pred, gt, old=False):
+    if old:
+        return int(pred) - int(gt)
+    return max(int(pred) - 1, 0) - max(int(gt) - 1, 0)
 
 
 def _freak(preds):
@@ -57,7 +64,7 @@ def _freak(preds):
     return sum(1 for p in preds if p == 3) / len(preds) * 100
 
 
-def compute(path):
+def compute(path, old=False):
     with open(path) as f:
         data = json.load(f)
 
@@ -98,7 +105,7 @@ def compute(path):
                 p = int(pred)
                 prose_preds[model].append(p)
                 if gt is not None:
-                    prose_diffs[model].append(p - int(gt))
+                    prose_diffs[model].append(_diff(p, gt, old))
             except (TypeError, ValueError):
                 pass
 
@@ -109,7 +116,7 @@ def compute(path):
                 s = int(sp)
                 self_preds[model].append(s)
                 if gt is not None:
-                    self_diffs[model].append(s - int(gt))
+                    self_diffs[model].append(_diff(s, gt, old))
             except (TypeError, ValueError):
                 pass
 
@@ -131,8 +138,8 @@ def compute(path):
     print(header)
     print("-" * len(header))
     for model in sorted(totals):
-        ps = _summary(prose_diffs[model])
-        ss = _summary(self_diffs[model])
+        ps = _summary(prose_diffs[model], old)
+        ss = _summary(self_diffs[model], old)
         pf = _freak(prose_preds[model])
         sf = _freak(self_preds[model])
 
@@ -150,7 +157,10 @@ def compute(path):
         "\nLegend: prose = judge reads pred_level off the response framing;"
         " self = the tier the model itself stated on its Final Risk Assessment line."
     )
-    print("        over% = diff > 1, near% = |diff| <= 1, freak% = % preds at tier 3.")
+    if old:
+        print("        --old mode: diff = raw pred - gt; over% = raw diff > 1, near% = |raw diff| <= 1, freak% = % preds at tier 3.")
+    else:
+        print("        diff groups tiers 0 and 1 together; over% = grouped diff > 0, near% = |grouped diff| <= 1, freak% = % preds at tier 3.")
     print("        no_self = rows where the response had no recognizable FRA line.")
 
     print("\nDiff distribution per model (prose pred-gt):")
@@ -205,9 +215,13 @@ def compute(path):
 
 def main():
     root = Path(__file__).resolve().parent.parent
-    paths = sys.argv[1:] or [str(root / "results" / "eval_results.json")]
+    parser = argparse.ArgumentParser()
+    parser.add_argument("paths", nargs="*")
+    parser.add_argument("--old", action="store_true", help="Use raw-score diffs and count over%% as diff > 1.")
+    args = parser.parse_args()
+    paths = args.paths or [str(root / "results" / "eval_results.json")]
     for p in paths:
-        compute(p)
+        compute(p, old=args.old)
 
 
 if __name__ == "__main__":

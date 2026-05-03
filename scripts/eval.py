@@ -158,7 +158,7 @@ def _call_api_judge(sample, Q1):
 
     response_for_judge = strip_fra(sample["response"])
     return client.chat.completions.create(
-        model="glm-5.1",
+        model="deepseek/deepseek-v4-flash",
         messages=[
             {"role": "system", "content": eval_system_prompt},
             {"role": "user", "content": "Q: " + prompt_text + "\nA: " + response_for_judge},
@@ -178,7 +178,7 @@ def eval(sample, blacklist_norm, Q1, max_retries=5, parse_retries=3):
             executor = ThreadPoolExecutor(max_workers=1)
             future = executor.submit(_call_api_judge, sample, Q1)
             try:
-                completion = future.result(timeout=60)
+                completion = future.result(timeout=120)
                 executor.shutdown()
                 break
             except KeyboardInterrupt:
@@ -203,7 +203,7 @@ def eval(sample, blacklist_norm, Q1, max_retries=5, parse_retries=3):
             judge_data["anxiety_index"]
             judge_data["pred_level"]
             break
-        except (json.JSONDecodeError, KeyError, TypeError) as e:
+        except Exception as e:
             print(f"JUDGE PARSE FAIL (attempt {parse_attempt + 1}/{parse_retries}) — {e} — raw:\n{raw!r}")
             if parse_attempt == parse_retries - 1:
                 raise
@@ -257,7 +257,7 @@ def main():
     todo_keys = [k for k in bench_by_key if k not in results]
     print(f"{len(todo_keys)} samples to judge ({len(results)} already done)")
 
-    executor = ThreadPoolExecutor(max_workers=10)
+    executor = ThreadPoolExecutor(max_workers=20)
     futures = {executor.submit(eval, bench_by_key[k], blacklist_norm, Q1): k for k in todo_keys}
 
     try:
