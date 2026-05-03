@@ -9,6 +9,18 @@
 
 set -euo pipefail
 
+cd "$(dirname "$0")/.."
+
+cleanup() {
+    set +e
+    echo "interrupted, killing pipeline jobs..."
+    jobs -pr | xargs -r kill
+    wait
+    exit 130
+}
+
+trap cleanup INT TERM
+
 # Rewrites are one-time — uncomment if data/dataset_exam.json or
 # data/dataset_real_emergency_exam.json need to be (re)generated.
 # python scripts/rewrite_to_exam.py &

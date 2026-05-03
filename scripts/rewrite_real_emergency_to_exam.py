@@ -89,6 +89,8 @@ def rewrite_one(prompt: str) -> str | None:
             think=False,
         )
         return completion.message.content.strip()
+    except KeyboardInterrupt:
+        raise
     except Exception as e:
         print(f"failed: {e}")
         return None
@@ -106,16 +108,31 @@ def main():
 
     todo = [p for p in prompts if p not in rewritten]
 
-    with ThreadPoolExecutor(max_workers=8) as ex:
-        futures = {ex.submit(rewrite_one, p): p for p in todo}
+    def save_outputs():
+        ordered = [{"original": p, "exam": rewritten[p]} for p in prompts if p in rewritten]
+        OUT.write_text(json.dumps(ordered, indent=2, ensure_ascii=False))
+        return ordered
+
+    ex = ThreadPoolExecutor(max_workers=8)
+    futures = {ex.submit(rewrite_one, p): p for p in todo}
+    try:
         for fut in tqdm(as_completed(futures), total=len(futures)):
             p = futures[fut]
             out = fut.result()
             if out:
                 rewritten[p] = out
+    except KeyboardInterrupt:
+        print("interrupted, cancelling...")
+        for fut in futures:
+            fut.cancel()
+        ex.shutdown(wait=False, cancel_futures=True)
+        ordered = save_outputs()
+        print(f"wrote {len(ordered)} rewritten prompts to {OUT}")
+        os._exit(130)
+    else:
+        ex.shutdown()
 
-    ordered = [{"original": p, "exam": rewritten[p]} for p in prompts if p in rewritten]
-    OUT.write_text(json.dumps(ordered, indent=2, ensure_ascii=False))
+    ordered = save_outputs()
     print(f"wrote {len(ordered)} rewritten prompts to {OUT}")
 
 

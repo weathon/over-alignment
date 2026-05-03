@@ -85,24 +85,33 @@ def _call_api(sample):
 def eval(sample, max_retries=5):
     retries = 0
     while True:
-        with ThreadPoolExecutor(max_workers=1) as executor:
-            future = executor.submit(_call_api, sample)
-            try:
-                # medium/high efforts can take a while; give them headroom.
-                _, effort = resolve_model(sample["model"])
-                timeout = 240 if effort in {"medium", "high"} else 90
-                completion = future.result(timeout=timeout)
-                if completion.choices[0].message.content:
-                    sample["response"] = completion.choices[0].message.content
-                    return sample
-            except FuturesTimeout:
-                retries += 1
-                if retries >= max_retries:
-                    raise TimeoutError("Max retries exceeded")
-                continue
-            except Exception as e:
-                print(e)
-                continue
+        executor = ThreadPoolExecutor(max_workers=1)
+        future = executor.submit(_call_api, sample)
+        try:
+            # medium/high efforts can take a while; give them headroom.
+            _, effort = resolve_model(sample["model"])
+            timeout = 240 if effort in {"medium", "high"} else 90
+            completion = future.result(timeout=timeout)
+            if completion.choices[0].message.content:
+                sample["response"] = completion.choices[0].message.content
+                executor.shutdown()
+                return sample
+        except KeyboardInterrupt:
+            future.cancel()
+            executor.shutdown(wait=False, cancel_futures=True)
+            raise
+        except FuturesTimeout:
+            retries += 1
+            future.cancel()
+            executor.shutdown(wait=False, cancel_futures=True)
+            if retries >= max_retries:
+                raise TimeoutError("Max retries exceeded")
+            continue
+        except Exception as e:
+            print(e)
+            executor.shutdown(wait=False, cancel_futures=True)
+            continue
+        executor.shutdown()
 
 
 def main() -> None:
@@ -163,7 +172,7 @@ def main() -> None:
             f.cancel()
         executor.shutdown(wait=False, cancel_futures=True)
         _save(results)
-        raise
+        os._exit(130)
     else:
         executor.shutdown()
 

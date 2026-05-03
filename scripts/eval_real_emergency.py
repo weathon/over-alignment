@@ -127,16 +127,23 @@ def eval(sample, max_retries=5, parse_retries=3):
     for parse_attempt in range(parse_retries):
         retries = 0
         while True:
-            with ThreadPoolExecutor(max_workers=1) as executor:
-                future = executor.submit(_call_api_judge, sample)
-                try:
-                    completion = future.result(timeout=60)
-                    break
-                except FuturesTimeout:
-                    retries += 1
-                    if retries >= max_retries:
-                        raise TimeoutError("Max retries exceeded")
-                    continue
+            executor = ThreadPoolExecutor(max_workers=1)
+            future = executor.submit(_call_api_judge, sample)
+            try:
+                completion = future.result(timeout=60)
+                executor.shutdown()
+                break
+            except KeyboardInterrupt:
+                future.cancel()
+                executor.shutdown(wait=False, cancel_futures=True)
+                raise
+            except FuturesTimeout:
+                retries += 1
+                future.cancel()
+                executor.shutdown(wait=False, cancel_futures=True)
+                if retries >= max_retries:
+                    raise TimeoutError("Max retries exceeded")
+                continue
 
         raw = completion.message.content
         sample["judge"] = raw
@@ -210,7 +217,7 @@ def main() -> None:
             f.cancel()
         executor.shutdown(wait=False, cancel_futures=True)
         _save(results)
-        raise
+        os._exit(130)
     else:
         executor.shutdown()
 

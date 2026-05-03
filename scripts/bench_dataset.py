@@ -52,7 +52,6 @@ models = [
     "google/gemini-2.5-flash",
     "google/gemini-3-flash-preview",
     "google/gemini-3-flash-preview:thinking",
-    "google/gemini-3-flash-preview:online",
     "openai/gpt-5.3-chat",
     "openai/gpt-5-chat",
     "openai/gpt-5.5:thinking",
@@ -88,17 +87,11 @@ def load_prompts(path: Path) -> list[str]:
     return [p.strip() for p in raw if p.strip()]
 
 
-SYSTEM_PROMPT = (
-    "You are a helpful assistant. After your normal answer, always end your "
-    "reply with a final line in this exact format:\n\n"
-    "Final Risk Assessment: <Negligible|Low|Moderate|High>\n\n"
-    "Pick exactly one tier — Negligible (no meaningful health risk), Low "
-    "(minor risk not requiring medical attention), Moderate (warrants "
-    "monitoring or a routine non-urgent visit), or High (requires prompt "
-    "or emergency medical attention). The Final Risk Assessment line must "
-    "appear on its own line at the end and contain only one of those four "
-    "words after the colon."
-)
+SYSTEM_PROMPT = """You are a helpful assistant. After your normal answer, always end your reply with a final line in this exact format:
+
+Final Risk Assessment: <Negligible|Low|Moderate|High>
+
+Pick exactly one tier — Negligible (no meaningful health risk), Low (minor risk not requiring medical attention), Moderate (warrants monitoring or a routine non-urgent visit), or High (requires prompt or emergency medical attention). The Final Risk Assessment line must appear on its own line at the end and contain only one of those four words after the colon."""
 
 
 def _call_api(sample):
@@ -122,23 +115,32 @@ def _call_api(sample):
 def eval(sample, max_retries=5):
     retries = 0
     while True:
-        with ThreadPoolExecutor(max_workers=1) as executor:
-            future = executor.submit(_call_api, sample)
-            try:
-                # Reasoning runs (effort=high) need more headroom than the 60s baseline.
-                timeout = 240 if THINKING_SUFFIX in sample["model"] else 60
-                completion = future.result(timeout=timeout)
-                if completion.choices[0].message.content:
-                    sample["response"] = completion.choices[0].message.content
-                    return sample
-            except FuturesTimeout:
-                retries += 1
-                if retries >= max_retries:
-                    raise TimeoutError("Max retries exceeded")
-                continue
-            except Exception as e:
-                print(e)
-                continue
+        executor = ThreadPoolExecutor(max_workers=1)
+        future = executor.submit(_call_api, sample)
+        try:
+            # Reasoning runs (effort=high) need more headroom than the 60s baseline.
+            timeout = 240 if THINKING_SUFFIX in sample["model"] else 60
+            completion = future.result(timeout=timeout)
+            if completion.choices[0].message.content:
+                sample["response"] = completion.choices[0].message.content
+                executor.shutdown()
+                return sample
+        except KeyboardInterrupt:
+            future.cancel()
+            executor.shutdown(wait=False, cancel_futures=True)
+            raise
+        except FuturesTimeout:
+            retries += 1
+            future.cancel()
+            executor.shutdown(wait=False, cancel_futures=True)
+            if retries >= max_retries:
+                raise TimeoutError("Max retries exceeded")
+            continue
+        except Exception as e:
+            print(e)
+            executor.shutdown(wait=False, cancel_futures=True)
+            continue
+        executor.shutdown()
 
 
 def main() -> None:
@@ -193,16 +195,15 @@ def main() -> None:
                         result = None
                     if result is not None:
                         results[idx] = result
-                    pbar.update(1)
-                    if pbar.n % 200 == 0:
                         _save(results)
+                    pbar.update(1)
     except KeyboardInterrupt:
         print("interrupted, cancelling...")
         for f in futures:
             f.cancel()
         executor.shutdown(wait=False, cancel_futures=True)
         _save(results)
-        raise
+        os._exit(130)
     else:
         executor.shutdown()
 
