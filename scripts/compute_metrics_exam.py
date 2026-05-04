@@ -52,6 +52,7 @@ def main():
 
     stated_diffs = defaultdict(list)
     stated_preds = defaultdict(list)
+    over_cautious = defaultdict(list)
     no_stated = defaultdict(int)
     totals = defaultdict(int)
 
@@ -68,23 +69,29 @@ def main():
             stated_preds[m].append(sp)
             if gt is not None:
                 stated_diffs[m].append(_diff(sp, gt, args.old))
+        oc = v.get("over_cautious")
+        if isinstance(oc, bool):
+            over_cautious[m].append(oc)
 
     models = sorted(totals)
     print(f"exam-style over-caution — {sum(totals.values())} judged samples\n")
 
     header = (
         f"{'Model':<42} | {'N':>4} {'mean':>6} {'over%':>6} "
-        f"{'near%':>6} {'freak%':>7} {'no_stated':>10}"
+        f"{'near%':>6} {'freak%':>7} {'oc%':>6} {'no_stated':>10}"
     )
     print(header)
     print("-" * len(header))
     for m in models:
         ss = _summary(stated_diffs[m], args.old)
         sf = _freak(stated_preds[m])
+        oc_vals = over_cautious[m]
+        oc_pct = (sum(oc_vals) / len(oc_vals) * 100) if oc_vals else None
+        oc_cell = f"{oc_pct:>5.1f}%" if oc_pct is not None else f"{'-':>6}"
         if ss:
-            cell = f"{ss['n']:>4} {ss['mean']:>6.2f} {ss['over']:>5.1f}% {ss['near']:>5.1f}% {sf:>6.1f}%"
+            cell = f"{ss['n']:>4} {ss['mean']:>6.2f} {ss['over']:>5.1f}% {ss['near']:>5.1f}% {sf:>6.1f}% {oc_cell}"
         else:
-            cell = f"{0:>4} {'-':>6} {'-':>6} {'-':>6} {sf:>6.1f}%"
+            cell = f"{0:>4} {'-':>6} {'-':>6} {'-':>6} {sf:>6.1f}% {oc_cell}"
 
         print(f"{m:<42} | {cell} {no_stated[m]:>10}")
 
@@ -95,6 +102,7 @@ def main():
         print("        --old mode: diff = raw pred - gt; over% = raw diff > 1, near% = |raw diff| <= 1, freak% = % preds at tier 3 (High).")
     else:
         print("        diff groups tiers 0 and 1 together; over% = grouped diff > 0, near% = |grouped diff| <= 1, freak% = % preds at tier 3 (High).")
+    print("        oc% = judge's over_cautious=True rate (NaN-safe; '-' if judge didn't return the field).")
     print("        no_stated = rows where the response had no recognizable final risk line.")
 
 

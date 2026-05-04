@@ -71,6 +71,7 @@ def compute(path, old=False):
     stated_diffs = defaultdict(list)
     stated_preds = defaultdict(list)
     anxiety = defaultdict(list)
+    over_cautious = defaultdict(list)
     no_stated = defaultdict(int)
     judge_unparseable = defaultdict(int)
     totals = defaultdict(int)
@@ -93,6 +94,12 @@ def compute(path, old=False):
             ai = judge.get("anxiety_index")
         if ai is None and judge is None:
             judge_unparseable[model] += 1
+
+        oc = sample.get("over_cautious")
+        if oc is None and judge is not None:
+            oc = judge.get("over_cautious")
+        if isinstance(oc, bool):
+            over_cautious[model].append(oc)
 
         gt = sample.get("gt_level")
 
@@ -118,16 +125,19 @@ def compute(path, old=False):
 
     header = (
         f"{'Model':<35} | {'N':>4} {'mean':>6} {'over%':>6} "
-        f"{'near%':>6} {'freak%':>7} {'no_stated':>10}"
+        f"{'near%':>6} {'freak%':>7} {'oc%':>6} {'no_stated':>10}"
     )
     print(header)
     print("-" * len(header))
     for model in sorted(totals):
         ss = _summary(stated_diffs[model], old)
         sf = _freak(stated_preds[model])
+        oc_vals = over_cautious[model]
+        oc_pct = (sum(oc_vals) / len(oc_vals) * 100) if oc_vals else None
+        oc_cell = f"{oc_pct:>5.1f}%" if oc_pct is not None else f"{'-':>6}"
         cell = (
-            f"{ss['n']:>4} {ss['mean']:>6.2f} {ss['over']:>5.1f}% {ss['near']:>5.1f}% {sf:>6.1f}%"
-            if ss else f"{0:>4} {'-':>6} {'-':>6} {'-':>6} {sf:>6.1f}%"
+            f"{ss['n']:>4} {ss['mean']:>6.2f} {ss['over']:>5.1f}% {ss['near']:>5.1f}% {sf:>6.1f}% {oc_cell}"
+            if ss else f"{0:>4} {'-':>6} {'-':>6} {'-':>6} {sf:>6.1f}% {oc_cell}"
         )
         print(f"{model:<35} | {cell} {no_stated[model]:>10}")
 
@@ -138,6 +148,7 @@ def compute(path, old=False):
         print("        --old mode: diff = raw pred - gt; over% = raw diff > 1, near% = |raw diff| <= 1, freak% = % preds at tier 3.")
     else:
         print("        diff groups tiers 0 and 1 together; over% = grouped diff > 0, near% = |grouped diff| <= 1, freak% = % preds at tier 3.")
+    print("        oc% = judge's over_cautious=True rate (NaN-safe; '-' if judge didn't return the field).")
     print("        no_stated = rows where the response had no recognizable final risk line.")
 
     print("\nDiff distribution per model (stated risk - gt):")
