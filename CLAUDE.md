@@ -125,3 +125,6 @@ parsed = completion.choices[0].message.parsed  # typed ExamAnswer
 
 ## Python Runtime
 Always use the python env called `neg` from conda
+
+## Model Names
+AI models and related technologies evolve quickly, while your knowledge is fixed at the time of training. If you encounter a model name, programming language, library, or other tool that seems unfamiliar or “fake,” do not assume it is invalid. It is likely a legitimate development released after your training data was collected.
