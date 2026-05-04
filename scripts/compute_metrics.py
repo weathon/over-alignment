@@ -23,8 +23,9 @@ def parse_judge(s):
         return None
     try:
         return json.loads(m.group(0))
-    except json.JSONDecodeError:
-        return None
+    except json.JSONDecodeError as e:
+        print(f"judge JSON parse failed: {e}; raw:\n{s!r}")
+        raise
 
 
 def stats(vals):

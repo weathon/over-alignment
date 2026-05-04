@@ -59,6 +59,11 @@ parsed = completion.choices[0].message.parsed  # typed ExamAnswer
 
 ## Bench / eval conventions
 
+- Agents must NOT run the full benchmark pipelines (`scripts/run_pipeline.sh`
+  or `scripts/run_pipeline_exam.sh`) unless the user explicitly asks for a
+  full run in that turn. A full run takes about 29 hours and burns API budget.
+  For verification, use syntax checks, small targeted script invocations, or
+  inspect resume/output files instead.
 - Bench scripts are resumable on `(prompt, model)`. Don't change the resume
   key shape without a migration — `eval.py` has one for the int→string-key
   rename, follow that pattern.

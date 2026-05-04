@@ -208,7 +208,7 @@ def eval(sample, max_retries=5, parse_retries=3):
             judge_data["tags"]
             judge_data["anxiety_index"]
             break
-        except (json.JSONDecodeError, KeyError, TypeError) as e:
+        except (json.JSONDecodeError, KeyError, TypeError, ValueError) as e:
             print(f"JUDGE PARSE FAIL (attempt {parse_attempt + 1}/{parse_retries}) — {e} — raw:\n{message.content!r}")
             if parse_attempt == parse_retries - 1:
                 raise

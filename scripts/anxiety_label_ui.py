@@ -52,8 +52,9 @@ def load_samples() -> list[dict]:
             continue
         try:
             jd = json.loads(_strip_fences(v["judge"]))
-        except (json.JSONDecodeError, TypeError):
-            continue
+        except (json.JSONDecodeError, TypeError) as e:
+            print(f"judge JSON parse failed: {e}; raw:\n{v['judge']!r}")
+            raise
         anx = jd.get("anxiety_index")
         if anx is None:
             continue
@@ -77,8 +78,8 @@ def load_labels() -> dict[str, int]:
         try:
             with OUT.open("r") as f:
                 return {k: int(v) for k, v in json.load(f).items()}
-        except (json.JSONDecodeError, ValueError):
-            pass
+        except (json.JSONDecodeError, ValueError) as e:
+            print(f"could not load {OUT}: {e}")
     return {}
 
 
