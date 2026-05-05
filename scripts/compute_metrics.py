@@ -294,8 +294,37 @@ def _emergency_recognition_by_model(path):
 
 
 def plot_emergency_recognition_vs_ocr(eval_path, real_emergency_path, out_path):
+    from adjustText import adjust_text
     import matplotlib.pyplot as plt
 
+    short_names = {
+        "anthropic/claude-3.5-haiku": "Haiku 3.5",
+        "anthropic/claude-3.7-sonnet": "Sonnet 3.7",
+        "anthropic/claude-opus-4.7": "Opus 4.7",
+        "anthropic/claude-sonnet-4": "Sonnet 4",
+        "anthropic/claude-sonnet-4.6": "Sonnet 4.6",
+        "anthropic/claude-sonnet-4.6:thinking": "Sonnet 4.6 think",
+        "google/gemini-2.0-flash-001": "Gemini 2.0",
+        "google/gemini-2.5-flash": "Gemini 2.5",
+        "google/gemini-3-flash-preview": "Gemini 3",
+        "google/gemini-3-flash-preview:thinking": "Gemini 3 think",
+        "google/gemma-3-27b-it": "Gemma 3",
+        "google/gemma-4-31b-it": "Gemma 4",
+        "openai/gpt-3.5-turbo": "GPT-3.5",
+        "openai/gpt-4-turbo": "GPT-4T",
+        "openai/gpt-4.1": "GPT-4.1",
+        "openai/gpt-4o-2024-05-13": "GPT-4o May",
+        "openai/gpt-4o-2024-11-20": "GPT-4o Nov",
+        "openai/gpt-5-chat": "GPT-5",
+        "openai/gpt-5.3-chat": "GPT-5.3",
+        "openai/gpt-5.5:thinking": "GPT-5.5 think",
+        "qwen/qwen3.6-plus": "Qwen 3.6",
+        "x-ai/grok-4.20": "Grok 4.2",
+    }
+    initial_label_pos = {
+        "openai/gpt-4o-2024-05-13": (0.5, -0.3),
+        "openai/gpt-5.5:thinking": (0.5, 0.3),
+    }
     with open(eval_path) as f:
         eval_results = json.load(f)
 
@@ -306,21 +335,33 @@ def plot_emergency_recognition_vs_ocr(eval_path, real_emergency_path, out_path):
         raise ValueError("no overlapping models between OCR eval and real-emergency eval")
 
     out_path.parent.mkdir(parents=True, exist_ok=True)
-    plt.figure(figsize=(9, 6))
+    fig, ax = plt.subplots(figsize=(10, 6))
+    texts = []
     for model in models:
         x = ocr_by_model[model]
         y = recog_by_model[model]
-        plt.scatter(x, y, s=70)
-        plt.annotate(model, (x, y), xytext=(5, 4), textcoords="offset points", fontsize=8)
+        label = short_names.get(model, model.split("/", 1)[1] if "/" in model else model)
+        ax.scatter(x, y, s=70, label=model)
+        dx, dy = initial_label_pos.get(model, (0.0, 0.0))
+        texts.append(ax.text(x + dx, y + dy, label, fontsize=8))
 
-    plt.xlabel("OCR on over-caution set (%)")
-    plt.ylabel("Emergency recognition (%)")
-    plt.title("Emergency recognition vs OCR by model")
-    plt.xlim(left=0)
-    plt.ylim(0, 100)
-    plt.grid(True, alpha=0.3)
-    plt.tight_layout()
-    plt.savefig(out_path, dpi=200)
+    ax.set_xlabel("Over-caution rate on OCD-Eval (%)")
+    ax.set_ylabel("Emergency recognition (%)")
+    ax.set_title("Emergency recognition vs OCR by model")
+    ax.set_xlim(left=0)
+    ax.set_ylim(90, 100)
+    ax.grid(True, alpha=0.3)
+    adjust_text(
+        texts,
+        ax=ax,
+        arrowprops={"arrowstyle": "-", "color": "0.35", "lw": 0.6},
+        expand=(1.2, 1.4),
+        force_text=(0.4, 0.8),
+        force_static=(0.4, 0.8),
+    )
+    ax.legend(loc="center left", bbox_to_anchor=(1.02, 0.5), fontsize=7, frameon=False)
+    fig.tight_layout()
+    fig.savefig(out_path, dpi=200)
     print(f"saved {out_path}")
 
 
