@@ -41,22 +41,6 @@ Optimize for **iteration speed and clarity**, not robustness or polish.
   controlled by `extra_body={"reasoning": {"effort": ...}}`). Use a neutral
   name like `text`.
 
-Example (`bench_dataset_exam.py`):
-
-```python
-class ExamAnswer(BaseModel):
-    text: str  # rationale, generated first
-    answer: Literal["A", "B", "C", "D"]
-
-completion = client.chat.completions.parse(
-    model=route,
-    messages=[...],
-    response_format=ExamAnswer,
-    extra_body={"reasoning": {"effort": effort}},
-)
-parsed = completion.choices[0].message.parsed  # typed ExamAnswer
-```
-
 ## Bench / eval conventions
 
 - Agents must NOT run any code to "verify" or "test" the changes — no syntax
@@ -64,9 +48,8 @@ parsed = completion.choices[0].message.parsed  # typed ExamAnswer
   no small targeted invocations, no script imports. The user is testing in
   their own loop. If you want confidence that an edit is correct, *re-read
   the diff* — don't run anything.
-- Agents must NOT run the full benchmark pipelines (`scripts/run_pipeline.sh`
-  or `scripts/run_pipeline_exam.sh`) — a full run takes about 29 hours and
-  burns API budget. The user runs them.
+- Agents must NOT run the full benchmark pipeline (`scripts/run_pipeline.sh`)
+  — a full run takes hours and burns API budget. The user runs it.
 - Bench scripts are resumable on `(prompt, model)`. Don't change the resume
   key shape without a migration — `eval.py` has one for the int→string-key
   rename, follow that pattern.
@@ -78,20 +61,6 @@ parsed = completion.choices[0].message.parsed  # typed ExamAnswer
   exactly `Final Risk Assessment: <Negligible|Low|Moderate|High>`. The eval
   scripts extract that tier by regex into `stated_risk_level`; the judge only
   labels tags and `anxiety_index`, not a probed/prose risk level.
-
-## Exam-framing pipeline
-
-- Source of truth for rewritten prompts is `data/dataset_exam.json`
-  (`{original, exam}` pairs), NOT `data/dataset_exam.txt`. The `.txt` is a
-  derived view for human inspection only. Bench results carry the `original`
-  field so gt_level lookup never depends on positional alignment between
-  files. Don't reintroduce positional alignment.
-- Real-emergency exam ground truth is fixed: every prompt is physician-agreed
-  emergent, so `gt_level == 3` for the whole split. Metrics report
-  `recog%` (% answered D), no `freak%`.
-- Model lists in `bench_dataset_exam.py` and `bench_real_emergency_exam.py`
-  are intentionally a smaller subset than the chat-frame bench. Keep them
-  in sync with each other.
 
 ## Data files
 

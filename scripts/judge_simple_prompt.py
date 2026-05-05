@@ -3,9 +3,8 @@ prompt primes the judge to over-flag. Try a stripped-down prompt that just
 asks how the model assessed the risk and how much anxiety the response
 would cause, with no editorializing about why over-caution is bad.
 
-Runs both v4-pro and glm-5.1 on the same 255 GP-labeled cases with the
-simple prompt, computes AC1 vs GP and cross-model agreement, and compares
-to the loaded prompt's numbers.
+Runs v4-pro on the same 255 GP-labeled cases with the simple prompt,
+computes AC1 vs GP, and compares to the loaded prompt's numbers.
 """
 
 import json
@@ -141,7 +140,7 @@ def main():
     rows = [r for _, r in work.iterrows()]
 
     results = {}
-    for model in ["deepseek/deepseek-v4-pro", "z-ai/glm-5.1"]:
+    for model in ["deepseek/deepseek-v4-pro"]:
         print(f"\nrunning {model} (simple prompt) on {len(rows)} rows")
         out = []
         with ThreadPoolExecutor(max_workers=20) as ex:
@@ -150,49 +149,29 @@ def main():
                 out.append(f.result())
         results[model] = out
 
-    # Pair on datapoint_id
     v4_by = {r["datapoint_id"]: r for r in results["deepseek/deepseek-v4-pro"] if "error" not in r}
-    glm_by = {r["datapoint_id"]: r for r in results["z-ai/glm-5.1"] if "error" not in r}
-    paired = []
+    judged = []
     for did, v in v4_by.items():
-        g = glm_by.get(did)
-        if g is None:
-            continue
-        paired.append({
+        judged.append({
             "datapoint_id": did,
             "tier": v["tier"],
             "gp_label": v["gp_label"],
             "gp_exaggerates": v["gp_label"] == EXAG,
             "v4_oc": v["deepseek/deepseek-v4-pro_oc"],
             "v4_anx": v["deepseek/deepseek-v4-pro_anx"],
-            "glm_oc": g["z-ai/glm-5.1_oc"],
-            "glm_anx": g["z-ai/glm-5.1_anx"],
         })
 
-    n = len(paired)
-    gp_bin = [1 if p["gp_exaggerates"] else 0 for p in paired]
-    v4_bin = [1 if p["v4_oc"] else 0 for p in paired]
-    glm_bin = [1 if p["glm_oc"] else 0 for p in paired]
+    n = len(judged)
+    gp_bin = [1 if p["gp_exaggerates"] else 0 for p in judged]
+    v4_bin = [1 if p["v4_oc"] else 0 for p in judged]
 
     v4_m = metrics_vs_gp(gp_bin, v4_bin)
-    glm_m = metrics_vs_gp(gp_bin, glm_bin)
-    cross_ac1, _, cross_lo, cross_hi = gwet_ac1(v4_bin, glm_bin)
 
-    a4 = [p["v4_anx"] for p in paired]
-    ag = [p["glm_anx"] for p in paired]
-    m4 = sum(a4) / n; mg = sum(ag) / n
-    num = sum((x - m4) * (y - mg) for x, y in zip(a4, ag))
-    den = (sum((x - m4) ** 2 for x in a4) * sum((y - mg) ** 2 for y in ag)) ** 0.5
-    pearson = num / den if den else 0
-
-    print(f"\n=== Simple prompt (n={n}, GP prevalence: {sum(gp_bin)/n:.3f}) ===\n")
-    print(f"{'metric':<22} {'v4-pro':>10} {'glm-5.1':>10}")
+    print(f"\n=== Simple prompt (n={n}, GP prevalence: {sum(gp_bin) / n:.3f}) ===\n")
+    print(f"{'metric':<22} {'v4-pro':>10}")
     for k in ["accuracy", "precision", "recall", "f1", "ac1", "pos_rate"]:
-        print(f"{k:<22} {v4_m[k]:>10} {glm_m[k]:>10}")
+        print(f"{k:<22} {v4_m[k]:>10}")
     print(f"  v4-pro AC1 95% CI: {v4_m['ac1_ci']}")
-    print(f"  glm-5.1 AC1 95% CI: {glm_m['ac1_ci']}")
-    print(f"\n  Cross-model AC1 (v4 vs glm): {cross_ac1:.4f} (CI {cross_lo:.4f}, {cross_hi:.4f})")
-    print(f"  Anxiety Pearson r (v4 vs glm): {pearson:.4f}")
 
     print(f"\n=== Comparison: simple prompt vs loaded prompt ===")
     print("                      LOADED  ->  SIMPLE")
@@ -201,21 +180,15 @@ def main():
     print(f"  v4-pro recall:      0.8529  ->  {v4_m['recall']:.4f}")
     print(f"  v4-pro F1:          0.617   ->  {v4_m['f1']:.4f}")
     print(f"  v4-pro AC1 vs GP:   0.4718  ->  {v4_m['ac1']:.4f}")
-    print(f"  glm-5.1 pos_rate:   0.5294  ->  {glm_m['pos_rate']:.4f}")
-    print(f"  glm-5.1 AC1 vs GP:  0.3298  ->  {glm_m['ac1']:.4f}")
-    print(f"  cross-model AC1:    0.6627  ->  {cross_ac1:.4f}")
 
     out = {
-        "n_paired": n,
+        "n_judged": n,
         "gp_prevalence": round(sum(gp_bin) / n, 4),
         "v4pro": v4_m,
-        "glm51": glm_m,
-        "cross_model_ac1": round(cross_ac1, 4),
-        "anxiety_pearson": round(pearson, 4),
     }
     out_path = ROOT / "results" / "judge_simple_prompt.json"
     with out_path.open("w") as f:
-        json.dump({"summary": out, "paired": paired}, f, indent=2)
+        json.dump({"summary": out, "judged": judged}, f, indent=2)
     print(f"\nwrote {out_path}")
 
 

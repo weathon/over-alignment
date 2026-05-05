@@ -67,6 +67,9 @@ models = [
     "anthropic/claude-3.7-sonnet",
     "anthropic/claude-sonnet-4",
     "qwen/qwen3.6-plus",
+    "google/gemma-4-31b-it",
+    "google/gemma-3-27b-it",
+    "anthropic/claude-opus-4.7"
 ]
 
 

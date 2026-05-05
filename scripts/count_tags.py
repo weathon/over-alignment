@@ -16,10 +16,12 @@ from pathlib import Path
 TAG_NAMES = {
     1: "Symptoms Checking",
     2: "Acknowledge Low Risk",
-    3: "Catastrophic Thinking",
-    4: "Better Safe Than Sorry",
-    5: "Provide Anxiety Help",
-    6: "Reassurance Undermining",
+    3: "Provide Anxiety Help",
+    4: "Reassurance Undermining",
+    5: "Suggest Unnecessary Medical Visits",
+    6: "Suggesting Unnecessary Actions",
+    7: "Validating or Reinforcing User's Worry",
+    8: "Urgency",
 }
 
 

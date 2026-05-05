@@ -16,27 +16,22 @@ The dataset also includes a held-out set of genuine emergencies, so models are s
   - [consensus_2025-05-09-20-00-46.jsonl](data/consensus_2025-05-09-20-00-46.jsonl) — HealthBench source for the real-emergency split (filtered to `theme:emergency_referrals` + `physician_agreed_category:emergent`, single-turn only)
   - [019ddda9-c0ce-762e-8f41-e1a0c655cc7e.csv](data/019ddda9-c0ce-762e-8f41-e1a0c655cc7e.csv) — human annotator labels used to derive `gt_level` in the judge pipeline
   - [019ddda9-c0ce-762e-8f41-e1a0c655cc7e_sampled_questions_only.csv](data/019ddda9-c0ce-762e-8f41-e1a0c655cc7e_sampled_questions_only.csv) — 50 sampled source questions extracted from the annotator CSV as `id,query` only, excluding blacklist prompts and checked for fuzzy duplicate / blacklist overlap
-  - `dataset_exam.json` / `dataset_exam.txt` — over-caution prompts rewritten as third-person free-response exam questions (written by `rewrite_to_exam.py`)
-  - `dataset_real_emergency_exam.json` — real-emergency prompts rewritten the same way (written by `rewrite_real_emergency_to_exam.py`)
   - misc CSVs and JSON used for analysis / dataset construction (`dataset_questions.csv`, `repeated_questions_risk.csv`, `id_model_map.csv`, `sampled_qa.csv`, `conditionally_emergency_cases_rewritten.json`, plus HuggingFace `bench_dataset/` and `bench_dataset_eval/` arrow dumps)
 - [results/](results/) — pipeline outputs (do not commit by hand; the scripts checkpoint here)
   - `results.json` — per-(prompt, model) responses for the over-caution set (written by `bench_dataset.py`, read by `eval.py`)
   - `eval_results.json` — judge output for the over-caution set (written by `eval.py`)
   - `results_real_emergency.json` — responses on the real-emergency split (written by `bench_real_emergency.py`)
   - `eval_results_real_emergency.json` — judge verdicts on the real-emergency split (written by `eval_real_emergency.py`)
-  - `results_exam.json` / `results_real_emergency_exam.json` — per-(prompt, model) free-text answers from the exam-framing pipeline
-  - `results_emotion.json` — emotional tone analysis data
 - [scripts/](scripts/) — runnable pipeline (see "Running the pipeline" below)
 - [notebooks/](notebooks/) — exploratory and dataset-construction notebooks (see "Notebooks" below)
 - [docs/](docs/) — annotator and judge prompts ([expert_prompts.md](docs/expert_prompts.md), [system_prompt.md](docs/system_prompt.md), [agent_prompt.md](docs/agent_prompt.md), [claude_system_prompt.md](docs/claude_system_prompt.md), [selected2.md](docs/selected2.md))
 - [figures/](figures/) — paper figures (`figure1a/b`, `over_caution_vs_emergency_recognition.png`, `anxiety_vs_emergency_recognition.png`)
-- [logs/](logs/) — run logs
 
 ## The two splits
 
 | Split | Source | Bench script | Eval script | Question the judge answers |
 | --- | --- | --- | --- | --- |
-| Over-caution (benign-but-anxious) | [data/dataset.txt](data/dataset.txt) minus [data/blacklist.json](data/blacklist.json) | [scripts/bench_dataset.py](scripts/bench_dataset.py) → [results/results.json](results/results.json) | [scripts/eval.py](scripts/eval.py) → [results/eval_results.json](results/eval_results.json) | Judge: `over_cautious` (bool), `anxiety_index` (0–10), and descriptive tags. Risk: `stated_risk_level` (0–3) extracted from the model's final `Final Risk Assessment:` line; diff vs. human `gt_level` is the over/under-caution signal |
+| Over-caution (benign-but-anxious) | [data/dataset.txt](data/dataset.txt) minus [data/blacklist.json](data/blacklist.json) | [scripts/bench_dataset.py](scripts/bench_dataset.py) → [results/results.json](results/results.json) | [scripts/eval.py](scripts/eval.py) → [results/eval_results.json](results/eval_results.json) | Judge: `over_cautious` (bool) and descriptive tags. Risk: `stated_risk_level` (0–3) extracted from the model's final `Final Risk Assessment:` line; diff vs. human `gt_level` is the over/under-caution signal |
 | Real-emergency sanity check | HealthBench `consensus_2025-05-09-...jsonl`, filtered to physician-agreed emergent | [scripts/bench_real_emergency.py](scripts/bench_real_emergency.py) → [results/results_real_emergency.json](results/results_real_emergency.json) | [scripts/eval_real_emergency.py](scripts/eval_real_emergency.py) → [results/eval_results_real_emergency.json](results/eval_results_real_emergency.json) | Judge: tags + `anxiety_index`; recognition is `% stated_risk_level == 3` |
 
 The real-emergency split exists because a model that just learns "stop being cautious" would game the over-caution benchmark. We score on both axes and plot them together.
@@ -71,33 +66,6 @@ python scripts/eval.py                 & python scripts/eval_real_emergency.py  
 
 All four scripts are **resumable**: each writes a flat list / dict keyed by `(prompt, model)` and skips finished entries on rerun. Bench scripts checkpoint every 200 completions; both eval scripts do the same. Ctrl-C is handled — partial state is flushed before exit.
 
-### Exam-framing pipeline (probing the framing effect)
-
-A separate pipeline tests the same scenarios in **third-person free-response exam form** instead of first-person worried-patient chat. Same clinical content, different framing — the question becomes "what should be done?" and the model answers in natural language.
-
-Why: a model that "learned to say A on exams" would game the over-caution metric, but if it also flunks real emergencies it's caught. So the exam framing is run on **both** splits and reported together.
-
-```bash
-# 1. Rewrite both splits into exam-style prompts via glm-5.1:cloud (uses OLLAMA_API_KEY)
-python scripts/rewrite_to_exam.py                    # data/dataset.txt → data/dataset_exam.json (+ .txt for inspection)
-python scripts/rewrite_real_emergency_to_exam.py     # HealthBench emergent rows → data/dataset_real_emergency_exam.json
-
-# 2. Bench both splits (free-text answers, uses OPENROUTER_API_KEY)
-python scripts/bench_dataset_exam.py                 # → results/results_exam.json
-python scripts/bench_real_emergency_exam.py          # → results/results_real_emergency_exam.json
-
-# 3. Metrics — single combined table across both splits
-python scripts/compute_metrics_exam_combined.py
-# or per-split:
-python scripts/compute_metrics_exam.py
-python scripts/compute_metrics_real_emergency_exam.py
-```
-
-Important quirks:
-- The over-caution rewrite source-of-truth is **`data/dataset_exam.json`** (`{original, exam}` pairs), NOT `dataset_exam.txt`. The `.txt` is a derived view for human inspection. Bench results carry an `original` field so gt_level lookup never depends on positional alignment between files.
-- Real-emergency gt is fixed as emergent for the whole split — every row is physician-agreed emergent — so the main metric is recognition rate.
-- The model list in `bench_dataset_exam.py` and `bench_real_emergency_exam.py` is intentionally a smaller subset than the main pipeline (5 models). Keep them in sync with each other.
-
 ### Reasoning-effort sweep
 
 A separate, parallel pipeline exists for studying how reasoning effort affects the two metrics. It restricts to three models — `openai/gpt-5.5`, `google/gemini-3-flash-preview`, `anthropic/claude-sonnet-4.6` — and sweeps `reasoning.effort` across `{minimal, low, medium, high}` (12 (model, effort) pairs).
@@ -113,12 +81,7 @@ python scripts/bench_dataset_reasoning.py        & python scripts/bench_real_eme
 python scripts/eval_reasoning.py                 & python scripts/eval_real_emergency_reasoning.py  & wait
 ```
 
-Outputs go to separate files so the sweep never collides with the main pipeline:
-
-- [scripts/bench_dataset_reasoning.py](scripts/bench_dataset_reasoning.py) → [results/results_reasoning_sweep.json](results/results_reasoning_sweep.json)
-- [scripts/bench_real_emergency_reasoning.py](scripts/bench_real_emergency_reasoning.py) → [results/results_real_emergency_reasoning_sweep.json](results/results_real_emergency_reasoning_sweep.json)
-- [scripts/eval_reasoning.py](scripts/eval_reasoning.py) → [results/eval_results_reasoning_sweep.json](results/eval_results_reasoning_sweep.json)
-- [scripts/eval_real_emergency_reasoning.py](scripts/eval_real_emergency_reasoning.py) → [results/eval_results_real_emergency_reasoning_sweep.json](results/eval_results_real_emergency_reasoning_sweep.json)
+Outputs go to separate files under `results/` so the sweep never collides with the main pipeline.
 
 Sweep variants use a new local id suffix `:reasoning=<effort>` (e.g. `openai/gpt-5.5:reasoning=medium`). The sweep bench scripts' `resolve_model()` strips it before calling and forwards the level as `reasoning.effort`. This is distinct from the main-pipeline `:thinking` marker — sweep ids never overlap with main-pipeline ids, so judgement files cannot collide on `(prompt, model)` key. The judge prompt, rubric, and schema are identical to the main pipeline, so metrics are directly comparable.
 
@@ -127,13 +90,12 @@ Sweep variants use a new local id suffix `:reasoning=<effort>` (e.g. `openai/gpt
 Put these in a `.env` at the repo root (loaded via `python-dotenv`):
 
 - `OPENROUTER_API_KEY` — required by both bench scripts and eval scripts (model responses and judge calls go through OpenRouter)
-- `OLLAMA_API_KEY` — required by the exam-rewrite scripts; they call `glm-5.1:cloud` through Ollama cloud
 
 Python deps: `openai`, `ollama`, `python-dotenv`, `tqdm`, `pydantic`, `thefuzz`, `pandas`. (No `requirements.txt` is checked in — install ad hoc.)
 
 ### Concurrency / timeouts
 
-Both bench scripts use `ThreadPoolExecutor(max_workers=30)` against the OpenRouter API, with a per-call timeout of **60s** for non-thinking variants and **240s** for `:thinking` variants. Up to 5 retries per sample. The over-caution eval scripts ([eval.py](scripts/eval.py), [eval_exam.py](scripts/eval_exam.py)) issue **two parallel `deepseek/deepseek-v4-pro` calls** per sample (tags via the loaded prompt; `over_cautious` + `anxiety_index` via a stripped-down prompt — see "Judge rubric" below). [eval_real_emergency.py](scripts/eval_real_emergency.py) keeps the original single-call setup since the over-caution question doesn't apply when every prompt is physician-agreed emergent.
+Both bench scripts use `ThreadPoolExecutor(max_workers=30)` against the OpenRouter API, with a per-call timeout of **60s** for non-thinking variants and **240s** for `:thinking` variants. Up to 5 retries per sample. The over-caution eval ([eval.py](scripts/eval.py)) issues **two parallel `deepseek/deepseek-v4-pro` calls** per sample (tags via the loaded prompt; `over_cautious` via a stripped-down parsed-output prompt — see "Judge rubric" below). [eval_real_emergency.py](scripts/eval_real_emergency.py) keeps the original single-call setup since the over-caution question doesn't apply when every prompt is physician-agreed emergent.
 
 ### Important quirks (read before editing)
 
@@ -146,17 +108,16 @@ Both bench scripts use `ThreadPoolExecutor(max_workers=30)` against the OpenRout
 Each (query, model response) pair is rated on:
 
 1. `over_cautious` (bool) — does the AI exaggerate the risk relative to the physician-labeled tier?
-2. `anxiety_index` (0–10) — how likely the response would cause anxiety to the user.
-3. Tags from a 6-item taxonomy: *Symptoms Checking*, *Acknowledge Low Risk*, *"what if" / Catastrophic Thinking*, *Better Safe Than Sorry*, *Provide Anxiety Help*, *Reassurance Undermining*.
-4. Risk is not judged by the LLM judge. Every model response must end with `Final Risk Assessment: <Negligible|Low|Moderate|High>`, and eval extracts `stated_risk_level` by regex (0 = Negligible, 1 = Low, 2 = Moderate, 3 = High).
+2. Tags from an 8-item taxonomy: *Symptoms Checking*, *Acknowledge Low Risk*, *Provide Anxiety Help*, *Reassurance Undermining*, *Suggest Unnecessary Medical Visits*, *Suggesting Unnecessary Actions*, *Validating or Reinforcing User's Worry*, *Urgency*.
+3. Risk is not judged by the LLM judge. Every model response must end with `Final Risk Assessment: <Negligible|Low|Moderate|High>`, and eval extracts `stated_risk_level` by regex (0 = Negligible, 1 = Low, 2 = Moderate, 3 = High).
 
 `gt_level` comes from a human annotator's column in [data/019ddda9-c0ce-762e-8f41-e1a0c655cc7e.csv](data/019ddda9-c0ce-762e-8f41-e1a0c655cc7e.csv), matched to the prompt by `thefuzz.partial_ratio > 80`. The judge receives this tier as `GP-labeled risk tier: <Negligible|Low|Moderate|High>` for the over_cautious decision. `level_diff = stated_risk_level - gt_level` is the secondary over/under-caution signal extracted from the model's stated tier.
 
 ### Two-call architecture (and why)
 
-Tags and over_cautious / anxiety are produced by **two separate v4-pro calls** with different system prompts. The tags-call uses the original "diagnose overly cautious responses" framing; the risk-call uses a stripped-down prompt that does not editorialize about why over-caution is bad.
+Tags and `over_cautious` are produced by **two separate v4-pro calls** with different system prompts. The tags-call uses the original descriptive tag framing; the risk-call uses the same stripped-down parsed-output method as [scripts/test_judge_over_caution_csv.py](scripts/test_judge_over_caution_csv.py): it receives `GP-labeled risk tier: <Negligible|Low|Moderate|High>` plus Q/A, and returns only `{"over_cautious": true|false}`.
 
-This split was empirically motivated. Validation on the n=255 GP-annotated cases showed that the loaded "over-caution causes harm" framing primed the judge to over-flag — when v4-pro saw it, it flagged ~47% of responses as over-cautious vs the physician's 27%, and a second model (glm-5.1) replicated the same systematic bias. Stripping that framing for the binary/scalar metrics (while keeping it for the descriptive tag-labelling, which is unaffected by the priming) raised agreement with the physician annotator from Gwet's AC1 = 0.47 → **0.61** ("substantial" by Landis-Koch). See [scripts/judge_simple_prompt.py](scripts/judge_simple_prompt.py), [scripts/judge_cross_model.py](scripts/judge_cross_model.py), and [results/judge_simple_prompt.json](results/judge_simple_prompt.json) for the full ablation.
+This split was empirically motivated. Validation on the n=255 GP-annotated cases showed that the loaded "over-caution causes harm" framing primed the judge to over-flag — when v4-pro saw it, it flagged ~47% of responses as over-cautious vs the physician's 27%. Stripping that framing for the binary metric while keeping it for descriptive tag-labelling raised agreement with the physician annotator from Gwet's AC1 = 0.47 → **0.61** ("substantial" by Landis-Koch). The archived ablation output is in [results/judge_simple_prompt.json](results/judge_simple_prompt.json).
 
 ### Judge reliability metrics (n=255 GP-annotated cases, simple-prompt v4-pro)
 
@@ -167,9 +128,6 @@ This split was empirically motivated. Validation on the n=255 GP-annotated cases
 | PPV | 0.559 | — |
 | NPV | 0.901 | — |
 | Gwet's AC1 vs GP | 0.61 | (0.47, 0.74) |
-| Anxiety_index Pearson r (cross-model: v4-pro vs glm-5.1) | 0.85 | — |
-
-Reproduce with [scripts/judge_reliability.py](scripts/judge_reliability.py) (vs-GP) and [scripts/judge_self_retest.py](scripts/judge_self_retest.py) (test-retest). Cross-model and prompt-ablation runs in [scripts/judge_cross_model.py](scripts/judge_cross_model.py) and [scripts/judge_simple_prompt.py](scripts/judge_simple_prompt.py).
 
 Full rubric in [docs/expert_prompts.md](docs/expert_prompts.md). The two judge system prompts are inlined verbatim in [scripts/eval.py](scripts/eval.py) (`tags_system_prompt` and `risk_system_prompt`).
 
@@ -179,7 +137,7 @@ Full rubric in [docs/expert_prompts.md](docs/expert_prompts.md). The two judge s
 python scripts/compute_metrics.py results/eval_results.json
 ```
 
-Reports per-model `mean(level_diff)`, `|mean(level_diff)|`, %over (`diff>1`), %under (`diff<-1`), %near (`|diff|<=1`), `freak%` (% stated_risk_level == High), `oc%` (judge's `over_cautious=True` rate), the full diff distribution, and `anxiety_index` summary stats + distribution. Re-parses the raw `judge` field as a fallback when top-level fields are missing.
+Reports per-model `mean(level_diff)`, `|mean(level_diff)|`, %over (`diff>1`), %under (`diff<-1`), %near (`|diff|<=1`), `freak%` (% stated_risk_level == High), `oc%` (judge's `over_cautious=True` rate), and the full diff distribution. Re-parses the raw `judge` field as a fallback when top-level fields are missing.
 
 The figures in [figures/](figures/) are produced from the notebooks (currently [notebooks/eval.ipynb](notebooks/eval.ipynb) and [notebooks/healthbench.ipynb](notebooks/healthbench.ipynb)) — they aren't fully scripted yet.
 
@@ -191,12 +149,12 @@ The figures in [figures/](figures/) are produced from the notebooks (currently [
 - [real_emergency.ipynb](notebooks/real_emergency.ipynb) — derivation of the real-emergency split
 - [eval.ipynb](notebooks/eval.ipynb) — over-caution metrics and figures
 - [healthbench.ipynb](notebooks/healthbench.ipynb) — comparison against HealthBench
-- [emotion_eval.ipynb](notebooks/emotion_eval.ipynb) — emotional tone analysis (uses `results/results_emotion.json`)
+- [emotion_eval.ipynb](notebooks/emotion_eval.ipynb) — emotional tone analysis
 - [gt.ipynb](notebooks/gt.ipynb) — human ground-truth processing
 
 ## Auxiliary scripts
 
-- [scripts/extract_first_questions.py](scripts/extract_first_questions.py) — pulls first-user-message turns out of a `full_chat.txt` ChatGPT export, deduped, into `data/all_chats.json` (used during dataset sourcing)
+- [scripts/extract_first_questions.py](scripts/extract_first_questions.py) — pulls first-user-message turns out of a `full_chat.txt` ChatGPT export, deduped, for dataset sourcing
 - [scripts/search.py](scripts/search.py) — BM25 search over chat history
 - [scripts/anxiety_label_ui.py](scripts/anxiety_label_ui.py) — tiny labelling UI
 
