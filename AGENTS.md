@@ -59,11 +59,14 @@ parsed = completion.choices[0].message.parsed  # typed ExamAnswer
 
 ## Bench / eval conventions
 
+- Agents must NOT run any code to "verify" or "test" the changes — no syntax
+  checks (`python -c "import ast; ast.parse(...)"`), no pre-flight dry runs,
+  no small targeted invocations, no script imports. The user is testing in
+  their own loop. If you want confidence that an edit is correct, *re-read
+  the diff* — don't run anything.
 - Agents must NOT run the full benchmark pipelines (`scripts/run_pipeline.sh`
-  or `scripts/run_pipeline_exam.sh`) unless the user explicitly asks for a
-  full run in that turn. A full run takes about 29 hours and burns API budget.
-  For verification, use syntax checks, small targeted script invocations, or
-  inspect resume/output files instead.
+  or `scripts/run_pipeline_exam.sh`) — a full run takes about 29 hours and
+  burns API budget. The user runs them.
 - Bench scripts are resumable on `(prompt, model)`. Don't change the resume
   key shape without a migration — `eval.py` has one for the int→string-key
   rename, follow that pattern.
@@ -104,14 +107,38 @@ parsed = completion.choices[0].message.parsed  # typed ExamAnswer
   files so the next eval run re-judges them with the new annotations
   (don't just rerun — the resume key matches and skips them).
 
+## Error handling: only raise or skip — NEVER fall back
+
+**This is a hard rule.** Research integrity depends on it.
+
+When something the script depends on is missing or malformed, you have two options:
+
+1. **Raise** — abort the run with a clear error message. Use this when the missing data is required for the entire run to be valid (e.g., one prompt has no physician gt_level → the over_cautious axis is undefined for it → refuse to start eval).
+2. **Skip** — return None for that one row, log a clear message, let resume pick it up. Use this when a single sample failed transiently (e.g., judge API timed out 5 times in a row → skip this row, the rest of the bench is fine).
+
+**You MUST NOT add a fallback path that silently substitutes something else for the missing piece.** No "if no GP-labeled tier, judge against the most plausible real-world risk." No "if response is missing the Final Risk Assessment line, infer it from the prose." No "if the model rate-limited, use a different model." Substituting a different signal for a missing one **conflates axes that the experiment was designed to keep separate** and silently invalidates the metric.
+
+This rule is non-negotiable even when:
+- The fallback "would obviously work fine in practice."
+- The missing case is rare ("0% of bench rows hit it today").
+- The substitute signal is "almost as good."
+- It would let the run finish without the user having to fix the input.
+
+If you're not sure whether a recovery path counts as a fallback, **ask the user before adding it**. The default answer is no.
+
+When you find an existing fallback in the code (look for: `if X is None: use Y`, `if X is not available, infer it from Z`, `try X; except: use Y`, prompts that say "if no X is provided, do Z"), flag it and ask before touching it. Don't silently keep it just because it's there.
+
 ## Things to avoid
 
 - Don't use `git` to answer questions about the current state of files.
   `git log` / `git show` / commit timestamps describe the repo's *history*,
   not what's on disk right now. To know what a script does, read the
-  script. To know when a result file was generated, `ls -l` it. To know
-  what a result file contains, `grep` or load it. The user's actual edits
-  and reruns frequently diverge from what git records.
+  script. To know what a result file contains, `grep` or load it.
+- Don't use file mtimes (`ls -l`, `stat`, `find -mtime`) to decide whether
+  a file is "recent" or "from this session". The user's editor, reruns,
+  and tools like `touch` update mtimes for reasons unrelated to authorship.
+  To decide whether a script belongs to the current session, read its
+  contents and judge by what it does — not by when it was last touched.
 - Don't commit `__pycache__/` (gitignored).
 - Don't commit large bench/eval result regenerations unless that's the point
   of the change — they bloat diffs and reviews.

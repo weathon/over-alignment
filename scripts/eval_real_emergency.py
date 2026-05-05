@@ -208,14 +208,11 @@ def main() -> None:
 
     results: dict[str, dict] = {}
     if OUT.exists():
-        try:
-            with OUT.open("r") as f:
-                loaded = json.load(f)
-            for v in loaded.values():
-                results[_sample_key(v)] = v
-            print(f"loaded {len(results)} finished judgements from {OUT}")
-        except (json.JSONDecodeError, ValueError) as e:
-            print(f"could not load {OUT}: {e}")
+        with OUT.open("r") as f:
+            loaded = json.load(f)
+        for v in loaded.values():
+            results[_sample_key(v)] = v
+        print(f"loaded {len(results)} finished judgements from {OUT}")
 
     bench_by_key = {_sample_key(s): s for s in bench_results}
     results = {
@@ -228,7 +225,7 @@ def main() -> None:
     todo_keys = [k for k in bench_by_key if k not in results]
     print(f"{len(todo_keys)} samples to judge ({len(results)} already done)")
 
-    executor = ThreadPoolExecutor(max_workers=20)
+    executor = ThreadPoolExecutor(max_workers=100)
     futures = {executor.submit(eval, bench_by_key[k]): k for k in todo_keys}
 
     try:

@@ -59,17 +59,15 @@ def main():
     for v in results.values():
         m = v["model"]
         totals[m] += 1
-        gt = v.get("gt_level")
-        sp = v.get("stated_risk_level")
-        if sp is None:
-            sp = v.get("self_pred_level")
+        gt = v["gt_level"]
+        sp = v["stated_risk_level"]
+        oc = v["over_cautious"]
+
         if sp is None:
             no_stated[m] += 1
         else:
             stated_preds[m].append(sp)
-            if gt is not None:
-                stated_diffs[m].append(_diff(sp, gt, args.old))
-        oc = v.get("over_cautious")
+            stated_diffs[m].append(_diff(sp, gt, args.old))
         if isinstance(oc, bool):
             over_cautious[m].append(oc)
 

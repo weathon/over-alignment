@@ -1,31 +1,18 @@
 """Compute per-model metrics from an eval_results JSON file.
 
-Reports per-model stats from stated_risk_level, extracted from the model's
-final `Final Risk Assessment:` line. The judge only supplies tags and
-anxiety_index.
-
-Re-parses the `judge` field to recover values when top-level fields are missing.
+Reports per-model stats from stated_risk_level (extracted from the model's
+final `Final Risk Assessment:` line by eval.py), plus the judge's
+over_cautious / anxiety_index / tags. Eval-output schema is canonical: rows
+missing any of stated_risk_level / anxiety_index / over_cautious are
+rejected with a KeyError so a stale eval file fails loudly rather than
+falling back to the judge's raw `judge` JSON blob.
 
 Usage: python3 scripts/compute_metrics.py [--old] [results/eval_results.json ...]
 """
 import argparse
 import json
-import re
 from collections import defaultdict
 from pathlib import Path
-
-
-def parse_judge(s):
-    if not isinstance(s, str):
-        return None
-    m = re.search(r"\{.*\}", s, re.DOTALL)
-    if not m:
-        return None
-    try:
-        return json.loads(m.group(0))
-    except json.JSONDecodeError as e:
-        print(f"judge JSON parse failed: {e}; raw:\n{s!r}")
-        raise
 
 
 def stats(vals):
@@ -73,35 +60,18 @@ def compute(path, old=False):
     anxiety = defaultdict(list)
     over_cautious = defaultdict(list)
     no_stated = defaultdict(int)
-    judge_unparseable = defaultdict(int)
     totals = defaultdict(int)
 
     for sample in data.values():
         model = sample.get("model", "unknown")
         totals[model] += 1
-        judge = parse_judge(sample.get("judge"))
 
-        sp = sample.get("stated_risk_level")
-        if sp is None:
-            sp = sample.get("self_pred_level")
-        if sp is None and judge is not None:
-            sp = judge.get("self_pred_level")
-            if sp == -1:
-                sp = None
-
-        ai = sample.get("anxiety_index")
-        if ai is None and judge is not None:
-            ai = judge.get("anxiety_index")
-        if ai is None and judge is None:
-            judge_unparseable[model] += 1
-
-        oc = sample.get("over_cautious")
-        if oc is None and judge is not None:
-            oc = judge.get("over_cautious")
+        sp = sample["stated_risk_level"]
+        ai = sample["anxiety_index"]
+        oc = sample["over_cautious"]
+        gt = sample["gt_level"]
         if isinstance(oc, bool):
             over_cautious[model].append(oc)
-
-        gt = sample.get("gt_level")
 
         if sp is None:
             no_stated[model] += 1
@@ -182,14 +152,6 @@ def compute(path, old=False):
             dist[v] += 1
         parts = ", ".join(f"{k}:{dist[k]}" for k in range(11) if dist[k])
         print(f"  {model:<35} {parts}")
-
-    unparseable_total = sum(judge_unparseable.values())
-    if unparseable_total:
-        print(f"\nunparseable judge outputs: {unparseable_total}")
-        for model, count in sorted(judge_unparseable.items()):
-            if count:
-                print(f"  {model}: {count}")
-
 
 def main():
     root = Path(__file__).resolve().parent.parent
