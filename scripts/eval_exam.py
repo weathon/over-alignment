@@ -35,6 +35,7 @@ Q1["query"] = Q1["content"].apply(lambda x: x.split("A:\n")[0].replace("Q:", "")
 
 # %%
 import os
+import time
 from concurrent.futures import ThreadPoolExecutor, TimeoutError as FuturesTimeout, FIRST_COMPLETED, wait
 
 import dotenv
@@ -202,17 +203,22 @@ if os.path.exists(OUTPUT_PATH):
 
 
 def eval(sample, max_retries=5, parse_retries=3):
+    """Judge one (prompt, model) sample. Returns enriched sample or None.
+
+    Failures (timeout, API error, parse error, missing FRA line) are logged
+    and the sample is returned as None so the orchestration loop can skip
+    and resume picks it up next run.
+    """
     # Blacklist filter operates on the source prompt — the exam vignettes are
     # rewritten and won't string-match.
     original_prompt = sample.get("original") or sample["prompt"]
     if _norm(original_prompt) in blacklist_norm:
         return None
 
-    # Outer loop: retry the whole judge call up to `parse_retries` times if
-    # the judge ignores the schema and produces unparseable output. Inner
-    # loop: retry on API timeout.
+    risk_data = tags_data = None
     for parse_attempt in range(parse_retries):
         retries = 0
+        risk_completion = tags_completion = None
         while True:
             executor = ThreadPoolExecutor(max_workers=1)
             future = executor.submit(_call_api_judge, sample)
@@ -229,9 +235,21 @@ def eval(sample, max_retries=5, parse_retries=3):
                 future.cancel()
                 executor.shutdown(wait=False, cancel_futures=True)
                 if retries >= max_retries:
-                    raise TimeoutError("Max retries exceeded")
+                    print(f"JUDGE TIMEOUT — giving up on sample after {max_retries} retries: {_sample_key(sample)}")
+                    return None
+                continue
+            except Exception as e:
+                retries += 1
+                future.cancel()
+                executor.shutdown(wait=False, cancel_futures=True)
+                if retries >= max_retries:
+                    print(f"JUDGE API FAIL — giving up on sample after {max_retries} retries: {_sample_key(sample)} — {e!r}")
+                    return None
+                time.sleep(min(2 ** retries, 30))
                 continue
 
+        if risk_completion is None or tags_completion is None:
+            return None
         risk_msg = risk_completion.choices[0].message
         tags_msg = tags_completion.choices[0].message
         sample["judge_risk"] = risk_msg.content
@@ -247,12 +265,18 @@ def eval(sample, max_retries=5, parse_retries=3):
             break
         except (json.JSONDecodeError, KeyError, TypeError, ValueError) as e:
             print(f"JUDGE PARSE FAIL (attempt {parse_attempt + 1}/{parse_retries}) — {e} — risk:\n{risk_msg.content!r}\ntags:\n{tags_msg.content!r}")
+            risk_data = tags_data = None
             if parse_attempt == parse_retries - 1:
-                raise
+                print(f"JUDGE PARSE — giving up on sample after {parse_retries} parse retries: {_sample_key(sample)}")
+                return None
+
+    if risk_data is None or tags_data is None:
+        return None
 
     stated_level = parse_self_pred(sample.get("response"))
     if stated_level is None:
-        raise ValueError("response has no final risk assessment line")
+        print(f"NO FINAL RISK LINE — skipping sample: {_sample_key(sample)}")
+        return None
     sample["tags"] = tags_data["tags"]
     sample["anxiety_index"] = risk_data["anxiety_index"]
     sample["over_cautious"] = risk_data["over_cautious"]
@@ -295,7 +319,11 @@ try:
             done, pending = wait(pending, timeout=0.5, return_when=FIRST_COMPLETED)
             for future in done:
                 key = futures[future]
-                result = future.result()
+                try:
+                    result = future.result()
+                except Exception as e:
+                    print(f"EVAL EXCEPTION — skipping {key}: {e!r}")
+                    result = None
                 if result is not None:
                     results[key] = result
                     _save_results()

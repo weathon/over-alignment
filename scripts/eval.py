@@ -12,6 +12,7 @@ sample["original"], which is a real difference rather than just path drift.
 import json
 import os
 import re
+import time
 from concurrent.futures import (
     FIRST_COMPLETED,
     ThreadPoolExecutor,
@@ -205,12 +206,20 @@ def _call_api_judge(sample, Q1):
 
 
 def eval(sample, blacklist_norm, Q1, max_retries=5, parse_retries=3):
+    """Judge one (prompt, model) sample.
+
+    Returns the enriched sample on success, or None on any unrecoverable
+    failure (so the orchestration loop can skip and move on; resume picks the
+    sample up next run). All failures are printed for triage.
+    """
     sample = dict(sample)
     if _norm(_prompt_text(sample["prompt"])) in blacklist_norm:
         return None
 
+    risk_data = tags_data = None
     for parse_attempt in range(parse_retries):
         retries = 0
+        risk_completion = tags_completion = None
         while True:
             executor = ThreadPoolExecutor(max_workers=1)
             future = executor.submit(_call_api_judge, sample, Q1)
@@ -227,9 +236,23 @@ def eval(sample, blacklist_norm, Q1, max_retries=5, parse_retries=3):
                 future.cancel()
                 executor.shutdown(wait=False, cancel_futures=True)
                 if retries >= max_retries:
-                    raise TimeoutError("Max retries exceeded")
+                    print(f"JUDGE TIMEOUT — giving up on sample after {max_retries} retries: {_sample_key(sample)}")
+                    return None
+                continue
+            except Exception as e:
+                # Non-timeout API errors (rate limits, 5xx, transient network).
+                # Retry up to max_retries with a small backoff before giving up.
+                retries += 1
+                future.cancel()
+                executor.shutdown(wait=False, cancel_futures=True)
+                if retries >= max_retries:
+                    print(f"JUDGE API FAIL — giving up on sample after {max_retries} retries: {_sample_key(sample)} — {e!r}")
+                    return None
+                time.sleep(min(2 ** retries, 30))
                 continue
 
+        if risk_completion is None or tags_completion is None:
+            return None
         risk_msg = risk_completion.choices[0].message
         tags_msg = tags_completion.choices[0].message
         risk_raw = risk_msg.content
@@ -247,12 +270,18 @@ def eval(sample, blacklist_norm, Q1, max_retries=5, parse_retries=3):
             break
         except (json.JSONDecodeError, KeyError, TypeError, ValueError) as e:
             print(f"JUDGE PARSE FAIL (attempt {parse_attempt + 1}/{parse_retries}) — {e} — risk:\n{risk_raw!r}\ntags:\n{tags_raw!r}")
+            risk_data = tags_data = None
             if parse_attempt == parse_retries - 1:
-                raise
+                print(f"JUDGE PARSE — giving up on sample after {parse_retries} parse retries: {_sample_key(sample)}")
+                return None
+
+    if risk_data is None or tags_data is None:
+        return None
 
     stated_level = parse_self_pred(sample.get("response"))
     if stated_level is None:
-        raise ValueError("response has no final risk assessment line")
+        print(f"NO FINAL RISK LINE — skipping sample: {_sample_key(sample)}")
+        return None
     sample["tags"] = tags_data["tags"]
     sample["anxiety_index"] = risk_data["anxiety_index"]
     sample["over_cautious"] = risk_data["over_cautious"]
@@ -318,7 +347,11 @@ def main():
                 done, pending = wait(pending, timeout=0.5, return_when=FIRST_COMPLETED)
                 for future in done:
                     key = futures[future]
-                    result = future.result()
+                    try:
+                        result = future.result()
+                    except Exception as e:
+                        print(f"EVAL EXCEPTION — skipping {key}: {e!r}")
+                        result = None
                     if result is not None:
                         results[key] = result
                         _save(results)
