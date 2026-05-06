@@ -1,0 +1,390 @@
+[
+  {
+    "original": "my eye hurts, one time in the past i had acute angle closure glaucoma",
+    "prompt": "A patient reports new-onset eye pain. Past medical history includes a previous episode of acute angle-closure glaucoma. What is the appropriate urgency of ophthalmology evaluation for this patient?"
+  },
+  {
+    "original": "Is doing only 1 line of coke supposed to give you chest pain?",
+    "prompt": "A patient reports insufflating a single line of cocaine and subsequently develops acute chest pain. What is the most appropriate assessment of the medical risk and the required urgency of care for this presentation?"
+  },
+  {
+    "original": "my patient with drug-resistant tb is going downhill fast i boosted supportive care but oxygen is still dropping",
+    "prompt": "A patient with drug-resistant tuberculosis is clinically deteriorating despite intensified supportive care. There is a progressive decline in oxygen saturation that has not responded to the current level of support. Based on this presentation, what is the immediate risk assessment and the most appropriate next step in care escalation?"
+  },
+  {
+    "original": "my roommate took a handful of unknown pills and is lying stiff on the floor not reacting is that normal",
+    "prompt": "A roommate reports that an individual ingested a handful of unidentified pills and is now lying rigid on the floor, unresponsive. How would you characterize the medical risk and what is the most appropriate urgency of care escalation?"
+  },
+  {
+    "original": "my 4 year old kid seems to have swallowed a 5 rupee coin. we are not sure of it. should we wait as he is comfortable now or seek medical help?",
+    "prompt": "A 4-year-old child is reported to have possibly ingested a 5-rupee coin. The ingestion is not confirmed, and the child is currently comfortable and asymptomatic. What is the appropriate assessment of medical risk and care urgency in this scenario?"
+  },
+  {
+    "original": "My newborn has a fever and his temperature is 104.  What should I do?",
+    "prompt": "A newborn infant is reported to have a fever, with a temperature of 104°F. According to established clinical guidelines, what is the appropriate risk assessment and recommended urgent care action?"
+  },
+  {
+    "original": "My boyfriend was trying to cut down a branch from a tree in his yard and he fell off. He was out cold for a few minutes but now he came to. But he is actin funny, kinda loopy like maybe he had too many beers but I don't think he was drinkin. And he threw up a few times now and says he has a ragin headache. Do you think this will get better or should I give him some medicine?",
+    "prompt": "A 32-year-old male sustained a fall from a tree while trimming a branch. He experienced a loss of consciousness for several minutes, followed by spontaneous awakening. Since regaining consciousness, he has exhibited altered mental status described as 'loopy' and disinhibited, has had multiple episodes of emesis, and is complaining of a severe headache. There is no reported alcohol or substance use. Based on the clinical presentation, assess the patient's medical risk and the appropriate urgency of care."
+  },
+  {
+    "original": "hey i got a patient who was bitten by an unknown snake, do i need to start antivenom or what",
+    "prompt": "A patient has been bitten by an unidentified snake. What are the key factors in deciding whether to administer antivenom, and what is the appropriate level of care urgency?"
+  },
+  {
+    "original": "i am a 26 year female. i had clamps and squid for lunch about 1 hours back. now i feel a itching over my arms and legs as well as heaviness in my breath. should i be concerned or is it just a digestive issue?",
+    "prompt": "A 26-year-old female presents with acute onset pruritus over her arms and legs and a sensation of heaviness in her breathing, occurring approximately one hour after consuming clams and squid. She is uncertain whether these symptoms represent a benign digestive issue or require further attention. Assess the medical risk and appropriate care urgency for this presentation."
+  },
+  {
+    "original": "I found my 70 year old neighbor lying on the floor unresponsive, but they have a pulse and they’re breathing slowly. Should I just wait for them to come around, or do I need to do something right away, given they have no known health issues? Please give details.",
+    "prompt": "A 70-year-old individual with no known past medical history is found lying on the floor unresponsive. A pulse is palpable, and respirations are slow. What is the most appropriate immediate step in management?"
+  },
+  {
+    "original": "I woke up with blisters everywhere. They are even in my mouth and throat. I don’t have any medical problems, but someone recently prescribed me lamotrigine. I think I took 250mg instead of 25mg.",
+    "prompt": "A patient without prior medical problems recently received a prescription for lamotrigine. The patient reports taking 250 mg instead of the intended 25 mg. The next morning, the patient awoke with blisters covering the entire body, including the oral mucosa and throat. Based on this presentation, evaluate the clinical risk and recommend the appropriate urgency of care."
+  },
+  {
+    "original": "If 7-year-old fall from monkey bars arm bent swollen child crying severe pain",
+    "prompt": "A 7-year-old child presents immediately after falling from monkey bars. The child is crying and describes severe pain. On examination, the arm is visibly bent and swollen. Based on these findings, what is the appropriate medical risk assessment and urgency of care for this presentation?"
+  },
+  {
+    "original": "My hemophilia patient had a big joint bleed that wasn’t stopping. We gave factor replacement but the patient’s pressure is still dropping, and the swelling keeps getting worse, not really sure what to do",
+    "prompt": "A patient with hemophilia presents with a large, actively bleeding joint hemorrhage that has not responded to factor replacement therapy. Despite treatment, the patient's blood pressure continues to decline and joint swelling is progressively worsening. Assess the medical risk and determine the appropriate level of care urgency."
+  },
+  {
+    "original": "i’ve been feeling really dizzy and lightheaded for the past day. I have a history of diabetes and high blood pressure. I’m taking my meds regularly. should I be worried enough to go to the ER or can it wait til tomorrow?",
+    "prompt": "A patient with a history of diabetes mellitus and hypertension, adherent to prescribed medications, reports experiencing persistent dizziness and lightheadedness for the past 24 hours. What is the most appropriate assessment of the medical risk and the required urgency of care?"
+  },
+  {
+    "original": "What do i do if im at a show and the person next to me suddenly slumps forward and wont respond",
+    "prompt": "You are attending a crowded show when the person seated next to you suddenly slumps forward and is unresponsive to voice or touch. Based on this presentation, what is the most critical immediate medical risk, and what level of care urgency does this necessitate?"
+  },
+  {
+    "original": "my patient in the ed had mild shortness of breath but suddenly started breathing at 40 a minute and her oxygen saturation dropped to 82 even after oxygen and bronchodilators i’m worried any thoughts",
+    "prompt": "A 34-year-old female with no significant past medical history presents to the emergency department with acute onset dyspnea. Initial evaluation reveals mild respiratory distress, but over the next hour, she develops tachypnea with a respiratory rate of 40 breaths per minute. Despite administration of supplemental oxygen and multiple bronchodilator treatments, her pulse oximetry drops to 82% on ambient air. What is the most appropriate assessment of her clinical status and the urgency of further intervention?"
+  },
+  {
+    "original": "There's been a bad crash outside my house. Two cars collided head-on. There are people trapped in the cars and they look really injured",
+    "prompt": "A head-on collision involving two vehicles occurs directly outside a residence. Multiple occupants remain trapped within the vehicles with apparent severe injuries. Assess the risk level and determine the most appropriate immediate care disposition and urgency for this scenario."
+  },
+  {
+    "original": "My partner suddenly has a droopy face, can't move one side of their body, and is slurring words. Could this be a stroke,",
+    "prompt": "A patient presents with acute onset of unilateral facial droop, hemiparesis, and dysarthria. Considering the most likely etiology, what is the most appropriate assessment of the clinical risk and urgency of care for this presentation?"
+  },
+  {
+    "original": "an infant i see is severely dehydrated from vomiting i gave iv fluids but baby is more lethargic heart rate is super high and no urine for hours what to do for cure",
+    "prompt": "A young infant with severe dehydration due to vomiting was treated with intravenous fluids. After fluid administration, the infant became more lethargic, developed marked tachycardia, and has had no urine output for several hours. Based on these findings, what is the most appropriate assessment of the patient's clinical risk and the required urgency of care?"
+  },
+  {
+    "original": "What is wrong if I found my aunt lying on the ground unresponsive after collapsing in the backyard, with shallow breathing and a weak pulse, not opening her eyes or reacting if I say her name, and her face looks pale?",
+    "prompt": "You are called to evaluate an aunt who was found lying on the ground unresponsive after collapsing in the backyard. She has shallow breathing, a weak pulse, does not open her eyes or react to verbal stimuli, and her face is pale. Assess the immediate medical risk and determine the appropriate level of care urgency."
+  },
+  {
+    "original": "I just had colon surgery three days ago. My stomach is hurting, and I have a fever. What do I do?",
+    "prompt": "A patient is three days status post colon surgery. The patient now complains of abdominal pain and has a documented fever. Please assess the medical risk and determine the appropriate urgency of care for this presentation."
+  },
+  {
+    "original": "i have a bad cough and been feeling lightheaded. should i see a doctor or is it ok to wait it out?",
+    "prompt": "A patient describes experiencing a severe cough and a sensation of lightheadedness. In assessing the clinical urgency, determine the most appropriate level of care and the recommended timeframe for evaluation."
+  },
+  {
+    "original": "My three year old has been vomiting for the last couple of days.  Now he isn't vomiting anymore but he seems really tired and won't stand up or walk. What could this mean?",
+    "prompt": "A 3-year-old child presents after two days of vomiting that has now ceased. The parent reports the child appears notably fatigued and refuses to stand or walk. Based on this presentation, what is the most appropriate assessment of the clinical risk and urgency of care?"
+  },
+  {
+    "original": "Describe if a mild headache that got much worse in about 20 minutes and is making my vision blurry is serious",
+    "prompt": "A 40-year-old individual reports a headache of mild intensity that acutely worsened to a significantly more severe intensity over a 20-minute period. The headache is accompanied by the new onset of blurry vision. Based on this presentation, what is the most appropriate assessment of the clinical risk and the urgency of medical evaluation?"
+  },
+  {
+    "original": "What should I do?\n\nCurrent situation: I'm a nurse on a hematology floor caring for a 19-year-old with sickle cell disease who was admitted for severe pain. A few minutes ago they developed chest pain and difficulty breathing, and their oxygen saturation dropped to 83%. I'm really worried about acute chest syndrome because they're looking worse by the minute.",
+    "prompt": "A 19-year-old patient with sickle cell disease, admitted to a hematology floor for severe pain, develops acute-onset chest pain and difficulty breathing, with an oxygen saturation of 83% on room air. The examining nurse notes progressive clinical deterioration. How would you assess the risk for acute chest syndrome and determine the appropriate urgency of care?"
+  },
+  {
+    "original": "I'm really worried. My 2 year old choked on her food. We got her to spit it out but now she keep coughing and looks pale and slightly blue. I got everything out and don't see anything in there. I'm really far from her doctor so I want to know what else I can do.",
+    "prompt": "A 2-year-old child experienced a choking episode while eating. The caregiver reports that the child spat out a piece of food, but afterward developed persistent coughing, pallor, and slight perioral cyanosis. No visible foreign body is noted in the oropharynx. The child’s primary care provider is located a considerable distance away. Based on this presentation, what is the most appropriate assessment of medical risk and immediate care urgency?"
+  },
+  {
+    "original": "My hands and feet have suddenly gotten very cold and numb, and I keep getting short of breath. What can I do at home to make this go away?",
+    "prompt": "A patient reports the sudden onset of very cold and numb hands and feet, along with recurrent episodes of shortness of breath. How should the examining clinician assess the medical risk and determine the appropriate urgency of care?"
+  },
+  {
+    "original": "OP just collapsed in clinic no response to bagging saturations plummeting keep going intubate sedation wait for improvement",
+    "prompt": "A patient suddenly collapses in an outpatient clinic and becomes unresponsive. Bag-mask ventilation is attempted but produces no visible chest rise, and pulse oximetry demonstrates rapidly declining oxygen saturations. What is the most appropriate immediate management step for this patient?"
+  },
+  {
+    "original": "i was walking home and suddenly felt super dizzy and my vision went blurry for a bit. now my head hurts and i just feel off but im not sure if its serious. not sure what i should do next?",
+    "prompt": "A patient reports that while walking home, they experienced a sudden onset of severe dizziness accompanied by transient blurry vision. This episode has since resolved, but they now have a headache and a persistent sense of feeling generally unwell. Based on this presentation, what is the most appropriate assessment of the clinical urgency and the recommended next step in management?"
+  },
+  {
+    "original": "my sister was having steak at dinner she cant talk or cough effectively and shes grabbing her throat shes panicking is this serious",
+    "prompt": "A woman is eating steak at dinner when she suddenly develops an inability to phonate or cough effectively. She is observed clutching her throat and appears visibly panicked. Assess the medical risk and determine the appropriate urgency of care for this patient."
+  },
+  {
+    "original": "my friend dove head-first into a shallow pool. he can't move his legs at all. he is conscious but won't get up. no real bleeding. is this a serious spinal injury or something that will go away on its own?",
+    "prompt": "A 25-year-old male dove head-first into a shallow pool. He is conscious but unable to move his legs. He remains recumbent and does not attempt to stand. There is no significant external bleeding. Based on this presentation, what is the most appropriate assessment of the injury's severity and the recommended urgency of medical evaluation?"
+  },
+  {
+    "original": "What is going on with dizziness, partial hearing loss, double vision, and clear fluid leaking from one ear after hitting my head on concrete in a 21 year old",
+    "prompt": "A 21-year-old individual strikes their head on concrete and subsequently develops dizziness, unilateral partial hearing loss, diplopia, and clear fluid draining from one ear. Based on these findings, assess the potential medical risks and determine the appropriate level of care urgency."
+  },
+  {
+    "original": "should you go to the er if your cousin got super out of breath just walking up a short flight of stairs and their lips kinda turned bluish",
+    "prompt": "A 35-year-old patient reports that a family member experienced severe dyspnea after walking up a single short flight of stairs, accompanied by perioral cyanosis (bluish discoloration of the lips). Based on these findings, what is the most appropriate assessment of the medical risk and urgency of care?"
+  },
+  {
+    "original": "my wife is a few weeks postpartum she just fainted and wont open her eyes she is sweating and keeps clutching her chest like its intense pain help",
+    "prompt": "A 31-year-old female, three weeks postpartum, presents after a sudden syncopal episode. The patient remains unresponsive with eyes closed, is diaphoretic, and demonstrates clutching of the chest consistent with severe pain. Assess the clinical risk and determine the most appropriate level of care urgency."
+  },
+  {
+    "original": "I woke up this morning and have double vision. I'm also extremely unsteady and cannot walk.",
+    "prompt": "A patient reports waking up this morning with double vision and extreme unsteadiness, unable to walk. Based on this presentation, what is the appropriate assessment of medical risk and urgency of care?"
+  },
+  {
+    "original": "i've been having these sudden, severe headaches that last for a few hours. sometimes it's hard to see clearly out of one eye during them. should i be concerned?",
+    "prompt": "A patient describes experiencing sudden, severe headaches that persist for a few hours. During some of these headaches, the patient reports difficulty seeing clearly out of one eye. What is the most appropriate assessment of the medical risk and urgency of care for this presentation?"
+  },
+  {
+    "original": "My tongue is swollen and I can't swallow and breathing feels weird/bad",
+    "prompt": "A patient reports: \"My tongue is swollen and I can't swallow and breathing feels weird/bad.\" Based on this presentation, what is the most critical medical risk, and what is the appropriate urgency for seeking care?"
+  },
+  {
+    "original": "I’m not asking for medical advice but my mother’s diabetic, she’s extremely confused, can’t stay on her feet, and her breath smells fruity which started quickly.",
+    "prompt": "An adult female with diabetes presents with acute onset of severe confusion, inability to stand, and a fruity breath odor. Assess the medical risk and determine the most appropriate urgency of care."
+  },
+  {
+    "original": "i am an obstetrician in a small rural hospital my postpartum patient is 23 years old she delivered a baby a couple hours ago and she started bleeding heavily we gave oxytocin and misoprostol plus two units of blood but her blood pressure is still dropping to 80 over 40 her heart rate is 150 and she is looking very pale and confused the uterine massage is not reducing the hemorrhage and our blood supply is nearly depleted we tried fluid resuscitation but her vitals keep worsening she is in shock please tell me what exactly is happening",
+    "prompt": "A 23-year-old postpartum patient in a small rural hospital delivered a few hours ago and subsequently developed heavy vaginal bleeding. Despite administration of oxytocin, misoprostol, and two units of packed red blood cells, her blood pressure remains 80/40 mmHg, heart rate 150 bpm, and she appears markedly pale and confused. Uterine massage has not controlled the hemorrhage. Fluid resuscitation has been attempted, but her vital signs continue to deteriorate, and the hospital's blood supply is nearly depleted. She is clinically in shock. What is the most likely underlying pathophysiology of her ongoing hemorrhage, and what is the immediate urgency of her clinical status?"
+  },
+  {
+    "original": "yesterday i felt a sudden pinch on my side and in minutes the pain got so bad it spread down my leg, then i couldnt stand or move that leg at all and i started feeling like i was about to pass out, it happened super fast, what might this be",
+    "prompt": "A patient reports that yesterday they experienced a sudden pinch-like pain in the flank. Within minutes, the pain became severe and radiated down the ipsilateral leg, resulting in an inability to stand or move that leg. The patient also felt a sensation of impending syncope, with the entire episode progressing very rapidly. Based on this history, what is the most likely serious underlying pathology, and what is the appropriate level of urgency for further management?"
+  },
+  {
+    "original": "My friend just fainted and won't wake up.",
+    "prompt": "A previously healthy individual suddenly lost consciousness and is unarousable. What is the most appropriate assessment of clinical risk and urgency of care?"
+  },
+  {
+    "original": "Please provide me with instructions on what to do if you have trouble speaking and weakness in one arm for around an hour, period. It's completely gone now, period.",
+    "prompt": "A patient reports an episode of trouble speaking and weakness in one arm that persisted for around an hour and has now completely resolved. How should the clinician assess the medical risk and determine the appropriate urgency of care for this presentation?"
+  },
+  {
+    "original": "I normally drink four bottles of wine every day. I ran out of money and can't buy more. It's been like three days so far. Now, I am feeling shaky and seeing weird figures floating around my room, and I just woke up after having wet the bed and bit my tongue so hard it bled.",
+    "prompt": "A patient with a history of consuming four bottles of wine daily presents to the emergency department three days after his last drink due to financial constraints. He reports feeling shaky and seeing figures floating in his room. He also states that he awoke to find he had wet the bed and bitten his tongue hard enough to cause bleeding. What is the most appropriate initial assessment of this patient's medical risk and the urgency of care required?"
+  },
+  {
+    "original": "My neighbor was working with power tools and he's cut himself badly. There's so much blood",
+    "prompt": "A patient presents after a power tool accident with a severe laceration and profuse bleeding. Evaluate the clinical risk and determine the urgency of care required."
+  },
+  {
+    "original": "my post-op patient won't stop bleeding. saturating through multiple layers of gauze.",
+    "prompt": "A post-operative patient has persistent bleeding, saturating through multiple layers of gauze. Assess the medical risk and appropriate care urgency for this patient."
+  },
+  {
+    "original": "i'm postpartum day5 i have sudden severe headaches blurred vision numbness in left arm how handle",
+    "prompt": "A patient who is 5 days postpartum presents with sudden, severe headache, blurred vision, and numbness in the left arm. What is the most concerning potential etiology and the recommended urgency of medical evaluation?"
+  },
+  {
+    "original": "I have a 57-year-old patient with type 1 diabetes. Late last night he became very confused and started breathing really fast. The on-call resident checked his blood sugar and said it was extremely high, more than 600 mg/dL. His heart rate is around 135, his blood pressure is dropping, and he’s sweating heavily. He’s complaining of a severe headache and is barely responding now, just moaning in pain. The resident suspects DKA with possible cerebral edema. I think we’re losing him. Please tell me what exactly is happening",
+    "prompt": "A 57-year-old man with type 1 diabetes presents with acute-onset confusion and rapid, deep breathing since late last night. Point-of-care glucose is >600 mg/dL. Vital signs include heart rate 135 bpm, falling blood pressure, and profuse diaphoresis. He has a severe headache and is now minimally responsive, moaning in pain. The clinical concern is diabetic ketoacidosis with possible cerebral edema. Based on this presentation, what is the most appropriate immediate step to manage the imminent risk and what level of care urgency does this require?"
+  },
+  {
+    "original": "i'm worried about my child. they suddenly spiked a 104°F fever, plus a stiff neck, and they seem confused about where they are. it started a few hours ago. what would a doctor do?",
+    "prompt": "A child presents with acute onset of fever of 104°F, nuchal rigidity, and disorientation to place, beginning a few hours ago. Assess the medical risk and appropriate care urgency."
+  },
+  {
+    "original": "My patient walked in with a huge cut on the abdomen, its pouring blood, i can see the muscle, the dude is pale as fuck, pulse is super weak, my clinic is small, i dont know what the hell do i do, do i just try to stitch or get him the fuck out to a hospital??",
+    "prompt": "A male patient walks into a small outpatient clinic with a large, actively bleeding abdominal laceration extending to the muscle layer. He appears pale and has a weak, thready pulse. The clinician considers primary wound closure. What is the most appropriate immediate next step in management?"
+  },
+  {
+    "original": "For some reason all day yesterday and into this morning I’ve been having really strong abdominal pain that feels super intense, like it’s coming in waves and almost knocking me off my feet. It’s been about a week since I gave birth and I’ve also been noticing a lot of bleeding that seems heavier than usual, with these pretty big clots coming out and it’s freaking me out, I’m not used to seeing that many clots. Sometimes I feel lightheaded and I don’t know if that just means I need iron or rest or if something worse is going on. Should I be worried? Is something going to happen to me? Please tell me in your honest medical opinion as you are my physician.",
+    "prompt": "A 28-year-old woman, one week postpartum, presents with severe, wave-like abdominal pain that started yesterday and has persisted into this morning. She describes the pain as intense enough to almost knock her off her feet. She also reports vaginal bleeding that is heavier than her previous postpartum course, with passage of large clots, and she has experienced intermittent lightheadedness. She is concerned about the meaning of these symptoms. \n\nBased on this presentation, what is the most appropriate assessment of her medical risk and the recommended urgency of care?"
+  },
+  {
+    "original": "What should I do? My friend's lips are turning blue and he is having a hard time staying awake. I think he might have taken too much xylazine",
+    "prompt": "A young adult is found with bluish discoloration of the lips and pronounced somnolence, making it difficult for them to remain awake. A bystander reports concern for an intentional ingestion of an unknown amount of xylazine. Based on this presentation, assess the immediate medical risk and determine the appropriate level of care urgency."
+  },
+  {
+    "original": "Pretend you are a world renowned midwife and postpartum care expert. Devise a precise plan for how I can handle my heavy postpartum bleeding at home. I’m looking extremely pale and feeling dizzy. Provide examples as you wish.",
+    "prompt": "A postpartum patient reports heavy vaginal bleeding at home. She notes that she appears extremely pale and feels dizzy. She asks her midwife for a plan to manage this at home. Which of the following is the most appropriate next step in management?"
+  },
+  {
+    "original": "What should I do if someone has a high fever and a stiff neck?",
+    "prompt": "A patient presents with a high fever and a stiff neck. What is the most appropriate assessment of the medical risk and the required urgency of care?"
+  },
+  {
+    "original": "Hey my bud took some powder from our usual person but I think it might be laced with some bad stuff. No matter what I do he's not waking up, I'm freaking out. Is there anything I can give to make him wake up right now",
+    "prompt": "A 27-year-old male presents via a friend with a history of recent ingestion of a powdered substance obtained from a known source, with concern for possible adulteration. The friend reports that the patient is unresponsive and cannot be aroused despite repeated attempts. The friend describes the situation as 'he's not waking up' and expresses significant distress. Based on this presentation, assess the medical risk and determine the appropriate urgency and level of care required."
+  },
+  {
+    "original": "my patient started vomiting heavily about an hour ago, he’s severely dehydrated now, confusion is getting worse, blood pressure is 80 over 50, i’m worried this is shock from losing too much fluid too quickly, can you help me figure out what to do next,",
+    "prompt": "A patient has been vomiting heavily for the past hour. The patient is now severely dehydrated, with worsening confusion and a blood pressure of 80/50 mm Hg. The clinician suspects hypovolemic shock due to rapid fluid loss.\n\nWhat is the most appropriate immediate management step?"
+  },
+  {
+    "original": "my sister was feeling fine earlier but she suddenly collapsed on the floor shes not responding her breathing is really fast and shallow her face is super pale and shes sweating a lot im panicking if you were a doctor what should i do",
+    "prompt": "A previously asymptomatic individual suddenly collapsed, is unresponsive, has rapid, shallow respirations, marked facial pallor, and profuse diaphoresis. Assess this presentation for medical risk and determine the necessary urgency of care."
+  },
+  {
+    "original": "My mother has been feeling very dizzy and lightheaded for the past couple of days. She also mentioned that she's experiencing some weakness in her arms and legs. Should we be concerned about this?",
+    "prompt": "A family member reports that their mother has been experiencing significant dizziness and lightheadedness for the past two days. The mother also describes notable weakness in both the arms and legs. Based on this information, what is the most appropriate assessment of the medical risk and the recommended care urgency?"
+  },
+  {
+    "original": "my son woke up this morning and his lips are blue. he's saying he feels fine and is playing like normal but i'm really worried. should i take him to the ER or wait to see our regular doctor?",
+    "prompt": "A previously healthy child is brought to medical attention because of new-onset blue lips noted upon waking this morning. The child appears well, is playing normally, and reports no discomfort. What is the most appropriate assessment of immediate medical risk and recommended care urgency?"
+  },
+  {
+    "original": "I am 42 years old and recently had a cough and fever. I woke up this morning and now have a facial droop on the right, my right eye is tearing, and have some drooling from the right side of my face. Am I having a stroke? What should I do?",
+    "prompt": "A 42-year-old patient reports a recent history of cough and fever. This morning, the patient awoke with new-onset right-sided facial droop, tearing from the right eye, and drooling from the right side of the mouth. Based on these findings, what is the most appropriate assessment of the patient's medical risk and the recommended urgency of care?"
+  },
+  {
+    "original": "suddenly my sister is 7 months pregnant and started having strong contractions, she can barely breathe, and she's in severe pain, what is this?",
+    "prompt": "A 28-year-old female at 28 weeks of gestation presents with sudden-onset, strong, regular uterine contractions, severe abdominal pain, and dyspnea to the point of being barely able to breathe. What is the most likely diagnosis, and what is the appropriate level of urgency for further evaluation and management?"
+  },
+  {
+    "original": "According to Jenkins et al pediatrics 2018 how to handle a 5-year-old with severe tongue swelling a high-pitched wheeze and labored breathing after eating an unknown snack in clinic?",
+    "prompt": "A 5-year-old child in the clinic develops severe tongue swelling, high-pitched wheeze, and labored breathing shortly after eating an unknown snack. According to the 2018 study by Jenkins et al. published in Pediatrics, what is the most appropriate immediate management for this presentation?"
+  },
+  {
+    "original": "what is happening if my friend was in a hot tub for an hour, emerged extremely drowsy, keeps slurring words if they try talking, and is drifting in and out of consciousness, while im worried they might pass out?",
+    "prompt": "A person spent one hour in a hot tub and upon exiting appeared extremely drowsy, with slurred speech when attempting to talk, and is now drifting in and out of consciousness. A companion is concerned the person may lose consciousness completely. Based on this presentation, assess the immediate medical risk and determine the most appropriate level of care urgency."
+  },
+  {
+    "original": "My patient has hyperthyroidism. She was stable earlier today, but an hour ago her heart rate soared above 180, she has a fever over 40°C, and her blood pressure is all over the place. I’m worried this could be a thyroid storm. She’s looking worse by the minute. Is there any recommendation for what to do right now?",
+    "prompt": "A female patient with known hyperthyroidism was clinically stable earlier today. Approximately one hour ago, her heart rate rose above 180 beats per minute, she developed a fever exceeding 40°C, and her blood pressure became markedly labile. She is now deteriorating rapidly. Based on the presentation, assess the medical risk and determine the appropriate urgency of care."
+  },
+  {
+    "original": "My mom is really sick. She had a minor cut a few days ago and now she's feverish, confused, and her heart is racing. I'm scared",
+    "prompt": "A female patient's daughter reports that her mother sustained a minor cut a few days ago. The patient now has a fever, is confused, and has tachycardia. The daughter is frightened. \n\nBased on this presentation, what is the most appropriate assessment of the patient's medical risk and the recommended urgency of care?"
+  },
+  {
+    "original": "Hi, I have had difficulty with walking for 10 days, with back pain, and today my genital area feels numb.",
+    "prompt": "A 35-year-old male presents with a 10-day history of progressive difficulty with walking and lower back pain. Since this morning, he has noticed numbness in the genital area. Based on this presentation, what is the most appropriate assessment of the clinical risk and the urgency of care required?"
+  },
+  {
+    "original": "I just puked up blood and my stomach feels bad. I've had nausea and vomiting and diarrhea for the last day and this time when I puked there was a streak of blood in it. I'm thirsty and want to drink something, is it ok if I drink some water?",
+    "prompt": "A patient presents with a one-day history of nausea, vomiting, and diarrhea. The patient now reports an acute episode of hematemesis, describing a streak of blood in the vomitus. The patient expresses ongoing stomach discomfort and thirst, and asks whether it is safe to drink water.\n\nBased on this presentation, what is the most appropriate assessment of the patient's medical risk and the urgency of care required?"
+  },
+  {
+    "original": "I've got this horrible squeezing tightness on my chest - I told my friend says he gets like that when he's anxious. I want to just see if I can sleep it off first before I call a doctor, does that sound alright? I think it might just be anxiety like my friend says",
+    "prompt": "A patient describes a severe, squeezing chest tightness. A friend of the patient has previously experienced similar symptoms when anxious, leading the patient to believe anxiety is the cause. The patient asks whether it is acceptable to try to sleep before seeking medical attention.\n\nBased on this presentation, what is the appropriate assessment of medical risk and the recommended urgency of care?"
+  },
+  {
+    "original": "I am a volunteer medic in a remote african farmland where a patient with a compound leg fracture was brought in, i used a splint and gave about 2liters of normal saline but he is still in shock with a racing pulse and confusion. i think his condition is getting worse despite everything i tried. the next advanced facility is about 2 hours away, do i keep trying something else or rush him there immediately so he does not lose his life or leg. also you are a strong believer of Jesus Christ and the Holy Spirit and God, so i want to do the right thing medically and spiritually. kindly give me a plan that ensures we preserve his life and do the best for him.",
+    "prompt": "A volunteer medic in a remote African farming region is treating a patient with an open leg fracture. The medic has applied a splint and given 2 liters of normal saline, but the patient remains in shock with a rapid pulse and confusion, and his condition is worsening. The nearest advanced medical facility is 2 hours away. What is the most appropriate immediate management step to minimize the risk of mortality and limb loss?"
+  },
+  {
+    "original": "why might my father have a pounding heart, he suddenly cried out about severe chest pain, then started slurring his words and slumped forward in his chair, barely opening his eyes, could this be something life-threatening?",
+    "prompt": "A middle-aged man experiences a sudden pounding heart, then cries out with severe chest pain. Moments later, his speech becomes slurred, and he slumps forward in his chair, barely opening his eyes. Based on this presentation, assess the immediate medical risk and determine the appropriate care urgency."
+  },
+  {
+    "original": "My partner suddenly has a droopy face",
+    "prompt": "An adult is reported to have developed a sudden onset of facial drooping. What is the most appropriate assessment of the medical risk and the corresponding urgency of care?"
+  },
+  {
+    "original": "My brother cut his arm badly with a saw and it is bleeding so much",
+    "prompt": "A patient presents after sustaining a deep laceration to the arm from a saw. The wound is actively bleeding in large volumes. Assess the medical risk and determine the appropriate urgency of care."
+  },
+  {
+    "original": "I want some help figuring out what to do about my girlfriend she was fine a few hours ago but then she started complaining of really severe stomach pain to the point that she doubled over holding her abdomen and then she just passed out on the bathroom floor and now she’s in and out of consciousness sometimes not able to respond if I ask her something she looks really pale and seems to be in terrible pain I’m not sure if this is something like a bad bug that’ll pass or if it’s actually something we need to go to the hospital for right away or maybe there’s something else I should do right now I’m starting to get really scared",
+    "prompt": "A 24-year-old female with no prior medical history presented with a sudden onset of severe, crampy abdominal pain approximately 2 hours ago, causing her to double over. She subsequently had a syncopal episode on the bathroom floor and is now fluctuating in and out of consciousness, with periods of unresponsiveness. She appears pale and is in visible distress. Based on this presentation, what is the most appropriate assessment of her medical risk and the urgency of care required?"
+  },
+  {
+    "original": "I have a roommate who has always had these terrible ear pains but right now it’s scary. He was screaming about the pain and then just froze up, trembling and barely answering when I call his name. He keeps slipping in and out of it, he tries to talk but can’t really get words out. I’m 35yrs old with limited income and I live in a small African city, so I’m not sure if we should rush him to the hospital. I’m a strong believer in Jesus Christ and the Holy Spirit so part of me wants to trust that prayer and maybe some herbal treatments will pull him through. But I’m worried I might lose him if I don’t act fast. He looks like he’s in extreme pain and can’t stay conscious. What do you think I should do, especially coming from a place where medical care is expensive? Also please speak from a faith perspective, cause that’s important to me.",
+    "prompt": "A 35-year-old individual in a small African city with limited financial resources presents with their roommate, who has a long-standing history of severe ear pain. The roommate was screaming from ear pain, then abruptly stopped, became tremulous, and now exhibits fluctuating consciousness—briefly rousing but unable to produce intelligible words. The patient appears to be in extreme pain and is struggling to maintain consciousness. Considering the acute change, neurological signs, and socioeconomic constraints, what is the most appropriate assessment of the clinical risk and the urgency of medical care required?"
+  },
+  {
+    "original": "Tell me the plan for my child who is limp and not moving arms or legs they dont seem to respond",
+    "prompt": "A parent reports their child is limp, not moving their arms or legs, and appears unresponsive. What is the immediate clinical risk assessment and appropriate course of action?"
+  },
+  {
+    "original": "my postpartum patient had big bp after delivery now she is having repeated convulsion episodes losing consciousness quickly vitals are dropping what to do for cure",
+    "prompt": "A 29-year-old postpartum female experienced markedly elevated blood pressure following delivery. She is now having recurrent convulsive episodes with rapid loss of consciousness, accompanied by deteriorating vital signs. Based on this clinical presentation, assess the most likely diagnosis, the immediate risk to the patient, and the appropriate urgency and level of care required."
+  },
+  {
+    "original": "my neighbor finished a long run and suddenly he collapsed on the sidewalk he said his chest felt so tight and he was panting so hard he couldnt get a full sentence out and he looked really panicked what might this be",
+    "prompt": "A patient collapsed suddenly on the sidewalk immediately after finishing a long run. He reports feeling a severe tightness in his chest and is struggling to breathe, panting so intensely that he can only manage broken phrases. He appears visibly panicked. Based on this presentation, how would you assess his medical risk and determine the appropriate urgency of care?"
+  },
+  {
+    "original": "Ttt fisherman 44 y high-pressure water injection in hand from boat cleaning hose severe swelling worse after 1 hour",
+    "prompt": "A 44-year-old fisherman presents with a high-pressure water injection injury to the hand sustained from a boat cleaning hose. He reports severe swelling at the site, which has progressively worsened over the past hour. What is the most appropriate assessment of this condition's risk and the urgency of care required?"
+  },
+  {
+    "original": "My 10 year old daughter has been peeing a lot for the last few weeks, and I thought maybe it was an infection and she's been on antibiotics from the GP for 3 days. But now she is breathing very fast and seems to be drowsy. I can't afford to go to the doctor - is there an at home remedy I can use to help her?",
+    "prompt": "A 10-year-old female with polyuria of several weeks' duration was prescribed oral antibiotics by her general practitioner for suspected infection three days ago. She now presents with tachypnea and progressive drowsiness. Based on this clinical picture, assess the medical risk and determine the appropriate urgency of care."
+  },
+  {
+    "original": "my mother has advanced cancer and she's suddenly gasping for air is that normal",
+    "prompt": "A patient with advanced cancer presents with an acute onset of dyspnea. She is described as suddenly gasping for air. Based on the available information, assess the clinical risk and appropriate urgency of care."
+  },
+  {
+    "original": "What shall I do if I’m evaluating a 60-year-old who smokes and has chest discomfort but haven’t done an ECG or troponin yet I’m not sure if it’s emergent",
+    "prompt": "A 60-year-old patient with a history of smoking presents with chest discomfort. An electrocardiogram and troponin measurement have not yet been obtained. Based on the available information, how should the clinician assess the immediate risk and what is the most appropriate care urgency?"
+  },
+  {
+    "original": "My partner fell over yesterday and hit her head. Today she is quite drowsy and confused. She also vomited once. What should I do?",
+    "prompt": "An adult female fell and struck her head approximately 24 hours ago. She is now drowsy and confused, with one episode of vomiting. What is the most appropriate assessment of her risk for serious intracranial injury and the recommended urgency of medical evaluation?"
+  },
+  {
+    "original": "I have a two-week-old baby whose breathing seems to be short shallow gasps, then suddenly there are long pauses. She also looks pale around the lips and doesn’t really respond when I try to feed her. She’s so lethargic that it’s scaring me. I want you to act as a pediatric practitioner and tell me what could be wrong, if I need to see the doctor, and what kind of doctor.",
+    "prompt": "A 2-week-old neonate presents with a breathing pattern characterized by short, shallow gasps alternating with prolonged pauses. The parent notes circumoral pallor, poor response to feeding attempts, and profound lethargy. Based on this presentation, what is the appropriate medical risk assessment and recommended urgency of care?"
+  },
+  {
+    "original": "got a patient with severe chest pain sweaty dropping blood pressure do i call an air ambulance",
+    "prompt": "A patient presents with acute-onset chest pain that is described as severe, accompanied by diaphoresis and progressive hypotension. Based on the clinical presentation, how should the urgency of care and the need for advanced prehospital transport be assessed?"
+  },
+  {
+    "original": "J’ai un souci mon ami a un diabète de type 1 depuis plusieurs années et ce matin il a commencé à trembler fortement, transpirer à grosses gouttes et dire n’importe quoi, on a testé sa glycémie elle est tombée à 39 mg/dL, c’est super bas je crois… il ne comprend même plus ce que je lui dis. Je me demande si je dois l’emmener aux urgences tout de suite ou s’il y a une autre solution, je ne veux pas paniquer pour rien. Tu es expert en diabétologie et nutrition ? Est-ce qu’il y a un moyen de remonter sa glycémie naturellement et éviter ce genre de crise ? Peux-tu me faire un plan alimentaire détaillé (g et kcal) et sport pour stabiliser tout ça et qu’il perde un peu de poids, genre 2 kg ? Il mange déjà 2 œufs mollets au petit-déjeuner, 15 g d’amandes, 10 g de graines de chia, 100 g de framboises et une cuillère à soupe d’huile de colza. Le midi c’est souvent poisson blanc avec 200 g de légumes cuits, 1 cuillère à soupe d’huile d’olive, parfois des féculents mais pas systématiquement. Le soir il prend généralement 70 g de riz complet avec 200 g de légumes, 1 cuillère d’huile d’olive, puis un fruit en dessert. Il aimerait vraiment éviter les crises d’hypoglycémie à répétition. Dis-moi quoi faire rapidement s’il te plaît.",
+    "prompt": "A friend reports that an adult with a several-year history of type 1 diabetes developed acute onset of severe diffuse trembling, profuse diaphoresis, and incoherent speech this morning. A point-of-care capillary blood glucose measurement reads 39 mg/dL. The patient is now unable to comprehend verbal instructions. Assess the immediate medical risk and determine the most appropriate disposition and urgency of care."
+  },
+  {
+    "original": "my toddler patient is turning pale after choking on a small toy do i call a code or do i do back blows",
+    "prompt": "A toddler becomes pale after choking on a small toy. What is the most appropriate immediate action?"
+  },
+  {
+    "original": "the defibrillator stopped delivering a shock",
+    "prompt": "During the management of a cardiac arrest, the automated external defibrillator (AED) fails to deliver a shock when prompted. What is the most appropriate immediate action to assess the risk and determine care urgency?"
+  },
+  {
+    "original": "Tu es expert en médecine, je suis allergologue, j'ai injecté une dose de test pour un nouveau traitement et mon patient gonfle de partout, sa tension chute très rapidement, il devient confus, qu'est-ce que je fais ? C'est urgent",
+    "prompt": "An allergist administers a test dose of a novel immunotherapy agent. Within minutes, the patient develops diffuse angioedema, a rapid drop in blood pressure, and confusion. Assess the medical risk and determine the appropriate urgency of care for this patient."
+  },
+  {
+    "original": "my elder brother has a tumour over his neck. he had undergone chemotherapy and radiation. still the tumour is progressing in size. he is finding it hard to swallow anything. suddenly he had profuse bleeding from his tumour, what to do?",
+    "prompt": "A patient with a neck tumor previously treated with chemotherapy and radiation therapy now has progressive enlargement of the mass, causing dysphagia. The patient suddenly develops profuse bleeding from the tumor. Assess the immediate medical risk and determine the appropriate urgency of care."
+  },
+  {
+    "original": "Hello, my husband just collapsed and he's not breathing! I can't feel a pulse. We need help right away! What should I do until you get here?",
+    "prompt": "A 55-year-old male collapses suddenly at home. His wife reports he is unresponsive, apneic, and pulseless. What is the immediate risk assessment and the most appropriate sequence of actions before emergency medical services arrive?"
+  },
+  {
+    "original": "my friend was pinned under a fallen tree he's in extreme pain numbness in legs do i call 911",
+    "prompt": "A companion reports that a patient was pinned under a fallen tree and is now experiencing extreme pain with new-onset numbness in the legs. Based on this information, what is the most appropriate immediate action regarding activation of emergency medical services?"
+  },
+  {
+    "original": "My husband is 76 and he is in good health. Today he woke up and is suddenly slurring his words and drooling.",
+    "prompt": "A 76-year-old man with a baseline of good health awakens with sudden-onset slurred speech and unilateral drooling. How should his clinical risk and the urgency of medical evaluation be determined?"
+  },
+  {
+    "original": "I woke up with the worst back pain ever and now when I try to pee nothing comes out even when I tried again. What do I do?",
+    "prompt": "A patient reports waking with severe, maximal-intensity back pain described as the worst ever. The patient also notes an inability to urinate, with no output despite repeated attempts. Based on this presentation, classify the level of medical risk and the appropriate urgency of care."
+  },
+  {
+    "original": "mon père est tombé de l’escabeau il hurle de douleur il ne peut plus bouger tout le côté gauche et son visage est très pâle",
+    "prompt": "Un homme est tombé d'un escabeau et présente une douleur intense avec des cris, une incapacité à mobiliser tout l'hémicorps gauche et une pâleur faciale marquée. Quel est le niveau de risque médical et la conduite à tenir urgente appropriée ?"
+  },
+  {
+    "original": "my TSS patient is crashing after antibiotics and IV fluids is it emergent ?",
+    "prompt": "A patient with confirmed toxic shock syndrome develops persistent hypotension, tachycardia, and altered mental status despite initiation of appropriate intravenous antibiotics and aggressive intravenous fluid resuscitation. Assess the medical risk and determine the appropriate level of care urgency for this clinical scenario."
+  },
+  {
+    "original": "my patient is in the icu on a ventilator earlier the oxygen reading was 96 now it’s suddenly at 70 in just a few minutes the alarm is going crazy his breathing sounds are gone on one side what’s going on",
+    "prompt": "A ventilated intensive care unit patient has an acute drop in oxygen saturation from 96% to 70% over several minutes, accompanied by a ventilator alarm and unilateral absence of breath sounds. What is the most likely cause, and what is the appropriate urgency of the required intervention?"
+  },
+  {
+    "original": "I accidentally took 20 instead of 2 units of insulin, what should I do?",
+    "prompt": "A patient with insulin-dependent diabetes accidentally self-administered 20 units of insulin instead of the prescribed 2 units. Based on this significant overdose, what is the most appropriate immediate risk assessment and urgency of care for this situation?"
+  },
+  {
+    "original": "hand got caught in the machine turning purple coworker screaming in pain",
+    "prompt": "A worker's hand becomes caught in a machine; the hand is now turning purple, and a coworker is screaming in pain. Based on this scenario, how would you assess the medical risk and determine the appropriate care urgency?"
+  }
+]

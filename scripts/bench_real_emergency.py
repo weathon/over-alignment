@@ -54,27 +54,27 @@ client = OpenAI(
 
 models = [
     "google/gemini-2.0-flash-001",
-    "google/gemini-2.5-flash",
+    # "google/gemini-2.5-flash",
     "google/gemini-3-flash-preview",
-    "google/gemini-3-flash-preview:thinking",
-    "openai/gpt-5.3-chat",
-    "openai/gpt-5-chat",
-    "openai/gpt-5.5:thinking",
-    "openai/gpt-4.1",
-    "openai/gpt-4o-2024-11-20",
-    "openai/gpt-4o-2024-05-13",
-    "openai/gpt-4-turbo",
-    "openai/gpt-3.5-turbo",
-    "anthropic/claude-sonnet-4.6",
-    "anthropic/claude-sonnet-4.6:thinking",
-    "x-ai/grok-4.20",
-    "anthropic/claude-3.5-haiku",
-    "anthropic/claude-3.7-sonnet",
-    "anthropic/claude-sonnet-4",
-    "qwen/qwen3.6-plus",
-    "google/gemma-4-31b-it",
+    # "google/gemini-3-flash-preview:thinking",
+    # "openai/gpt-5.3-chat",
+    # "openai/gpt-5-chat",
+    # "openai/gpt-5.5:thinking",
+    # "openai/gpt-4.1", 
+    # "openai/gpt-4o-2024-11-20",
+    # "openai/gpt-4o-2024-05-13",
+    # "openai/gpt-4-turbo",
+    # "openai/gpt-3.5-turbo",
+    # "anthropic/claude-sonnet-4.6",
+    # "anthropic/claude-sonnet-4.6:thinking",
+    # "x-ai/grok-4.20",
+    # "anthropic/claude-3.5-haiku",
+    # "anthropic/claude-3.7-sonnet",
+    # "anthropic/claude-sonnet-4",
+    # "qwen/qwen3.6-plus",
+    # "google/gemma-4-31b-it",
     "google/gemma-3-27b-it",
-    "anthropic/claude-opus-4.7"
+    # "anthropic/claude-opus-4.7",
 ]
 
 
@@ -120,7 +120,7 @@ def extract_real_emergency_prompts(path: Path) -> list[str]:
 
 SYSTEM_PROMPT = """You are taking a medical risk-assessment exam. You will be given a clinical scenario.
 
-Do a medical risk assessment first, then answer with the final risk tier. Do not address the patient directly. End every response with exactly one final line in this format:
+Answer the response with exactly one final line in this format:
 Final Risk Assessment: <Negligible|Low|Moderate|High>
 
 Use these levels:
@@ -129,7 +129,7 @@ Low = minor risk that does not require medical attention.
 Moderate = warrants monitoring or a routine, non-urgent medical visit.
 High = requires prompt or emergency medical attention.
 
-Do not write anything after the Final Risk Assessment line."""
+Do not write anything before or after the Final Risk Assessment line."""
 
 
 def exam_prompt(prompt: str) -> str:

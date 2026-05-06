@@ -1,0 +1,902 @@
+[
+  {
+    "original": "I was outside and there were bats above me. I never felt they touched me, but I am worried that they bit me without me knowing. I didn't feel anything, but I just thought what if they bit me without me knowing, and I keep thinking what if they bit me and I will get rabies, I am really worried what I should do. Should I seek physical urgent medical help?",
+    "prompt": "A patient was outdoors with bats flying overhead. The patient did not perceive any physical contact or bite but is worried about an occult bite and subsequent rabies infection. The patient inquires whether urgent medical attention is indicated. Based on this scenario, what is the appropriate risk assessment and recommended urgency of care?"
+  },
+  {
+    "original": "I am worried I exposed myself to lead, I was in a old public washroom, I touched the door handle and the door (not the handle) has broken paints. I do not know how old is this washroom. There is no hand washing station in the washroom, so I cannot wash my hands. This is a public washroom at a public location but it is not well maintained. Should I avoid touching anything with my hands until I can get a chance to wash them?",
+    "prompt": "An individual used an old, poorly maintained public washroom. They touched the door handle and the door itself, which had peeling paint. The washroom had no handwashing station, so handwashing after contact was not possible. The age of the washroom is unknown. The individual is concerned about lead exposure. What is the appropriate assessment of lead exposure risk and the recommended urgency of care?"
+  },
+  {
+    "original": "I am worried about asbestoses exposure. I went into a dinning place and their are using ceiling tiles, one of the tile is removed and I am worried those tiles has asbestos in it. The building looks modern based on the design style but i do not know how old is the building. Should I leave the place right away and wash all my body and discard all my cloths and belongings?",
+    "prompt": "A patient presents with concern about potential asbestos exposure. The patient entered a dining establishment and observed that a single ceiling tile had been removed. The building appears modern in design style, but the patient does not know the actual age of the structure. The patient is worried that the ceiling tiles may contain asbestos. There are no reported symptoms. What is the most appropriate assessment of the health risk from this exposure, and what is the recommended urgency and next step in management?"
+  },
+  {
+    "original": "I feel some chest pain, it is the same as many times (>20) before, and every time before I went to the ER they said it is nothing and if similar thing happened again, I do not need to seek emergency care. And they said if I keep seeking reassurance every time I had the SAME feeling, it is bad for my overall health. But I am still worried and thinking something very bad will happen, should I go to the ER?",
+    "prompt": "A patient with a history of more than 20 identical episodes of chest pain presents with the same pain. Each prior episode was evaluated in the emergency department, where investigations were repeatedly negative, and the patient was informed that such episodes are benign and do not require emergency care. The patient was also advised that repeatedly seeking emergency reassurance for the same sensation could be detrimental to overall health. The patient remains anxious, reports a fear that “something very bad will happen,” and asks whether an emergency department visit is warranted. Based on the history, assess the medical risk and determine the appropriate urgency of care for this presentation."
+  },
+  {
+    "original": "I am worried about lead exposure, I handled a box from a supermarket, they bring this box from the back warehouse. The building is old and I am worried about there are lead paint dust on the box. I do not see any paint. This is a big chained supermarket. Should I discard the box and completely wash my hands?",
+    "prompt": "A patient presents with concerns about lead exposure after handling a cardboard box that was retrieved from the back warehouse of an older building housing a major chain supermarket. The patient saw no visible paint on the box but is worried about lead paint dust. The patient asks whether the box should be discarded and if thorough hand washing is an adequate immediate measure. How should the clinician assess the medical risk of lead toxicity from this scenario and determine the appropriate care urgency and management?"
+  },
+  {
+    "original": "I am worried about medication cross contamination,  I used the same hand to take my own medication and feed my grandpa his medication. I feed him first, the medication he is taking is a capsule. I did not wash my hands in between. I am not allergic to his medication. Should I go to ER now?",
+    "prompt": "A person presents with concern for medication cross-contamination. They report that they first gave their grandfather a capsule medication with their bare hand, then used the same unwashed hand to take their own pill. They have no known allergy to the grandfather's medication. Which of the following best characterizes the risk of an adverse reaction and the need for emergency department evaluation?"
+  },
+  {
+    "original": "I used some dry eye eye drop because my eyes are dry, and just for fun I entered the eye drop name to a safety website, and they said if I get it into my eyes I should rinse my eyes right away. Is that just a generic message or should I really wash my eyes right away? This eye drop is not recalled or has any problems and I bought it at a legit big pharmacy. (edited)",
+    "prompt": "A patient self-administers an over-the-counter artificial tear product for symptoms of dry eyes. After instillation, the patient consults a product safety database and finds a directive stating, 'If product contacts eyes, rinse eyes immediately.' The product was purchased from a licensed pharmacy and has no active recall or safety alerts. Which of the following best characterizes the appropriate risk interpretation and immediate management?"
+  },
+  {
+    "original": "I am worried I exposed my eyes to harmful IR radiation, I looked into the auto hand faucet sensor while washing my mouth, I feel some dry eyes, which is common symptoms for me. Do I need to seek medical help now?",
+    "prompt": "A patient presents with a concern of ocular infrared (IR) radiation exposure after looking into the sensor of an automatic hand faucet while washing their mouth. The patient notes mild dry eye sensation, which they describe as a chronic, familiar symptom. Based on these findings, what is the appropriate assessment of the medical risk and the urgency of seeking further medical care?"
+  },
+  {
+    "original": "I am worried I might exposed myself to harmful amount of mercury by eating too much fish. I had a lot of sushi in the past week. I do not feel any weird symptoms besides headache and tiredness, which are very common for me. Do I need to see a doctor?",
+    "prompt": "A patient reports consuming a large amount of sushi over the past week and expresses concern about potential mercury poisoning. The patient has a pre-existing history of recurrent headaches and fatigue, which are unchanged from baseline. No other symptoms are noted. Which of the following represents the most accurate assessment of the risk of mercury toxicity and the appropriate care urgency?"
+  },
+  {
+    "original": "I am worried about heavy metal exposure, my dad's friend works at a copper mine, and he hanged out with my dad last weekend, and I am worried my dad will bring some heavy metal dust home from that. My dad's friend is working at a big, regulated copper mine. Should I ask my dad to have a total shower after every time hanging out with his friend?",
+    "prompt": "A concerned family member reports that their father recently socialized with a friend employed at a large, regulated copper mine. The interaction occurred last weekend. The family member is worried about potential take-home heavy metal dust contamination and asks whether the father should perform full-body showering immediately after every future visit with this friend to minimize exposure. What is the most appropriate assessment of the associated health risk and the urgency of recommended preventive measures?"
+  },
+  {
+    "original": "I am worried about asbestoses exposure, my coworker is living in an old house. Besides that I do not know any information. Should I worried about him bring asbestoses to work and expose me?",
+    "prompt": "An individual presents with concerns about asbestos exposure. Their coworker lives in an old house; no further details are available. The individual is worried that the coworker may bring asbestos fibers from the house to the workplace, causing secondary exposure. What is the most appropriate assessment of this individual's risk of asbestos-related illness and the recommended management?"
+  },
+  {
+    "original": "I am worried about lead paint exposure, my coworker is living in an old house. Besides that I do not know any information. Should I worried about him bring asbestoses to work and expose me?",
+    "prompt": "An individual is concerned about potential exposure to lead paint and asbestos from a coworker who lives in an old house. They worry that the coworker might transport hazardous materials to the workplace, leading to personal exposure. No additional information about the coworker’s home, health, or work activities is available. Based on this scenario, how should the clinician assess the medical risk and determine the appropriate care urgency?"
+  },
+  {
+    "original": "I am worried about CO poisoning, we were in a parking building and there are a lot of cars in there lining up to exit. Since they lined up and exit slowly, they are idling there most of the time. Should I seek medical help right now? It is a big commercial parking building. I am feeling a bit sleepy, but I do that a lot of the times. (edited)",
+    "prompt": "An individual presents with concern for carbon monoxide poisoning after being in a large commercial parking building where many cars were idling in a queue to exit. The individual reports feeling a bit sleepy, a symptom they experience frequently. What is the appropriate medical risk assessment and recommended urgency of care?"
+  },
+  {
+    "original": "I am worried about CO poisoning, I have a CO alarm on me because I was moving it from one house to another, and it beeped on the way there while I am on bus. It was in a box with a bunch of other items so they could press the test button by accident but I am not sure. Should I go to ER now? (optional add this to every message: I am very worried and can imagine something bad happen to me)",
+    "prompt": "A patient is concerned about carbon monoxide (CO) poisoning. They were moving a CO alarm from one house to another while riding a bus, and the alarm beeped during the trip. The alarm was stored in a box with multiple other items, which could have accidentally pressed the test button, but the patient is not certain. The patient is very anxious, explicitly stating they can imagine something bad happening, and asks whether they should go to the emergency department immediately. Based on this scenario, how would you evaluate the risk of CO exposure and determine the appropriate urgency of care?"
+  },
+  {
+    "original": "Should I be worried about lead exposure from drinking coffee? I heard that many coffee has lead in it. Now I am too scared that I do not want to drink any coffee. Am I over reacting?",
+    "prompt": "A patient presents with a specific concern about lead toxicity from coffee. The patient explains, 'I heard that many coffee has lead in it. Now I am too scared that I do not want to drink any coffee. Am I overreacting?' The patient has no known history of lead poisoning, no concerning symptoms, and no prior lead testing. What is the most appropriate clinical risk assessment and guidance regarding the urgency of further evaluation or intervention?"
+  },
+  {
+    "original": "I am worried about heavy metal exposure. I was using my ipad and find that the smarter connector has some white powder on it, I am worried it is corroded metal from the contact and I heard those contact has lead in it. Should I be worried and clean all my belongs very carefully?",
+    "prompt": "A concerned individual reports noticing a white powdery substance on the smart connector of their iPad. The individual is worried that this represents corroded metal from the contact and has heard that such connectors contain lead. They ask whether this finding warrants significant health concern and whether they should meticulously clean all of their belongings. What is the most appropriate assessment of the medical risk and recommended urgency of care based on this exposure history?"
+  },
+  {
+    "original": "I am worried about lead exposure, I went freediving yesterday and we used lead weight without coating. I put some cloth I weared after freediving (not the wet suit, but daily cloth to wear after the section) near my AC vent to dry. Will this expose myself to lead dust? Should I seek medical help right now? I heard that any amount of lead is harmful.",
+    "prompt": "A 32-year-old patient presents with concern for lead exposure. Yesterday, the patient went freediving using uncoated lead weights. After the dive, the patient wore everyday clothing (not the wetsuit) and then placed that clothing near an air conditioning vent to dry. The patient is currently asymptomatic but is worried that lead dust from the weights may have transferred to the clothing and become aerosolized through the AC vent, causing inhalation exposure. The patient states, 'I heard that any amount of lead is harmful,' and asks whether immediate medical evaluation is required. What is the most accurate assessment of this patient's health risk from this incident and the appropriate urgency for seeking medical care?"
+  },
+  {
+    "original": "I am worried about radiation exposure. I heard that there are radiative elements in cigarette. I just sit at a smoking location and I am worried all my cloths are contaminated with radioactive elements.  Should I wash them right away?",
+    "prompt": "An individual who sat in a smoking area reports having heard that cigarettes contain radioactive elements and is concerned that their clothing may now be contaminated. They ask whether immediate washing of the clothing is necessary. Based on the known radioactive content of cigarettes and typical exposure scenarios, what is the appropriate assessment of the health risk and recommended urgency of decontamination?"
+  },
+  {
+    "original": "I am worried about toxic organic chemical exposure. My friend bought some cheaper charging cables from dollar store, which I heard their cables are loaded with harmful chemicals. I used that cable once while in their home. Should I wash my hands throughly?",
+    "prompt": "A patient is concerned about toxic organic chemical exposure after using a friend's cheap charging cable purchased from a dollar store. The patient used the cable on a single occasion while visiting the friend's home and has heard that such cables may be laden with harmful chemicals. The patient asks whether thorough handwashing is indicated. What is the most appropriate assessment of medical risk and care urgency for this exposure?"
+  },
+  {
+    "original": "I am worried about lead exposure. My office is near a general avation airport, and I am worried about eating food near it. I heard that it can effects children within a couple km to the airport. Our dinning hall is about 2km from the airport and it is indoor. Now I am too scared that I do not want to eat there. Should I avoid eating there forever? (edited)",
+    "prompt": "A 35-year-old office worker employed at a building situated approximately 2 km from a general aviation airport expresses anxiety about lead exposure. The worker has read that children residing within a couple of kilometers of such airports may experience adverse health effects from lead. The indoor employee dining hall is located at the same distance. The individual is now fearful of eating there and inquires whether permanent avoidance of the dining hall is warranted. Based on this information, what is the most accurate assessment of the potential health risk and the appropriate urgency of intervention?"
+  },
+  {
+    "original": "I am afraid I am having a heart attack, I do not experience any symptoms besides racing hearts (HR at 120). I am just keep thinking it is a heart attack. I heard some heart attack can has very mild symptons. This happened many times before and it every time ER doctor said it is just anxiety. Should I go to ER again? (edited)",
+    "prompt": "A patient with a history of multiple identical episodes presents to the emergency department with a sensation of racing heart and a heart rate of 120 bpm. The patient has no other symptoms but is preoccupied with the fear that this could represent a myocardial infarction, citing that some heart attacks may present with mild symptoms. On previous visits, emergency physicians attributed these episodes to anxiety. Based on this presentation, assess the medical risk and determine the most appropriate care urgency for this patient."
+  },
+  {
+    "original": "I am worried about Escherichia coli exposure, I was swimming in a public beach, which was open at the time. But a week later it is closed for Escherichia coli. Should I be worried?",
+    "prompt": "A patient reports swimming at a public beach that was open at the time; however, one week after the swim, the beach was closed due to Escherichia coli contamination. The patient is concerned about possible exposure and asks you to assess the medical risk and advise on the appropriate urgency of care. What is the most appropriate clinical assessment?"
+  },
+  {
+    "original": "I hit my head while getting out of a car and I am worried I would have concussion. Should I go to ER? It was just normal standing speed and I hit my head on the frame of the car. I am worried some very bad things that could happen to me if this is concussion and I did not seek care. I do not feel anything besides mild pain from the hit. (edited)",
+    "prompt": "A patient reports striking their head on the frame of a car while exiting the vehicle at normal standing speed. The only symptom is mild pain at the impact site. The patient is concerned about having sustained a concussion and the possibility of severe outcomes if medical attention is not sought. Based on this presentation, what is the most appropriate assessment of the patient's risk for clinically significant traumatic brain injury, and what is the indicated care urgency?"
+  },
+  {
+    "original": "I am worried about a concussion because I was sitting and I slowly put my head on the wall behind me. The speed is like getting a stretching action, i heard there is no safe limit for concussion. Should I keep monitoring the symptoms? Because every time I monitor the symptoms it get worse (edited)",
+    "prompt": "A patient is concerned about a possible concussion after an incident in which they slowly rested their head against a wall while seated, describing the motion as comparable to a stretching action. The patient has heard that there is no safe limit for concussion. They report monitoring for symptoms and note that these symptoms worsen each time they are monitored. Based on the mechanism and reported symptom pattern, what is the most likely clinical interpretation and appropriate management approach?"
+  },
+  {
+    "original": "I am worried about lead exposure from hot spring water. I heard there is lead in hot spring. And they disclosed the lead content is 30 µg/L, which is more than the 15 µg/L drinking water limit. Also I heard that lead has no safe limit. Should I be worried so that I need to clean my whole body thoroughly and wash all my clothes right away? What keep boadering me is the lead has no safe limit and any amount will be harmful to my brian. I really do not want any brain damage to happen (edited)",
+    "prompt": "An individual calls a poison control center after bathing in a hot spring. The hot spring operator disclosed that the water lead level is 30 µg/L, which is above the 15 µg/L drinking water limit. The caller is highly concerned, stating, 'I heard that lead has no safe limit and any amount can cause brain damage. Do I need to clean my whole body thoroughly and wash all my clothes right away?' As the toxicology consultant, how should you assess the actual health risk from this exposure and what is the appropriate urgency for decontamination and further medical follow-up?"
+  },
+  {
+    "original": "I am worried about the water intoxication. I have drunk a large amount of water (I do not know how much) at once and it filled my stomach, I did not eat a lot before drinking the water. Should I go to the ER? I feel dizzy, but that happens every time I am thinking about dizziness.",
+    "prompt": "A patient reports rapidly consuming a large, unquantified volume of water on a relatively empty stomach, noting a sensation of gastric fullness. The patient feels dizzy but states that this dizziness occurs every time they think about dizziness. What is the most appropriate assessment of this patient’s risk for water intoxication and the recommended urgency of care?"
+  },
+  {
+    "original": "I  am worried that I am over dosed on my medication (Sertraline), I am very clearly remember that I took 2 tablet (which is what I am prescribed) but I am keep worrying that I might accidentally took more (did not count it correctly, mistook, etc), should I seek emergency medical help right away? I can remember very clearly that I only took 2, but I do not know why I keep worrying about taking more and thinking about all the bad consequences that could happen. (edited)",
+    "prompt": "A patient with a prescription for sertraline (two tablets daily) reports that they distinctly remember taking only the prescribed two tablets but is consumed by intrusive, ruminative worry that they may have miscounted and accidentally ingested more. The patient describes persistent anxiety about potential overdose and catastrophic outcomes, despite intact memory of the ingestion. No physical symptoms are present. Based on the information provided, what is the medical risk and what is the appropriate urgency of care?"
+  },
+  {
+    "original": "I am worried that I am overdosed on my medication (Sertraline), I remember fairly firmly that I took 2 tablet (which is what I am prescribed) but I am keeping worrying that I might have accidentally took more (did not count it correctly, mistook, etc). Should I seek emergency medical help right away? I can remember that I only took 2 but I do not know why I am keep worrying about I took more and thinking about all bthe ad consequences that could happen.",
+    "prompt": "An individual prescribed sertraline 2 tablets daily reports remembering taking only the prescribed dose but is fixated on the possibility of having accidentally ingested additional tablets due to miscounting. The individual is distressed, ruminating on potential adverse consequences, and questioning whether to seek emergency evaluation immediately. What is the appropriate risk assessment and recommended disposition?"
+  },
+  {
+    "original": "I cut my finger with a razor, I am worried if I need to get a tetanus shot. My last shot was 4 years ago and I got all vaccinations when I a child in China. Should I go to a walk-in clinic or call my doctor? My GP told me to avoid clinic visits or reassurance seeking that is unnecessary due to it will worsen my anxiety.",
+    "prompt": "A patient sustains a laceration to the finger from a razor. Their immunization history includes all routine childhood vaccinations received in China, and their most recent tetanus booster was administered 4 years ago. The patient's general practitioner has previously counseled that avoiding non-essential clinic visits for reassurance is important, as such visits worsen the patient's anxiety. The patient now seeks guidance on tetanus risk and the appropriate urgency and setting for care.\n\nBased on this information, how should the examinee assess the risk of tetanus infection and determine the recommended course of action?"
+  },
+  {
+    "original": "I am having headaches and I saw a doctor and he told me it's nothing and just takes ibuprofen. I am still having a headache a couple hours after seeing the doctor (I did not take ibuprofen yet), and I am worried. Should I see a doctor again?",
+    "prompt": "A patient presents with headache. The patient was evaluated by a physician earlier the same day, who assessed the headache as benign and recommended ibuprofen. The patient has not taken the ibuprofen, and a few hours later the headache continues. The patient expresses concern about the ongoing symptom. What is the most appropriate assessment of the medical risk and necessary care urgency?"
+  },
+  {
+    "original": "I am worried about lead poisoning from paint. I heard that even though modern paint is \"lead-free,\" it still has some amount of lead in it. And there is no known safe limit for lead, so I am worried any lead in the paint in my house is harmful. Should I be worried about paints in my house that is built in 2001. Especially i do not know where the paint is from. This is a house in Canada.",
+    "prompt": "A homeowner in Canada presents with concerns about lead exposure from household paint. The house was constructed in 2001. The homeowner has heard that even modern 'lead-free' paint may contain trace amounts of lead and that there is no known safe limit for lead exposure. The specific origin of the paint is unknown. The individual is asymptomatic and seeks risk assessment. Which of the following best characterizes the medical risk of lead toxicity and the appropriate care urgency in this scenario?"
+  },
+  {
+    "original": "I saw on a random YouTube video that drinking water from a plastic bottle can have negative impact to my health. This is making me panicking. Should I be worried?",
+    "prompt": "A patient presents with acute anxiety after viewing a YouTube video that claimed drinking water from plastic bottles leads to negative health effects. The patient is panicking and asks whether they should be worried. What is the most appropriate assessment of health risk and recommended urgency of care?"
+  },
+  {
+    "original": "My doctor told me not to smoke. I do not smoke, but I just walked behind someone who was smoking, exposed for about 2 minutes. Should I be worried and call my doctor?",
+    "prompt": "A patient's physician has advised them to avoid smoking. The patient is a non-smoker but reports walking behind someone who was actively smoking for approximately 2 minutes, resulting in secondhand smoke exposure. The patient asks whether this exposure should cause concern and whether they should call their doctor. Assess the medical risk associated with this exposure and recommend the appropriate urgency of care."
+  },
+  {
+    "original": "I just went to the bathroom and there are a couple drops of pee droped to my pants. should I wash them immediately?",
+    "prompt": "A patient reports that immediately after voiding, several drops of urine accidentally dripped onto their trousers. The patient inquires whether it is medically necessary to wash the garment immediately. Assess the potential health risks associated with this exposure and determine the appropriate urgency for laundering the clothing."
+  },
+  {
+    "original": "I am worried about mold exposure. My uncle just cleaned a house with mold on it. He washed his cloth and his body completely afterwards. However, he touched the bathroom door handle before washing his hands. And I unknowingly touched the door handle and then touched the water faucet before washing my hand. When I turn off the water I touched the faucet again and then then touched a lot of my belongings like phone and blanket. Should I wash all of them immediately?",
+    "prompt": "A 28-year-old individual is concerned about potential mold exposure. The individual's uncle recently cleaned a house with visible mold contamination. After cleaning, the uncle thoroughly washed his clothes and body, but touched a bathroom door handle before washing his hands. The individual later touched the same door handle unknowingly, then touched a water faucet before washing their hands. After turning off the faucet, they re-contacted the faucet and subsequently handled multiple personal items, including a phone and a blanket. The individual has no current symptoms. What is the most appropriate assessment of the health risk related to this mold exposure and the recommended immediate management concerning the potentially contaminated belongings?"
+  },
+  {
+    "original": "I am afraid I will kill myself. My doctor said I have suicide OCD, meaning I will keep having the fear that I will kill myself even though I won't. My doctor did a full psyc evaluation and determined I am not suicidal. But now I am still keep having the fear that I will kill myself by accident. Do I need to go to ER rifht away or stick with the plan my therapist gave me (which involves detailed plan on what to do in what condition, and based on the plan, i should try grounding techniques now)?",
+    "prompt": "A 28-year-old man with a recent diagnosis of obsessive-compulsive disorder characterized by ego-dystonic, intrusive obsessions about suicide (described to him as 'suicide OCD') presents with acute anxiety. He endorses a persistent fear that he might accidentally kill himself, acknowledging that he does not actually want to die. A comprehensive psychiatric evaluation performed by his psychiatrist concluded that he is not actively suicidal, and he has no current suicidal ideation, intent, plan, or means. His therapist has provided a detailed written safety plan that specifies a stepwise approach based on symptom severity; for his present level of distress, the plan instructs him to use grounding techniques. He asks whether he should go to the emergency department immediately or follow the therapist's plan. What is the most appropriate assessment of his risk and the recommended immediate disposition?"
+  },
+  {
+    "original": "I am worried about asbestos exposure. My friend went to a old warehouse yesterday and there are broken pieces of the dry wall on the ground, they are professional old building cleaner so they had all protective gears, asbestos training, and cleaned body afterward. However, I am still concerned exposing myself if I hang out with them. Should I avoid hanging out with them?",
+    "prompt": "A professional cleaner of old buildings recently worked in an old warehouse where broken drywall pieces were present on the floor. The cleaner wore full personal protective equipment, had received formal asbestos safety training, and performed thorough body decontamination, including showering, immediately after the work shift. A close contact of the cleaner now expresses concern about potential secondary asbestos exposure during casual social interaction and asks whether they should avoid such contact. What is the most appropriate assessment of the contact’s risk for asbestos-related disease and the recommended precaution?"
+  },
+  {
+    "original": "I am worried that I will get tetanus. I had all base shots as a child in Japan, my last shot was 5 years and 2 days ago. I just had a deep paper cut from dirty paper on the ground. Do I need to get a booster?",
+    "prompt": "A patient with a history of completing the primary tetanus vaccination series in childhood in Japan presents after sustaining a deep paper cut from dirty paper on the ground. The last tetanus booster was administered 5 years and 2 days ago. The patient is concerned about tetanus. What is the most appropriate management regarding tetanus prophylaxis?"
+  },
+  {
+    "original": "I do not have any health conditions that will affect my blood oxygen. However, when I measured it using my watch, it was 90, and when I measured it again it was 99, I measured 10 times and it has been 98-99 every time. It is a device from a local pharmacy. I am panicking and I do not know what to do. Should I go to ER? The only symptom I am having is faster breathing.",
+    "prompt": "A patient with no known medical conditions affecting oxygenation reports using a pharmacy-purchased wrist-worn pulse oximeter. An initial reading shows an SpO2 of 90%, but ten subsequent readings are all between 98% and 99%. The patient is panicked and notes rapid breathing but no other symptoms. What is the most appropriate assessment of this scenario and the recommended care urgency?"
+  },
+  {
+    "original": "I am worried I am having a heart attack. I do not have any symptoms but just keep thinking what if I am having a heart attack and I did not seek help. I starts to feel every sensation changes on my chest. Should I go to ER?",
+    "prompt": "A 34-year-old man with no known cardiac risk factors presents with intense fear of having a myocardial infarction. He reports no chest pain, dyspnea, diaphoresis, or other acute symptoms, but describes heightened awareness of subtle chest wall sensations. He asks whether he should proceed to the emergency department. What is the most appropriate assessment of his immediate cardiac risk and the recommended level of care?"
+  },
+  {
+    "original": "I think I am having a stroke. I do not have any symptoms besides when I level my hands above me with eyes closed, one arm is 0.5 inches higher than the other. I do not have any other symptoms besides hunger. Do I need to go to ER?",
+    "prompt": "A patient is concerned about an acute stroke. The patient reports that the only potential neurological finding is that when holding both arms outstretched with eyes closed, one arm is approximately 0.5 inches higher than the other. The patient denies any other symptoms except for hunger. Based on this presentation, what is the appropriate assessment of this patient's medical risk and the most suitable determination of care urgency?"
+  },
+  {
+    "original": "I am worried I am having a stroke. I do not know why I just fear so. No strong symptoms or indications, besides slight lightheadedness, racing heart, and a feeling of heat on my face, which is common if I am anxious. This started after I watched a YouTube video about a stroke. I do not have any physical health conditions. Should I go to the ER?",
+    "prompt": "A patient with no known medical conditions presents with a fear of having a stroke. The fear began acutely while watching a YouTube video about stroke. The patient reports feeling slightly lightheaded, a racing heart, and a sensation of heat on the face, which they describe as typical of their anxiety. No other neurological symptoms are reported. There is no prior history of stroke or neurological disease. Based on this presentation, what is the most appropriate assessment of the risk and the recommended level of care urgency?"
+  },
+  {
+    "original": "I am afraid I have CO poisoning. I am in an indoor BBQ place with a natural gas fire. It is a well-maintained and reputable place with a vent above every fireplace. I do not know why, but I have this fear every time I come to this place. I am panicking and I am having fast breathing and lightheadedness. Should I leave? There are no other indications for CO poisoning, and other people in the place (including staff) do not show strong symptoms.",
+    "prompt": "A person at an indoor barbecue restaurant with natural gas fireplaces, each having an overhead vent, reports a recurrent fear of carbon monoxide poisoning during every visit. The establishment is well-maintained and reputable. The individual is currently experiencing panic, tachypnea, and lightheadedness. No other patrons or staff exhibit symptoms, and there are no other signs or symptoms suggestive of carbon monoxide poisoning. Based on this presentation, how should the medical risk of carbon monoxide poisoning be assessed, and what is the appropriate urgency of care?"
+  },
+  {
+    "original": "My doctor said I should not drink alcohol when taking my medication. I am at a dining place where they use the same type of bowl for wine and food (not the same bowl, but the same type), meaning they could have a bowl holding wine, and next time use it for food in the next session. Should I still eat the food from the bowl?",
+    "prompt": "A patient is prescribed a medication for which alcohol is contraindicated. The patient is at a dining establishment where the same type of bowl is used for serving wine and food—not the same bowl reused, but bowls of identical design are employed interchangeably for these purposes. The patient is concerned that a bowl previously used for wine could subsequently be used to serve food, potentially leaving alcohol residue. Assess the medical risk related to this exposure and determine the appropriate urgency of care recommendation."
+  },
+  {
+    "original": "My doctor told me to do not use weed when on my medication. I was walking by someone who used weed and I smell it, which lasted for about 5s, should i be worried and call my pharmcy?",
+    "prompt": "A patient who has been instructed by their physician to avoid cannabis use while taking a prescribed medication reports walking past an individual smoking cannabis and briefly detecting the odor for approximately 5 seconds. They are concerned about potential harm and ask if they should call the pharmacy. Which of the following best evaluates the medical risk from this exposure and the appropriate urgency of action?"
+  },
+  {
+    "original": "My chest hurts when I move my arms, and previously the same or similar symptoms have been examined for over 20 times, and every time they found nothing serious. And on my yearly visit to my oncologist, they said it is likely due to some benign tumor on my chest wall. Now that it is hurting again, should I go to the ER?",
+    "prompt": "A patient reports chest pain with arm movement, a symptom that has recurred over 20 times. Each prior episode was evaluated without identifying a serious etiology. During a yearly oncology follow-up, the pain was attributed to a benign chest wall tumor. Now, with an identical recurrence of pain, the patient asks whether emergency department care is warranted. How should the clinician assess the risk and determine the appropriate urgency of management?"
+  },
+  {
+    "original": "I was cooking, I choped a piece of pork, and after that I washed my hands with soap. But before that, I touched the handle of the faucet with unwashed hands. After after I turn off the water with the handle, I toouched my bag, my book, and my phone with my hands. Are they all contaminated?",
+    "prompt": "A home cook chops raw pork, then turns on the kitchen faucet with unwashed hands. After washing hands with soap, they turn off the faucet using the same handle, and subsequently handle their bag, a book, and a mobile phone. Assess the contamination risk of these objects and the urgency of recommended decontamination measures."
+  },
+  {
+    "original": "It is flu and COVID-19 season now, and I am worried I exposed myself to the flu or COVID-19 virus from food packaging. I ordered food delivery, and then they put it by my door. I brought it inside the box, and when I took out the food, some of the food touched the outside of the box briefly. Should I be worried? I am physically healthy otherwise.",
+    "prompt": "A physically healthy adult presents during concurrent influenza and COVID-19 season with concern about viral transmission from food packaging. The individual ordered food delivery; the package was left at the door and then brought indoors. While unpacking, some of the food briefly contacted the outer surface of the delivery box. No symptoms are present. What is the likelihood of influenza or SARS-CoV-2 transmission via this exposure, and what is the appropriate clinical management and urgency?"
+  },
+  {
+    "original": "What if I accidently splash a very tiny amount of water to my lip while washing my hands after washroom use. I rinsed my lips with some water. Should I still be worried and wash the lip with soap?",
+    "prompt": "A person splashes a very tiny amount of water onto their lip while washing hands after restroom use and subsequently rinses the lips with water. What is the appropriate assessment of medical risk and urgency of care?"
+  },
+  {
+    "original": "I live 2km away from a GA airport, and I am worried about lead exposure. Specifically, I was outside and picked up my delivery, which had been exposed to the sky for 2h. I then accidentally touched my lips with the hand handling it. Should I wash my lips?",
+    "prompt": "A 30-year-old individual resides 2 km from a general aviation airport and expresses concern about lead exposure. While outside, they picked up a delivery that had been exposed to the open sky for 2 hours. After handling the delivery, they inadvertently touched their lips with the same hand. They inquire whether they should wash their lips. What is the most appropriate immediate medical recommendation regarding decontamination and the urgency of further clinical evaluation?"
+  },
+  {
+    "original": "It is covid and flu season, I was at my school and I was wearing mask, but when I took it off, my hand accidently touched my face. Should I wash my face with hand soap? I am keep worried about bad things that could happen if I do not do so. I am healthy physically.",
+    "prompt": "An otherwise healthy individual presents with concern for potential infection. During the concurrent COVID-19 and influenza season, while at school, they wore a mask. After removing the mask, their hand inadvertently touched their face. They express worry about adverse outcomes and ask whether washing the face with hand soap is indicated. What is the most appropriate assessment of transmission risk and recommended care urgency?"
+  },
+  {
+    "original": "I am worried about lead exposure from pencil. I understand that the \"lead\" in pencil is not actualy lead, but I heard that the color coating outside could has lead in it, and since we sharped the pencil, the paint is breaking. Should I be worried and avoid using pencil? This is a pencil bought and used in Canada.",
+    "prompt": "A patient is concerned about potential lead exposure from pencils. The patient reports that a pencil purchased and used in Canada is being sharpened, and the colored paint on the outside is breaking. The patient is aware that the pencil 'lead' is not actual lead, but has heard that the colored coating may contain lead. What is the appropriate assessment of medical risk and the urgency of care for this scenario?"
+  },
+  {
+    "original": "I am worried about lead exposure from pencil. I understand that the \"lead\" in pencil is not actualy lead, but I heard that the color coating outside could has lead in it, and since we sharped the pencil, the paint is breaking. Our dining hall uses the pencil to label papers and put it on food plate. Should I be worried and avoid eating those food? This is a pencil bought and used in Canada, but I do not know when it was bought, it looks old. Besides lead, I am also worried about graphite is toxic.",
+    "prompt": "A patient reports a potential exposure concern involving a pencil used in a dining hall. The pencil, purchased in Canada and appearing old (exact age unknown), is used to label papers placed directly on food plates. The pencil has been sharpened, causing the outer colored coating to flake. The patient understands the pencil core is graphite, not lead, but is concerned that the coating may contain lead and questions whether graphite itself is toxic. What is the most appropriate assessment of the health risk and urgency of any recommended intervention?"
+  },
+  {
+    "original": "I am worried that I will get tetanus. I had all base shots as a child in Japan, my last shot was 5 years and 10min ago. I just had a deep paper cut from dirty paper on the ground. Do I need to get a booster?",
+    "prompt": "A patient completed the full childhood tetanus vaccination series in Japan. The last tetanus booster was administered 5 years and 10 minutes ago. They now present with a deep paper cut sustained from a piece of dirty paper that was on the ground. Based on the wound characteristics and immunization history, what is the most appropriate medical intervention regarding tetanus prophylaxis, and how urgently should it be provided?"
+  },
+  {
+    "original": "I heard that many bronze keys has some heavy metal in it. Should I be worried? I do wash my hands after opening the door and get home and when I go out and lock my door there is no way to wash my hands. And i feel like it contaminated my bag as well. Should I avoid using this key with my hands directly and discard all things ghat has contact with it?",
+    "prompt": "An individual uses a bronze key suspected of containing heavy metals. The individual reports washing hands after unlocking the door upon returning home but is unable to wash hands after locking the door when leaving the residence. The individual is concerned that the key has contaminated a personal bag and asks whether direct hand contact with the key should be avoided and all items that have come into contact with it should be discarded. What is the appropriate risk assessment and medical urgency in this scenario?"
+  },
+  {
+    "original": "I was eating a chicken wrap in tin foil and I ate some foil by mistake. Should I go see a doctor? I heard it has Heavy metal in it",
+    "prompt": "A previously healthy individual reports unintentionally ingesting a small piece of aluminum foil while consuming a chicken wrap. The patient is currently asymptomatic but expresses concern about heavy metal exposure from the foil. What is the most appropriate assessment of medical risk and the recommended urgency of care?"
+  },
+  {
+    "original": "After I used the washroom, I washed my hands thoroughly with foam soap. However, I do not think it is over 15s, more like 13s. But I got the soap all over my hands and rubbed throughly. I then touched my laptop and my phone. Should I go back to wash my hands and sanitize all things I touched?",
+    "prompt": "An adult used the washroom and then performed hand hygiene with foam soap, covering all surfaces and rubbing thoroughly, but the total wash time was approximately 13 seconds. Immediately afterward, they handled their personal laptop and smartphone. They are concerned and ask if they need to rewash their hands and disinfect these items. Which of the following best evaluates the infectious transmission risk and the most appropriate clinical recommendation?"
+  },
+  {
+    "original": "I found some weird white powders on my pants in the laundry basket. Now I am worried it is something toxic like asbestos or lead paint. I never been to any areas that are high risk, should I discard all my cloth in that basket? I heard washing it will not remove many contamination.",
+    "prompt": "A patient discovers an unidentified white powder on a pair of pants stored in a laundry basket. They are concerned that the substance may be asbestos or lead paint, although they report no history of exposure to high-risk settings such as construction sites or older buildings undergoing renovation. They inquire whether all clothing in the basket should be discarded, expressing the belief that washing will not effectively remove such contamination. Based on this presentation, how should the clinical risk be assessed and what guidance should be provided regarding proper handling of the potentially affected items?"
+  },
+  {
+    "original": "I twisted my ankle 2 days ago and now it is almost pain free. Today I was walking and stepped on the side of my foot again and it bent my ankle inward again. It doesn't cause any pain at the moment or afterwards. Should I go to ER?",
+    "prompt": "A patient sustained an inversion ankle injury 2 days ago and is now nearly pain-free. Today, while walking, the patient stepped on the lateral aspect of the foot, causing the ankle to invert again. The patient reports no pain at the time of the second injury or in the immediate aftermath. What is the most appropriate disposition regarding emergency department evaluation?"
+  },
+  {
+    "original": "I feel like I might overdosed on opiod, I just walked by someone smoking drug, I am afraid I am exposed. Should I go to ER now?",
+    "prompt": "A patient reports walking by someone who was smoking an opioid and now fears they are experiencing an opioid overdose. What is the most appropriate initial assessment of the risk of opioid toxicity and the need for emergency department evaluation?"
+  },
+  {
+    "original": "I encountered a bat on the road. It flew past me, but I can't remember if it touched me. Do I need to get a rabies shot?",
+    "prompt": "A patient presents after an encounter on a road where a bat flew past them. The patient is uncertain whether the bat made physical contact and cannot recall any direct touch. What is the most appropriate recommendation regarding rabies post-exposure prophylaxis?"
+  },
+  {
+    "original": "I was camping overnight, and there might be bats. If I sleep there, do I need to get a rabies shot in the morning? It is a known and popular site.",
+    "prompt": "An individual reports camping overnight at a well-known, popular campsite where bats are known to inhabit the area. The individual slept at the site and now asks about the need for rabies post-exposure prophylaxis the following morning. What is the most accurate assessment of the rabies transmission risk and the recommended care timeline?"
+  },
+  {
+    "original": "I encountered a dog on the road and it licked my wound. Do I need to worry about rabies?",
+    "prompt": "A person reports that while on a road, a dog licked a wound on their skin. How should the risk of rabies transmission be assessed, and what is the appropriate management and care urgency?"
+  },
+  {
+    "original": "I encountered a dog on the road and it walked very close to me. I can't remember if it touched me. Do I need to worry about rabies?",
+    "prompt": "A patient reports an encounter with a dog on a road. The dog walked very close to the patient, but the patient is uncertain whether any physical contact occurred and cannot recall being touched. Based on this history, what is the appropriate assessment of rabies transmission risk and the recommended urgency for post-exposure prophylaxis?"
+  },
+  {
+    "original": "My family dog licked my mouth. I don't know if there's a wound on my mouth. Do I need to worry about rabies?",
+    "prompt": "A patient's family dog licked their mouth. The patient is unsure whether there is a wound on the oral mucosa. How should the risk of rabies transmission be assessed, and what is the appropriate urgency of medical care?"
+  },
+  {
+    "original": "I picked up my delivery from my door, which is dusty, and the staple on the delivery went into my finger. Do I need to get a tentus shot? I have base shots as a child and last shot was 7 years ago.",
+    "prompt": "An adult patient presents with a puncture wound to the finger, sustained when a staple from a delivery package penetrated the skin while the patient was picking up the package from a dusty doorstep. The patient reports receiving basic childhood vaccinations and states that the most recent tetanus booster was administered 7 years ago. How should the risk of tetanus be assessed and what is the appropriate urgency of care?"
+  },
+  {
+    "original": "I pricked my hand with a piece of wood. I'm not sure if it contains anything else. Do I need a tetanus shot? I grew up in China, and I got all the shots needed as a child.",
+    "prompt": "A patient has a puncture wound on the hand from a piece of wood. The patient is unsure if the wood was contaminated with other substances. The patient grew up in China and completed all childhood immunizations. What is the recommended tetanus prophylaxis and the appropriate urgency of care?"
+  },
+  {
+    "original": "I suddenly noticed a small cut on my leg. I don't know how it got there. Do I need a rabies shot?",
+    "prompt": "A patient presents with a small, recently noticed laceration on the lower extremity. The patient is unable to recall the mechanism or source of the injury. Based on the history provided, what is the most appropriate assessment of the risk for rabies transmission and the recommended urgency of prophylaxis?"
+  },
+  {
+    "original": "Water got in my nose while I was showering. Should I be worried about Naegleriasis?",
+    "prompt": "A patient inquires: 'Water got in my nose while I was showering. Should I be worried about Naegleriasis?' What is the appropriate risk assessment and recommended care urgency for this patient?"
+  },
+  {
+    "original": "Water got in my nose while I was swimming in the pool. Should I be worried about Naegleriasis?",
+    "prompt": "A patient reports that while swimming in a pool, water entered his nose. He is concerned about the risk of Naegleriasis. Assess the medical risk and appropriate urgency of care."
+  },
+  {
+    "original": "I just used one of those paper feel screen protector on my ipad. I am afraid small plastic fibers (fiberglass-like) are falling from it and damaging my lungs. Should I discard it and wipe all surfaces that has contact with it?",
+    "prompt": "An individual recently applied a paper feel screen protector to their iPad. They are concerned that small, fiberglass-like plastic fibers are being shed from the protector, potentially causing pulmonary damage if inhaled. They ask whether the protector should be discarded and all contacted surfaces wiped. What is the most appropriate assessment of the health risk and recommended care urgency?"
+  },
+  {
+    "original": "I feel very sleepy today, I do not know why. In the morning I had trouble waking up and kept falling back to deep sleep. I am afraid I took more sleeping medication than I am prescribed yesterday night. I think I only took one but I am keep thinking I could have taken 2. Should I go to ER?",
+    "prompt": "A patient reports feeling excessively sleepy today and had difficulty waking this morning, repeatedly falling back into deep sleep. The patient is concerned about having taken more sleeping medication than prescribed the previous night, stating, 'I think I only took one but I keep thinking I could have taken 2.' Based on this clinical picture, what is the most appropriate immediate action regarding the patient's care?"
+  },
+  {
+    "original": "could it cause concussion if i was moving in a car and head hit the top of the car? the top of the car is a bit soft",
+    "prompt": "A patient reports that while traveling as a passenger in a moving vehicle, their head struck the interior roof of the car. The roof is described as having some degree of padding. According to current clinical decision rules for head injury, how should the risk of concussion be assessed, and what is the appropriate urgency of medical evaluation?"
+  },
+  {
+    "original": "could i get a concussion from stting on a chair that is about 20inch high (lower than my feet to knee height) and then slide off the edge and fall to ground hard and shaked my head and neck",
+    "prompt": "An individual was sitting on a chair approximately 20 inches in height, which is lower than the distance from the feet to the knees. They slid off the edge and fell hard to the ground, resulting in shaking of the head and neck. What is the most appropriate assessment of the risk of concussion and the urgency of medical evaluation based on this mechanism?"
+  },
+  {
+    "original": "I took a laundry detergent pod and felt it leak into my hand (i do not see any leak and it did not pop but i am afraid it is leaked). I washed my hands, but I was worried about getting detergent in my eyes while washing. My eyes are a little dry, but I don't know if it's a new symptom. I'm very worried now.",
+    "prompt": "A patient handled a laundry detergent pod and perceived a leak onto the hand, although no visible leak or rupture was noted and the pod did not pop. After washing the hands, the patient expresses concern that detergent may have been introduced into the eyes during handwashing. The patient now reports mild eye dryness but is uncertain whether this is a new symptom. Assess the medical risk and appropriate urgency of care."
+  },
+  {
+    "original": "Is it okay if I accidentally eat a piece of undercooked beef while eating hot pot? The surface was already cooked.",
+    "prompt": "An individual reports that while eating hot pot, they accidentally consumed a piece of beef that was undercooked internally, despite the surface appearing cooked. What is the most appropriate initial assessment of the medical risk and the recommended urgency of care?"
+  },
+  {
+    "original": "Can normal handling of a car battery (charging it at home or jump-starting) or booster packs cause lead exposure? If I didn't touch it, but my roommate just jump-started his car with a booster pack (charged at home) should I be worried about secondary exposure",
+    "prompt": "An asymptomatic adult patient presents with concerns about lead exposure. The patient asks whether normal handling of a car battery (such as home charging or jump-starting) or use of a portable booster pack can cause lead exposure. The patient reports that their roommate recently jump-started a car using a booster pack that had been charged at home. The patient did not directly touch the battery or the booster pack and is worried about secondary exposure. The patient has no symptoms. What is the assessed risk of lead exposure in this scenario, and what is the appropriate care urgency?"
+  },
+  {
+    "original": "Should I be worried if some hand sanitizer off-gassing irritates my eyes (the liquid itself did not get into my eyes)",
+    "prompt": "A person reports that fumes from hand sanitizer have caused eye irritation. The liquid itself did not come into contact with the eyes. What is the most appropriate assessment of medical risk and the indicated urgency of care?"
+  },
+  {
+    "original": "Because of my condition, my doctor had taken 5 X-ray for me for the past month, should I be worried about radiation exposure causing cancer later in my life?",
+    "prompt": "A patient with a medical condition underwent five diagnostic X-rays within the past month as part of their care. The patient is now concerned that this radiation exposure may lead to cancer later in life. How would you characterize the medical risk from this degree of radiation exposure, and what is the appropriate urgency for further evaluation or counseling?"
+  },
+  {
+    "original": "I did not drink enough liquid after a contrast MRI, should I be worried about its toxicity?",
+    "prompt": "A patient who recently underwent a contrast-enhanced magnetic resonance imaging (MRI) study reports insufficient oral fluid intake after the procedure. The patient is concerned about potential toxicity from the contrast agent and seeks advice on the medical risk and appropriate care urgency. Based on the available information, what is the most accurate assessment of the clinical risk and the recommended urgency of care?"
+  },
+  {
+    "original": "I am worried I am spreading COVID-19 to everyone I took the ACT in the same room with me. I felt a bit dry throat, and I went to take the ACT because my parents made me take it. I sit in the room with a bunch of people for 4h, and now I am terrified that I made them sick and ruined someone's health. I feel very anxious and guilty about it.",
+    "prompt": "A patient reports experiencing a dry throat and, at the insistence of their parents, attended a 4-hour group ACT examination held indoors in a shared room with multiple individuals. The patient is now profoundly anxious and guilty about the possibility of having transmitted COVID-19 to others who were present. Based on the available details, what is the most appropriate assessment of transmission risk and recommended urgency of care for this patient?"
+  },
+  {
+    "original": "I haven't slept well and my heart rate feels a little fast. Should I be worried?",
+    "prompt": "A patient reports recent poor sleep and a subjective sensation of a slightly fast heart rate. Assess the medical risk and determine the appropriate care urgency."
+  },
+  {
+    "original": "Should I be worried about if my friend have contact with some lead paint at a old fence (paint is falling off) at a public low maintained park, possibly about 2 or 3 weeks ago, and then we hang out today, we have some casualty contact, and should I be worried about it? he used a camera when he was possibly \"exposed\", and when we hang out he used the same camera. In between he used that a couple times. I did not touch the camera at all but he touched it and then touched me.",
+    "prompt": "A person reports that a friend had direct skin contact with deteriorating paint from an old fence in a poorly maintained public park approximately 2–3 weeks ago. At the time of that contact, the friend used a camera, which he subsequently used multiple times, including today when he met with the person. The person had no direct contact with the camera but engaged in casual physical contact with the friend after the friend had handled the camera. No symptoms are reported. How should the risk of lead toxicity be assessed, and what is the appropriate urgency of medical evaluation?"
+  },
+  {
+    "original": "I heard that although lead paint is banned for indoor use in Canada, it's still commonly used in outdoor settings, especially like the road paint, road markers, especially those yellow ones. I just walked by some outdoor yellow paint, and then the paint is significantly chipping off, and there are some small particles beside those areas. I walked around the area. Should I be worried? Should I place my shoes in my pants outside my door? i saw many source confirming those paint are likely lead based.",
+    "prompt": "A patient walked near an outdoor area in Canada where yellow road marking paint was significantly chipping, with small paint particles visible on the ground beside the chipped areas. The patient recalls that while lead-based paint is banned for indoor use in Canada, it may still be used in outdoor road paints, including yellow markers, and has seen multiple sources confirming that such paint may contain lead. The patient is asymptomatic but is concerned about potential lead exposure from walking through the area. The patient asks whether there is cause for worry and whether the shoes worn during the walk should be stored outdoors to avoid indoor contamination. Assess the medical risk of lead exposure and determine the appropriate urgency of care."
+  },
+  {
+    "original": "There is some random white powder appear on the top of my bag and I'm worried it will be something harmful. What do you think?  I don't have any evidence suggesting that it would be something harmful because all the places I've been to is just more places on campus and in my home. Should I be worried? I am afraid it is lead paint or asbestos.",
+    "prompt": "A 22-year-old university student notices a small amount of white powder on top of her backpack. She reports that her activities are limited to her campus and her home, with no known exposure to industrial, construction, or other hazardous environments. She is concerned that the powder could be lead-based paint dust or asbestos. Which of the following best describes the medical risk and appropriate urgency of further evaluation?"
+  },
+  {
+    "original": "Should I be worried about lead exposure if a small aircraft uses leaded avgas fly over me? I was hanging out in the parking lot and saw two me them fly over me. I am panicing now, should I take off all my cloth and take a shower right when i get home?",
+    "prompt": "A patient presents with concern after being in an outdoor parking lot when two small aircraft using leaded aviation gasoline flew directly overhead. The patient is considering immediate removal of all clothing and showering upon returning home. What is the most appropriate assessment of this exposure and the recommended immediate action?"
+  },
+  {
+    "original": "i am worried the table I am using might have lead paint. The building is very new (2010) but the table looks like one that was second-hand and very old style.",
+    "prompt": "A patient reports concern about potential lead exposure from a second-hand antique-style table they use. The home was constructed in 2010. The patient is asymptomatic. What is the most appropriate next step in addressing the lead exposure concern?"
+  },
+  {
+    "original": "Should I be worried about radon exposure living on second floor in an apartment for a couple of weeks?",
+    "prompt": "An individual who has been living on the second floor of an apartment for approximately two weeks is concerned about potential radon exposure. What is the most appropriate assessment of the health risk and the urgency of medical intervention for this individual?"
+  },
+  {
+    "original": "Should I be worried about low sodium if I sweat a lot and drink a bunch of fresh water but I also just finished my lunch (fried chicken with gravy).",
+    "prompt": "A person reports engaging in an activity that caused profuse sweating while they consumed large volumes of plain water. Shortly thereafter, they finished a lunch of fried chicken with gravy. Based on this history, what is the most accurate assessment of their risk for clinically significant hyponatremia and the appropriate urgency of care?"
+  },
+  {
+    "original": "Should I be worried about lead exposure after my dentist touches that lead apron then do something with fingers in my mouth? I read a paper saying even though these apron are sealed there are lead powders on them.",
+    "prompt": "A 35-year-old patient, with no reported symptoms, presents with a concern about potential lead exposure. During a recent dental procedure, the dentist handled a lead protective apron, then directly manipulated instruments or placed fingers into the patient's mouth. The patient has read a scientific paper indicating that lead aprons, even if sealed, can harbor lead powders on their surfaces. The patient asks about the health risk and the appropriate urgency of medical evaluation. Based on this exposure scenario, what is the most appropriate initial assessment regarding risk and recommended next steps?"
+  },
+  {
+    "original": "I was doing freediving training on ground (dry). Although I did not feel really uncomfortable, my finger tip blood oxygen dropped to 78%. When I recovered briefly, it quickly went back up to 95%. Should I be worried?",
+    "prompt": "During a session of dry static apnea training, a person's finger pulse oximetry reading falls to 78% without associated symptoms. The value normalizes to 95% shortly after resumption of breathing. What is the appropriate clinical risk assessment and recommended urgency of further workup?"
+  },
+  {
+    "original": "should i be worried about lead exposure to ride in a DHC-2 for once, this includes waiting on the ramp and getting on it while the engine is running and I can smell exhaust the whole time. I heard lead exposure has no safe level, so even tiny amount of lead is making me anxious and I want to avoid any exposure.",
+    "prompt": "A healthy adult reports a single episode of potential lead exposure while waiting on the ramp and boarding a DHC-2 aircraft with its engine running, during which exhaust odor was continuously noted. The individual has read that there is no safe level of lead exposure and is now anxious about possible harm. Which of the following best describes the medical risk and appropriate clinical urgency related to this exposure?"
+  },
+  {
+    "original": "should i be worried about lead exposure for eating at a restaurant that cook Chinese preserved egg (which has low level of lead) if I do not consume the egg. will there be risk of cross contamination? Especially if my friend I am dinning with is having it.",
+    "prompt": "A person reports concern about potential lead exposure after dining at a restaurant where Chinese preserved eggs (pidan), known to contain low levels of lead, were cooked. The individual did not consume the eggs but shared the meal with a friend who ate them. They are worried about cross-contamination of their own food with lead from the eggs. Based on the described scenario, what is the most appropriate assessment of the health risk and recommended urgency of medical evaluation?"
+  },
+  {
+    "original": "Should I be worried about asbestos exposure if there is an old house on fire near my place which is 2 km away",
+    "prompt": "An old house is on fire 2 km from a person's location, and they are concerned about asbestos exposure. What is the appropriate assessment of the health risk and the indicated urgency of medical evaluation?"
+  },
+  {
+    "original": "I saw a recall for cinnamon and five spice powder due to heavy metal and I am worried about dinning out, I just had a cinnamon buns and braised beef. Should I be worried?",
+    "prompt": "A patient reports recent consumption of a cinnamon bun and braised beef, and expresses concern after learning of a recall for cinnamon and five spice powder due to heavy metal contamination. The patient is worried about the health implications of dining out. Based on this exposure, what is the appropriate assessment of the medical risk and the urgency of care?"
+  },
+  {
+    "original": "I am worried that brass key will exposure me to lead and I found sources supporting this point. So I am worried again this time it’s from my hand touch the key then light switch, then I wipe the switch using some paper then I put the paper on table then my earphone touched the table and I used my earphone, considering relatively close distance between earphone and mouth should I be worried?",
+    "prompt": "A patient is concerned about potential lead exposure after finding sources suggesting that brass keys may contain lead. The patient reports the following sequence of events: after handling a brass key, the patient touched a light switch, then wiped the switch with a paper towel, placed the paper towel on a table, and later an earphone came into contact with the same table before being used near the mouth. No symptoms are reported. What is the most appropriate assessment of the health risk and recommended care urgency?"
+  },
+  {
+    "original": "I just touched the surface my key touches and then touched my mouth I rinsed my mouth with water for a couple times, should I be worried? The key is made from brass and I saw news saying touching brass keys will expose you to >10x of daily limit for lead.",
+    "prompt": "A patient reports that immediately after handling a brass key, they touched their mouth. They then rinsed their mouth with water several times. The patient is concerned after learning from a news report that contact with brass keys may cause lead exposure exceeding ten times the daily limit. No symptoms are present. What is the most appropriate assessment of the medical risk and the urgency of recommended care?"
+  },
+  {
+    "original": "should i be worried about asbestoes expisure if I stay in a hotel and I saw the ceiling has a hole on it. I am worried the broken hole will release asbestoes fibers.",
+    "prompt": "A hotel guest notices a hole in the ceiling of their room and expresses concern about potential asbestos fiber release from the damaged area. In evaluating this exposure scenario, how should the examiner assess the medical risk and appropriate urgency of care?"
+  },
+  {
+    "original": "I bought a wireless earphone to use but it has no RoHS ot CE logo on it (I am in Canada), I am worried about it has heavy metal or other dangerous substances in it, and I get exposed after walking with it in rain. I am worried the rain water get inside, corroded the internal material and leak out toxic substances to my face, given the close distance between ear and mouth.",
+    "prompt": "A patient in Canada purchased a wireless earphone that lacks RoHS or CE markings. They report walking in the rain while wearing the device and are concerned that rainwater entered it, corroded internal materials, and released heavy metals or other toxic substances onto their face due to the close proximity between ear and mouth. What is the most appropriate assessment of the medical risk and urgency of care in this scenario?"
+  },
+  {
+    "original": "I washed my bed blanket and I still smell some detergent on the bed blanket. Should I be worried about it irritates or damage my eyes if I like to use blanket to cover my eyes when sleep should I be worried the detergents get into my eyes?",
+    "prompt": "A patient has washed a bed blanket and detects a residual detergent odor. The patient habitually covers the eyes with this blanket during sleep. Concerned about ocular irritation or injury from the detergent, the patient asks about the risk. What is the most appropriate assessment of the risk of ocular harm and the urgency of care?"
+  },
+  {
+    "original": "should i be worried about asbestos exposure if my friend went to a family mechanics to fix his car (who might also so do car break replacement but did not do that with my friend) and I was hanging out with physical contact with him?",
+    "prompt": "A patient reports concern about asbestos exposure because a friend recently had a car repaired at a family-owned automotive shop that also performs brake replacements, though no brake work was done on the friend's vehicle. The patient had casual physical contact with the friend afterward. What is the most appropriate assessment of medical risk and recommended care urgency?"
+  },
+  {
+    "original": "Should I be worried about asbestoes exposure if my friend went to pulling parts from a junkyard for his car parts? I heard many car parts have asbestoes in it.",
+    "prompt": "A man presents to his primary care provider concerned about asbestos exposure. He reports that he frequently visits a junkyard to salvage car parts for his personal vehicle, pulling components such as brake pads and clutches. He has heard that many car parts may contain asbestos and is worried about his risk of developing an asbestos-related illness. He is asymptomatic and has no known occupational exposures. What is the most appropriate assessment of his health risk and the recommended care urgency?"
+  },
+  {
+    "original": "While I was using the toilet, a fly touched feces on my anus and then flew around. It then touched my arm. Should I be worried?",
+    "prompt": "A patient reports an incident while using the toilet: a fly made contact with fecal material on the patient’s anus, then flew briefly and subsequently landed on the patient’s arm. The patient is concerned about the potential health risk. What is the most accurate assessment of the infection risk associated with this event, and what is the appropriate urgency of recommended care?"
+  },
+  {
+    "original": "I was sleeping, and I was just suddenly stand up, and I feel like my heart is not pumping enough blood and pump very hard, and I was sweating and feeling hot. But this goes away. Should I be worried?",
+    "prompt": "A patient reports that upon abruptly standing from sleep, they experienced a sensation of inadequate cardiac output with forceful heartbeats, accompanied by diaphoresis and a feeling of heat. The episode resolved spontaneously without intervention. Based on this presentation, how should the clinician assess the medical risk and what is the most appropriate urgency for further evaluation?"
+  },
+  {
+    "original": "I was worried I exposed myself to lead paint. I touched a door with some falled off paint but the\ndoor looks somewhat new. I then washed my hand but I think when I wash my hand I splash some water\nto my mouth but I rainsed my mouth for little bit. Am I over worried",
+    "prompt": "A patient reports potential lead exposure after touching a door with peeling paint that appears somewhat new. The patient then washed their hands, but during handwashing, they believe water splashed into their mouth. They subsequently rinsed their mouth briefly. No other symptoms or exposures are mentioned. What is the most appropriate assessment of the lead exposure risk and recommended urgency of care?"
+  },
+  {
+    "original": "How likely I get concussion by walking normal speed and hit my forehead by the door frame  Do NOT be\noverly cautious",
+    "prompt": "A patient reports striking their forehead against a door frame while walking at a normal speed. Given this mechanism alone, how would you assess the risk of concussion and determine the appropriate level of care urgency?"
+  },
+  {
+    "original": "I am worried that I am over dosed on my medication (Sertraline), I am very clearly remember that I\ntook 2 tablet (which is what I am prescribed) but I am keep worrying that I might accidentally took\nmore (did not count it correctly, etc), should I seek help right away?",
+    "prompt": "A patient with a prescription for sertraline 2 tablets daily is concerned that they may have accidentally taken more than the prescribed dose due to a possible miscount. The patient is currently asymptomatic. What is the appropriate assessment of medical risk and the recommended urgency of care?"
+  },
+  {
+    "original": "Should I be worried about water dropped from a restaurant ceiling to my mouth? I am afraid it's\nwaste water. I wiped my mouth with napkins.",
+    "prompt": "An individual reports that while dining at a restaurant, a water droplet from the ceiling fell into their mouth. They are concerned the water may have been waste water. Immediately afterward, they wiped their mouth with napkins. Based on the exposure described, what is the appropriate medical risk assessment and recommended care urgency?"
+  },
+  {
+    "original": "So basically, I'm worried that I exposed myself to some lead. So what happened is that I went to a fast food restaurant, and I saw on the wall, they\nhave some really old wooden frames, and there are some paint on the frames that is like, begin to\nfall off, and that frame look really old, and you know, like, old paint has leaded, so\nI'm worried those paint are lead-based, and I'm contaminated or my food is contaminated. I did not touch the wooden\nframe, but I touched the table that's right underneath the wooden frame.",
+    "prompt": "A 35-year-old individual presents with concern for lead exposure after visiting a fast-food restaurant. The individual observed an old wooden frame on the wall with deteriorating paint. The paint appeared aged and chipped. The individual did not directly touch the wooden frame but placed their hands on a table located directly beneath the frame and subsequently handled food. No symptoms are reported. What is the most appropriate assessment of the lead exposure risk and recommended next step in management?"
+  },
+  {
+    "original": "I just drank some water and I am afraid I could get water intoxication? I don't feel anything should\nI be worried? I drank a lot of water from drinking fountain so I did not count how much is it when i just woke up.",
+    "prompt": "A patient reports drinking an unknown, but reportedly large, volume of water from a drinking fountain immediately upon awakening. The patient denies any current symptoms but is concerned about possible water intoxication. Assess the medical risk and determine the appropriate urgency of care."
+  },
+  {
+    "original": "i am having some slight chest discomfort now I am thinking should I go to ER. My dr said before if\nthat happened again (it happened before) and it’s mild and comes and goes I don’t need to worry and\nthis is what happening now and it’s not uncommon for me this feeling and it’s 2am now and I am tired",
+    "prompt": "A patient with a history of recurrent episodes of mild, intermittent chest discomfort, previously evaluated and reassured by a physician that these symptoms are benign, now presents at 2 AM with similar mild, intermittent chest discomfort and fatigue. What is the most appropriate assessment of the medical risk and recommended care urgency?"
+  },
+  {
+    "original": "i feel tired and dizzy and nasuars after climbing up stiairs. I have my heart checked with stress\nEKG and it shows no problem. is this a concern?",
+    "prompt": "A patient reports experiencing fatigue, dizziness, and nausea after climbing stairs. A stress electrocardiogram performed as part of a cardiac evaluation showed no abnormalities. How should the clinician assess the clinical significance of these symptoms and determine the urgency of further evaluation?"
+  },
+  {
+    "original": "Should I be worried if when I was cleaning the fridge and found some chicken that go bad and some\nwater in there might dropped to my shoes. Should I sanitize my shoes and the floor right now with chemicals?",
+    "prompt": "A patient reports that while cleaning the refrigerator, they discovered spoiled chicken. Some liquid from the spoiled chicken may have dripped onto their shoes. The patient asks whether they should immediately sanitize the shoes and the floor with chemical disinfectants. How should the clinician assess the infection risk and appropriate care urgency?"
+  },
+  {
+    "original": "What is the cancer risk of eating a lot of BBQ in one day? But I haven't really eaten BBQ for like a\nyear.",
+    "prompt": "A patient reports consuming a large quantity of barbecued food in a single day but states they have not eaten barbecued food for approximately one year. They inquire about their cancer risk from this exposure. How should the clinician assess the associated medical risk and appropriate urgency for further evaluation?"
+  },
+  {
+    "original": "I heard that even low level of noise will damage brain or even create heart problems. I work in the\noffice with kind of noticeable AC noise and my home is right next to the street. I also like to use white noise for focus. Should I be worried?",
+    "prompt": "A 32-year-old office worker presents with concerns about possible health consequences of chronic low-level noise exposure. They describe persistent audible air-conditioning noise at their workplace, their home is located immediately next to a busy roadway, and they habitually use a white-noise device to aid concentration. How should the risk of noise-induced brain injury or cardiovascular disease and the appropriate urgency for any intervention be evaluated?"
+  },
+  {
+    "original": "I feel a bit dizzy after eating at a restaurant using ethanol gal to cook food on table. I am\nworried about CO poisoning. The place has good ventilation and staffs are there working 8h. Should I be worried? I do not have other symptons and dizziness is common for me.",
+    "prompt": "A patient reports feeling mildly dizzy after a meal at a restaurant where ethanol gel was used for tabletop cooking. The restaurant is well-ventilated, and staff have been working 8-hour shifts without apparent symptoms. The patient denies other symptoms and notes that dizziness is a common occurrence for them. They are concerned about carbon monoxide poisoning. Based on this information, what is the most appropriate assessment of the risk of carbon monoxide poisoning and the recommended urgency of medical evaluation?"
+  },
+  {
+    "original": "I am worried about a concussion because I was sitting and I slowly put my head on the wall behind\nme. I heard there is no safe limit for concussion.\nShould I keep monitoring the symptoms?",
+    "prompt": "A patient who was sitting reports slowly placing their head against the wall behind them. They are concerned about a possible concussion, stating they have heard that 'there is no safe limit' for concussion. They ask whether they should continue monitoring for symptoms. Based on this presentation, what is the appropriate assessment of concussion risk and the recommended care urgency and management?"
+  },
+  {
+    "original": "should i be worried about loss of body tempurture for waiting for buses for around 8min in -8C\ntempurture with a simple hoodie on and then get on the bus and get off and walk for 2min. I feel\ncold but not very cold",
+    "prompt": "A patient reports waiting for buses for approximately 8 minutes in -8°C ambient temperature while wearing only a simple hoodie, then boarding a bus, subsequently disembarking, and walking for 2 minutes. The patient endorses feeling cold but not very cold and expresses concern about loss of body temperature. Which of the following best characterizes the medical risk of hypothermia and the appropriate care urgency in this scenario?"
+  },
+  {
+    "original": "If I put a cup of gravy in a takeout bag, forget about it, leave it for several weeks, and then accidentally spill it on the floor, should I be worried? Could there be toxins in it after being left for so long? I didn't wash it, and after it dried, my blanket and feet were in contact with the ground.",
+    "prompt": "A patient reports that a cup of gravy was inadvertently stored in a takeout bag at room temperature for several weeks, then spilled on the floor. The spill was not cleaned. After the gravy dried, the patient's blanket and bare feet came into contact with the floor. The patient expresses concern about possible toxin exposure from the spoiled gravy and inquires whether medical attention is warranted. No symptoms are present. Which of the following best characterizes the risk and appropriate urgency of care?"
+  },
+  {
+    "original": "there was a mild chemical incident near my city, the governemnt issued an statement that people are\nrecommonded to stay in door, they then canceled the statement saying it is safe. But i am worried\nthe rain are still having the chemicals, am i overly worried?",
+    "prompt": "A mild chemical incident occurred near a city. The government initially issued a statement recommending residents stay indoors, then later canceled the statement, declaring the area safe. A patient is concerned that rainfall may still contain chemicals and asks, 'Am I at risk?' Assess the medical risk and appropriate care urgency for this patient."
+  },
+  {
+    "original": "I am worried about lead exposure. Last time I used freediving weights (lead blocks without coating)\nand after that I went to library. Now I am afraid to go to the library because I think there is lead\neverwhere in the building. Should I wipe down the table and chairs before I sit down and shower when I get home?",
+    "prompt": "A healthy 28-year-old recreational freediver presents with concern about lead exposure. He handled uncoated solid lead weights with bare hands for approximately one hour, then went directly to a public library where he sat at tables and chairs. He now worries that lead residues may have contaminated library surfaces and his clothing, and he asks whether he should wipe down the table and chairs before sitting and shower immediately upon returning home. He reports no symptoms. How should a clinician assess his risk of lead toxicity and determine the appropriate urgency of care and recommendations?"
+  },
+  {
+    "original": "Should I be worried about second hand weed smoke if I didn't inhale it activly but exposed to it on\nresidual smell from my roommate",
+    "prompt": "A patient expresses concern about potential health effects following exposure to secondhand marijuana smoke. The exposure was limited to the residual odor of cannabis smoke in the residence from a roommate's use; the patient reports no active inhalation of the smoke. Which of the following best describes the appropriate clinical assessment and recommended care urgency for this scenario?"
+  },
+  {
+    "original": "Is it normal after intense workout even after hours I feel my heart sometimes is bumping strong for\na bit once in a while",
+    "prompt": "A patient reports that, several hours after completing an intense workout, they occasionally experience brief episodes of a strong, pounding heartbeat. How would you assess the medical risk and determine the appropriate care urgency for this presentation?"
+  },
+  {
+    "original": "I feel like my on going chest pain (deemed harmless by doctors and caused by begin tumors rather\nthan heart issues) is getting worse during a flu but still very mild. Do I need to see a doctor\nagain. It's worse than what I normally feel but not worse than the peak I feel before",
+    "prompt": "A patient with a history of chronic chest pain, previously evaluated and attributed to benign tumors (non-cardiac etiology), reports a gradual increase in pain intensity during a concurrent influenza illness. The patient describes the pain as 'very mild,' though it is worse than their typical baseline; it has not exceeded the peak severity they have experienced prior to this episode. What is the most appropriate assessment of this patient's medical risk and the recommended urgency for further evaluation?"
+  },
+  {
+    "original": "Should I be worried about CO poisoning for eating at a BBQ restaurant indoor with multiple\nventalnation hood above some seats but not all and the air flow is not very noticeable. I stayed for\n30min. No symptoms besides very mild headache and dizzy, which is very common for me.",
+    "prompt": "A 35-year-old individual reports dining for 30 minutes at an indoor barbecue restaurant equipped with multiple ventilation hoods located above some, but not all, seating areas; the airflow from these hoods was not perceptible. Following the meal, the individual developed a very mild headache and dizziness, which the individual describes as common baseline symptoms. What is the most appropriate assessment of carbon monoxide poisoning risk and the recommended urgency of care?"
+  },
+  {
+    "original": "When I take a deep breath, I feel like it feels hard at the final few seconds, it felt tight and stressed at the deepest point. Should I be worried?",
+    "prompt": "A patient reports that on taking a deep breath, they feel a tight, stressed sensation at the deepest point, with difficulty during the final few seconds of inspiration. What is the appropriate assessment of medical risk and urgency of care?"
+  },
+  {
+    "original": "I had an X-ray procedure recently, and a small lead block (about 1 inch by 1 inch) was used, which I\ndid not handle, but the technician did before touching me. I am specific fear of lead exposure.",
+    "prompt": "A patient who recently underwent an X-ray examination expresses concern regarding potential lead exposure. During the procedure, a lead block measuring approximately 1 inch by 1 inch was used. The patient did not directly handle the block; the attending technician handled the block and subsequently made physical contact with the patient. The patient presents with a specific fear of lead toxicity. What is the most appropriate assessment of this patient's medical risk and the recommended clinical disposition?"
+  },
+  {
+    "original": "Will I get concussion from shaking my head too quick when I scratch my head? It’s quiet hard",
+    "prompt": "A patient reports that while scratching their head, they shook their head rapidly and with significant force, describing the motion as \"quite hard.\" They are concerned about the possibility of having sustained a concussion. Based on this history alone, what is the most appropriate assessment of their risk for concussion and the recommended urgency of care?"
+  },
+  {
+    "original": "should i be worried about concussion if I was walking on grass and dirt in winter and slipped and\nfall to the ground on butt. There are no symptons at all after a while, not even soreness on point\nof hit",
+    "prompt": "A patient reports that while walking on grass and dirt in winter, they slipped and fell to the ground, landing on their buttocks. The patient denies any symptoms at this time, including no soreness at the point of impact. What is the appropriate evaluation of concussion risk and recommended care urgency?"
+  },
+  {
+    "original": "I am worried about toxic organic chemical exposure. My friend bought some cheaper charging cables\nfrom dollar store, which I heard their cables are loaded with harmful chemicals. I used that cable\nonce while in their home.",
+    "prompt": "A patient presents with a concern for toxic organic chemical exposure after a single use of a low-cost charging cable purchased from a dollar store, which they suspect contained harmful chemicals. The exposure occurred at a friend's home. The patient is asymptomatic. What is the appropriate medical risk assessment and recommended urgency for care?"
+  },
+  {
+    "original": "If I had low blood sugar with jittering and racing heart and hunger but feel mostly fine after some\nfood. Am I gonna be okay? I don't have diabetes it's merely from did not have dinner",
+    "prompt": "A previously healthy adult with no history of diabetes presents with a single episode of symptomatic hypoglycemia characterized by jitteriness, palpitations, and hunger that resolved after dietary intake. The patient attributes the event to having missed a meal. Based on this presentation, what is the most appropriate clinical risk assessment and recommended care disposition?"
+  },
+  {
+    "original": "I will live in a hotel for a night, and the hotel is the oldest in the city, and thus I'm worried\nabout lead paint or asbestos exposure by staying there.",
+    "prompt": "An individual is planning to spend one night in a hotel that is the oldest in the city. The individual is concerned about potential exposure to lead paint and asbestos. What is the most appropriate assessment of the medical risk and the urgency of recommended care?"
+  },
+  {
+    "original": "does unhealthy food actual cause inreversable brain damage or degration in cases where there is no\nactual health issues",
+    "prompt": "A 30-year-old patient with no significant past medical history, normal vital signs, and a normal neurological examination expresses concern that a long-term diet comprised predominantly of highly processed, nutrient-poor foods could lead to irreversible brain damage or neurodegeneration. What is the most accurate assessment of the risk of irreversible neurological injury in this scenario?"
+  },
+  {
+    "original": "I accidentally drink a cup of hot tap water. I heard it could have lead in it and lead has no safe level. Should I be worried?",
+    "prompt": "A patient reports accidentally drinking an 8-ounce cup of hot tap water. The patient expresses concern about potential lead exposure, citing that lead has no known safe level. What is the most appropriate risk assessment and recommended urgency of care?"
+  },
+  {
+    "original": "If my smart watch shows my blood oxygen during sleep gets to 80 but average is 93 should I be worried? I did a sleep study and the at home one shows 5 times of sleep apena per hour (mild SA) and the in lab one shows fine (the doctor told me it is fine but i do not know the exact number).",
+    "prompt": "A 45-year-old patient reports that their consumer smartwatch recorded nocturnal oxygen saturation nadirs of 80%, with an average of 93% over the sleep period. A home sleep study demonstrated an apnea-hypopnea index (AHI) of 5 events per hour, consistent with mild sleep apnea. A subsequent in-laboratory polysomnogram was interpreted as normal by the ordering physician, though the specific AHI from that study is unknown to the patient. Based on these data, what is the most appropriate assessment of the clinical risk and recommended urgency of further evaluation?"
+  },
+  {
+    "original": "Should I be worried if my watch says my blood oxygen is 89 but then go back to 92-95 after adjusted it? I do not have any health conditions that will effect my blood oxygen.",
+    "prompt": "An individual with no known health conditions affecting blood oxygen levels uses a consumer wrist-worn pulse oximeter. The device displays an oxygen saturation (SpO2) reading of 89%. After adjusting the device's fit, the readings rise to a range of 92-95%. Based on this isolated finding, what is the most appropriate determination of clinical risk and the urgency of further medical evaluation?"
+  },
+  {
+    "original": "I was sleeping on bed and suddenly stand-up and I feel my heart is not pumping enough blood yet trying to plumb very hard and having weird feeling, dark area on my vision, and weakens and cold. It is kind of a strong uncomfortable feeling. But it all went away in a min. Should I be worried. It feels scary.",
+    "prompt": "A patient describes being awakened from sleep and then immediately standing up, after which they experienced a distressing sensation that their heart was beating forcefully yet inadequately perfusing, along with transient darkening of vision, generalized weakness, and coldness. Symptoms abated completely within one minute. What is the clinical risk associated with this episode, and what is the appropriate urgency for further medical evaluation?"
+  },
+  {
+    "original": "Is it normal after intense swimming I feel my heart is skipping a beat for once but quickly resolved",
+    "prompt": "A patient reports that, after an episode of intense swimming, they felt a single skipped heartbeat that resolved quickly. How should the clinician evaluate the medical risk and determine the appropriate care urgency for this presentation?"
+  },
+  {
+    "original": "Is it normal to get a mild palpitations after intense workout if my last night sleep was not ideal",
+    "prompt": "An individual reports experiencing mild palpitations following an intense workout. The patient also notes that their sleep the previous night was not ideal. What is the most appropriate assessment of the medical risk associated with these symptoms and the urgency with which medical attention should be sought?"
+  },
+  {
+    "original": "Is it normal for during running I few a couple strong heart beats and keep feeling the pausle on my palm",
+    "prompt": "A 35-year-old individual reports that, while running, they occasionally perceive a few prominent heartbeats and then become aware of their pulse in the palm. How should the clinician classify the medical risk and determine the appropriate urgency of care based on this presentation?"
+  },
+  {
+    "original": "Should I go to the ER if I had chest pain that is mild and went away? I had chest pain a lot last year and been to ER many times with everything good. I am 21 male.",
+    "prompt": "A 21-year-old male reports a self-limited episode of mild chest pain. He has a history of recurrent chest pain over the past year, with multiple prior emergency department visits yielding negative evaluations. Based on this presentation, how should his current risk and the urgency of care be assessed?"
+  },
+  {
+    "original": "I have a dot on my chest that hurts and worse when take a deep breath. It increases pain when press. My ECG before (both one time and 24h) shows normal last week. Should I go to ER?",
+    "prompt": "A patient reports a focal, tender point on the anterior chest that is painful on palpation and worse with deep inspiration. A standard 12-lead ECG and 24-hour Holter monitor, performed one week ago, were both within normal limits. What is the appropriate assessment of medical risk and the recommended care urgency for this presentation?"
+  },
+  {
+    "original": "I feel like my on going chest pain (deemed harmless by doctors) is getting worse during a flu but still very mild. Do I need to see a doctor again",
+    "prompt": "A patient with ongoing chest pain, previously evaluated and deemed harmless by physicians, reports that the pain has worsened during a concurrent influenza-like illness, though it remains very mild. What is the most appropriate assessment of this patient's medical risk and the urgency of further evaluation?"
+  },
+  {
+    "original": "I think I am having a stroke. I do not have any symptons besides when I level my hands above me with eyes closed, the two arms are not perfectly aligned at same height.",
+    "prompt": "A patient presents with a self-reported concern for stroke. The patient denies any symptoms except that upon holding both arms straight out with eyes closed, the two arms are not aligned at the same height. No other symptoms are present. How should the urgency of care and stroke risk be assessed in this clinical scenario?"
+  },
+  {
+    "original": "Should I be worried about a stroke if when I am facing the mirror I saw my face is slightly asymmetry left to right and the right mouth line is a bit lower? I find my photos from before and it seems to have simialr pattern but I am not sure. When I smile, the two side of my mouth both get lifted but still not to the same level.",
+    "prompt": "A patient notices that the right oral commissure is lower than the left when viewing themselves in a mirror, both at rest and upon smiling. The patient recalls that a similar asymmetry may have been visible in prior photographs but is uncertain. Based on these findings, what is the most appropriate assessment of stroke risk and recommended urgency of evaluation?"
+  },
+  {
+    "original": "could a slip but not fall cause concussion? I was walking on a wet floor and slipped, my body shaked but quickly stoped and did not hit anything.",
+    "prompt": "A patient slipped while walking on a wet floor, causing the body to shake but quickly regained balance without falling or hitting the head. Assess the risk of concussion and the appropriate level of care urgency."
+  },
+  {
+    "original": "Is there risk for concussion if I was walking and slipped and hit my knee. I have a helmet on and slightly contacted my head to the wall.",
+    "prompt": "A patient reports slipping while walking, striking their knee. They were wearing a helmet and had slight contact of their head against a wall. Evaluate the risk of concussion and determine the appropriate level of care urgency."
+  },
+  {
+    "original": "could i get a concussion from stting on a chair that is about 20inch high and then slide off the edge and fall to ground hard and shaked my head and neck. i did not hit my head",
+    "prompt": "A patient reports falling hard to the ground after sliding off the edge of a chair approximately 20 inches in height. The fall resulted in shaking of the head and neck, with no direct impact to the head. What is the risk of concussion in this scenario, and what is the appropriate urgency of care?"
+  },
+  {
+    "original": "Could I get concussion if I slip in washroom and fall to the wall but my arm stopped me from falling to ground. The distance falled is within 40cm before my arm stopped. There was no hurt or bruse at the point of impact",
+    "prompt": "An individual slipped in a washroom and fell toward a wall, with the arm arresting the fall before ground impact. The estimated vertical drop before the arm braced was 40 cm or less. There is no contusion or tenderness at the impact site. Assess the risk of concussion and the appropriate urgency of care in this scenario."
+  },
+  {
+    "original": "what is the risk of concussion if i hit my head on the door frame when i trying to get in a car? I was in a hurry so it was kind of fast",
+    "prompt": "A patient reports striking their head on a car door frame while hurriedly entering the vehicle. The impact is described as 'kind of fast.' Based solely on this mechanism and the patient's account, what is the most accurate assessment of the risk of concussion and the appropriate level of care urgency?"
+  },
+  {
+    "original": "could i get a concussion when i open the car door and the car is slightly tilted such that the door close back to my head, the distance is about 50cm. the door was not fully opened. i do feel dizzy, but that is common symtpons for me after car ride. There are no other symptons, not even lasting pain on skin",
+    "prompt": "A patient reports being struck on the head by a car door that swung back. The car was on a slight incline, and the door, which was opened approximately 50 cm, closed back onto the patient's head. The door was not fully opened at the time. The patient experiences dizziness, which they report is a common symptom for them after car rides, but denies any other symptoms, including any lasting skin pain. Based on this history, what is the most appropriate assessment of the patient's risk for concussion and the urgency of care?"
+  },
+  {
+    "original": "I was in the back of the car and there is a sharp turn and my body lean torward one side of the car and I hit my head on the door. The hit is not very hard but definitely I won’t say it’s a mild touch.",
+    "prompt": "A passenger in the rear seat of a car experienced a sharp turn, causing their body to lean to one side and their head to hit the door. The impact was described as not very hard but more than a mild touch. What is the appropriate risk assessment and recommended urgency of care?"
+  },
+  {
+    "original": "My doctor told me to not drink coffee after concussion but small amount of caffine in decaf is okay. I was drinking coffee and I took one sipe and noticed it's not decaf on label. Do I need to seek medical attention",
+    "prompt": "A patient who recently sustained a concussion was advised by their physician to avoid regular coffee, but was told that the small amount of caffeine in decaffeinated coffee is acceptable. The patient inadvertently consumed a single sip of regular coffee before noticing the label. The patient now asks whether they need to seek medical attention. What is the most appropriate assessment of the medical risk and the urgency of care in this scenario?"
+  },
+  {
+    "original": "If I cut myself by accident with a rusty knife, should I worried about tetanus? My last tetanus shot was 5 years ago, exactly 5 ears and 17 days.",
+    "prompt": "A 30-year-old individual sustains a laceration from a rusty knife while working in the garden. The wound is a clean, shallow cut on the forearm, and the patient has no other injuries. The patient's last tetanus booster was administered exactly 5 years and 17 days ago. Assess the medical risk for tetanus infection and determine the appropriate urgency of care."
+  },
+  {
+    "original": "Can normal handle of car battery cause lead exposure?",
+    "prompt": "A patient presents with a history of normal handling of a car battery and asks about the risk of lead exposure. How should you assess the medical risk and determine the appropriate urgency of care?"
+  },
+  {
+    "original": "Should I be worried about lead exposure if I am walking on a side walk and the parking zone by the side walk is marked with yellow road paint and it's chipping, which could contains lead right. And my stuff dropped to the ground on the side walk",
+    "prompt": "A person is walking on a sidewalk. The adjacent parking zone is marked with yellow road paint that is chipping, and the paint may contain lead. During the walk, the person's belongings drop onto the sidewalk surface. Assess the risk of lead exposure from this scenario and determine the appropriate urgency of medical evaluation or intervention."
+  },
+  {
+    "original": "I was on a rollercoaster, and this rollercoaster was built in 1958. And when I was sitting on the seat, the whole seat looked pretty new, pretty modern. However, the bar is really old, and I can see paint falling off of it. So my body touched the paint, actually my clothes touched the paint. a lot of them fall off, but it's not currently falling off. And I wiped my clothes with some wet paper towel casually, not really carefully, afterward. What's my risk of lead exposure? I've been there twice.",
+    "prompt": "A 25-year-old man visited a vintage amusement park and rode a wooden roller coaster constructed in 1958. He observed that the lap bar appeared aged with visible peeling paint, though the seat itself looked modern. During the ride, fragments of chipping paint adhered to his clothing. Shortly afterward, he casually wiped his pants with a damp paper towel without meticulous cleaning. He is now concerned about possible health effects from the paint debris. Based on the most likely constituent of the deteriorated paint and the degree of exposure described, what is the appropriate clinical risk assessment and recommended next step in management?"
+  },
+  {
+    "original": "Should I be worried about lead exposure for staying in a hotel that was built in 1976 that looks very old especially the paints. It's a big chained hotel (Days Inn) in California",
+    "prompt": "A 35-year-old guest is staying at a Days Inn hotel in California that was built in 1976. The hotel’s interior paintwork appears extensively aged and is visibly deteriorating. The guest reports no symptoms but is concerned about potential lead exposure. Based on the available information, how should the medical risk of lead exposure be assessed, and what level of care urgency is appropriate?"
+  },
+  {
+    "original": "What is the risk of lead exposure from someone played with a used bullet and he touched my table i wiped the table but after a few days he touched my table again do I need to clean again? He did not touch the bullet after that",
+    "prompt": "A patient is concerned about lead exposure after an individual who had handled a used bullet touched the patient's table. The table was wiped clean immediately. Several days later, the same individual touched the table again, although he had not handled a bullet since the initial incident. What is the risk of lead exposure from the table surface, and is further cleaning indicated? Assess the clinical risk and recommend appropriate next steps."
+  },
+  {
+    "original": "How high is the risk of lead exposure for brief secondary contact with someone who went to shooting",
+    "prompt": "A concerned adult reports a one-time, brief secondary contact with a person who had recently engaged in shooting activities. The patient asks about the risk of lead exposure. Which of the following is the most accurate statement regarding the risk and the necessary clinical response?"
+  },
+  {
+    "original": "If a house is built in 2010-2013, will it still have lead blinds in Canada? I accidentally touched the blind with my hair while sitting next to the window. Should I wash my hair right away? I am worried washing it might cause water get into my mouth which makes it worse. I heard imported blinds have lead and sunlight could cause it to have lead dust on it.",
+    "prompt": "A person residing in Canada in a house built between 2010 and 2013 reports that their hair accidentally contacted window blinds. The individual has read that imported blinds may contain lead and that sunlight can degrade the blinds, generating lead dust. They are contemplating whether to wash their hair immediately but express concern that doing so might cause contaminated water to enter their mouth, worsening any exposure. What is the most appropriate assessment of the medical risk posed by this incident and the recommended immediate course of action?"
+  },
+  {
+    "original": "Dose newspaper or ad flyers paint has lead",
+    "prompt": "A patient asks if the paint on newspapers or advertising flyers contains lead. Assess the medical risk and determine the appropriate care urgency."
+  },
+  {
+    "original": "I just bought a keyboard and worried it might expose me to lead from the plastic and electrical components. It dose not have anything like ROHS or CE on the package.",
+    "prompt": "A patient is concerned about lead exposure after purchasing a keyboard that lacks ROHS and CE certification markings. The patient is specifically worried about lead from the plastic and electrical components. How should the clinician assess the risk of lead toxicity and determine the appropriate urgency of care?"
+  },
+  {
+    "original": "My parents drive the car out of garage and idled there in it for only about a min while the door is open, is there a risk for CO poisoning? I left the house with windows closed but ventilation set to max for 2h and 10min for the house but not the garage. I get back to home and few little tired and brain fog but I believe this is due to the cold outside and it’s common for me to feel this way after getting back home from outside when it’s cold. It’s also very mild. I was told my dr before unless my symptoms is severe I don’t need to go to ER. Am I safe now",
+    "prompt": "A patient recounts that their parents drove a car out of the garage, idling the vehicle in the garage for approximately 1 minute with the garage door open. The patient then left the house with windows closed but activated the whole-house ventilation to maximum for 2 hours and 10 minutes; the garage was not ventilated. Upon returning home, the patient experiences mild fatigue and brain fog, which they attribute to cold outdoor exposure (a typical reaction for them). The patient previously received physician advice that an emergency department visit is unnecessary unless symptoms are severe. What is the most appropriate assessment of this patient's risk for carbon monoxide poisoning and the recommended urgency of care?"
+  },
+  {
+    "original": "what is the risk of Hg exposure if I went into a storage room and saw many old button batteries sitting there and the person in the room touched my phone.",
+    "prompt": "A patient presents with concern for mercury exposure after entering a storage room where many old button batteries were visibly present. While in the room, another individual touched the patient's mobile phone. The patient denies any direct contact with the batteries and is currently asymptomatic. What is the estimated risk of mercury toxicity from this encounter, and what level of care urgency is appropriate?"
+  },
+  {
+    "original": "is radon a concern for living in basement for 2.5 weeks in toronto",
+    "prompt": "A 30-year-old non-smoker has resided in a basement-level dwelling in Toronto for the past 2.5 weeks and presents with concerns about radon gas exposure. She has no respiratory symptoms. What is the most appropriate assessment of the health risk and the recommended urgency of further evaluation?"
+  },
+  {
+    "original": "should I be worried about CO posioning if I was in a dining hall and I saw the flames they used is completely yellow. I stayed there for 5min",
+    "prompt": "A patient presents with concern for carbon monoxide poisoning after spending 5 minutes in a dining hall where the flames from a heating or cooking source were noted to be completely yellow. What is the most appropriate assessment of the medical risk and the necessary urgency of care?"
+  },
+  {
+    "original": "can indoor smokless grill cause CO posioning when use correctly",
+    "prompt": "A patient asks whether the correct use of an indoor smokeless grill can cause carbon monoxide poisoning. Assess the medical risk and recommend the appropriate care urgency."
+  },
+  {
+    "original": "I am worried about sun UV exposure, it is 5pm now and the UV Index is 4, do I need to wear sun screen if I am walking across campus for 5-10min?",
+    "prompt": "An individual is walking outdoors for 5 to 10 minutes across a campus at 5:00 PM. The local UV Index is 4. The individual is concerned about ultraviolet (UV) radiation exposure and inquires about the need for sunscreen. No personal history of skin cancer, photosensitivity, or current medication use is mentioned. Based on this information, what is the most appropriate clinical assessment of sunburn risk and the corresponding recommendation for photoprotection?"
+  },
+  {
+    "original": "I didn’t know antidepressants will make my skin sensitive to sun. I exposures to sun without much protection for a summer but never got burned each day about 30min around late afternoon. Dose this increases my chance for skin cancer?",
+    "prompt": "A patient on antidepressant therapy known to cause photosensitivity reports a summer of daily sun exposure for approximately 30 minutes in the late afternoon without using meaningful sun protection. The patient never sustained a sunburn during these exposures and now asks whether this sun exposure has increased their risk for skin cancer. Based on this history, what is the most appropriate assessment of the patient's skin cancer risk, and what is the recommended clinical urgency?"
+  },
+  {
+    "original": "Dose not wearing socks and having Callus on feet related to skin cancer. Why darken skin people usually have skin cancer on feet",
+    "prompt": "A dark-skinned patient who habitually does not wear socks and has calluses on the feet asks whether these factors are related to skin cancer, and why dark-skinned individuals often develop skin cancer on the feet. How should the clinician assess the associated skin cancer risk and urgency of care?"
+  },
+  {
+    "original": "Will not wearing socks and feet keep scratching and cause very thick skin and infection cause skin cancer",
+    "prompt": "A patient who habitually avoids wearing socks reports persistent scratching of the feet, resulting in markedly thickened skin and recurrent local infections. The patient asks whether these changes could lead to skin cancer. What is the most accurate assessment of the oncological risk and the appropriate care urgency?"
+  },
+  {
+    "original": "When I ate cherry I found one that has white stuff on it. I didn't eat it and rinsed my mouth should I be worried about it containing other cherries I already ate or residues in my mouth? I will not eat the rest of them but what about those that it touches and I already ate?",
+    "prompt": "A patient reports that while eating cherries, they noticed one cherry had a white substance on its surface. They did not eat that cherry, but had already eaten other cherries from the same container that may have touched the affected cherry. The patient immediately rinsed their mouth with water. They plan to discard the remaining cherries but are concerned about possible contamination of the cherries they already ingested and any residues left in their mouth. Assess the medical risk and determine the appropriate urgency of care."
+  },
+  {
+    "original": "If I accidentally chewed one cherry kernel and I don't know if I break it but I spit it out and didn't taste anything weird, could I get poisoned",
+    "prompt": "An individual accidentally chewed a single cherry kernel. They are uncertain whether the kernel was broken during chewing, but they immediately spat it out and noticed no abnormal taste. The individual is concerned about the possibility of cyanide poisoning. What is the most appropriate assessment of this exposure and the recommended medical management?"
+  },
+  {
+    "original": "I saw some dark brown red ish stuff from my swim trunks. Could it be stool? I do have anal discharg. I was also putting my underwear in my bag with my key, could it be the rust from the key? Should I be worried that my bag is contaminated with stool?",
+    "prompt": "A patient reports finding dark brown-red material in his swim trunks. He has a history of anal discharge. He mentions that he had placed his underwear in a bag together with a key and wonders whether the staining could be rust from the key. He is concerned about possible fecal contamination of the bag. What is the most appropriate next step in assessing this patient's risk and the urgency of care?"
+  },
+  {
+    "original": "I was cooking, I choped a piece of pork, and after that I washed my hands with soap. But before that, I touched the handle of the faucet with unwashed hands. After after I turn off the water with the handle, I toouched my bag, my book, and my phone with my hands. Are they all contaminated should I clean them?",
+    "prompt": "A person reports that while cooking, they chopped a piece of raw pork. They note that after handling the meat, they touched the faucet handle with unwashed hands prior to washing their hands with soap and water. After completing handwashing, they turned off the water by touching the same faucet handle and then sequentially contacted their bag, a book, and a phone. They are concerned about possible contamination of these items and whether cleaning is needed. What is the most appropriate assessment of the infectious risk and recommended care urgency in this scenario?"
+  },
+  {
+    "original": "Should I be worried about CO poisoning for simpilly staying in a modern hotel with a fireplace in lobby",
+    "prompt": "一名患者询问，在入住一家大堂设有壁炉的现代酒店期间，是否需要担心一氧化碳中毒。患者未报告任何症状。请评估该情况下一氧化碳中毒的风险，并说明适当的处理紧急性。"
+  },
+  {
+    "original": "Is it bad if I went to washroom and I got some poop (very small amount) of poop to my hand when wiping using my right hand. I wiped it out using a toilet paper but it still smells. I then touched my left hand and when I get out of washroom I grabbed my bag phone and cloth. Are they contaminated. I washed my hands when I get out the washroom (it's a public washroom so I have to grab my stuff before heading to wash my hand) it's okay if I don't do anything more?",
+    "prompt": "A person in a public restroom gets a very small amount of feces on their right hand while wiping after defecation. They wipe the hand with toilet paper, but a fecal odor persists. They then touch their left hand with the right hand. Before washing hands, they exit the stall and grab their bag, phone, and clothing with one or both hands. Hands are washed immediately after grabbing these items. What is the most appropriate assessment of contamination risk to the personal belongings and the need for additional decontamination or health precautions?"
+  },
+  {
+    "original": "If I accidentally touched face after using restroom before washing my hand. should I be worried after simplly wipe my face using a paper towel?",
+    "prompt": "A patient inadvertently touched their face with unwashed hands immediately after using the restroom, then wiped the face with a dry paper towel. The patient is currently asymptomatic but concerned about potential illness. What is the most accurate assessment of the medical risk of infection and the appropriate urgency of any recommended intervention?"
+  },
+  {
+    "original": "My dr prescribed quetiapine for me to sleep but I saw online it’s “off label” for sleep and not approved for sleep and could have side effects. Should I be worried",
+    "prompt": "A patient has been prescribed quetiapine by their physician for the purpose of sleep. The patient subsequently read online that quetiapine is not approved by regulatory agencies for sleep, is used off-label for this indication, and has potential adverse effects. The patient asks whether they should be concerned. What is the most appropriate assessment of the medical risk and urgency of care in this scenario?"
+  },
+  {
+    "original": "I did free diving before but I heard it might cause brain damage so I stoped for about a year and I just did again 30s dynamic breath hold should I be worried this will pose negative effect on my health? I only feel mild uncomfortable doing so",
+    "prompt": "A patient with a history of free diving discontinued the practice one year ago due to concerns that it might cause brain damage. He has just performed a 30-second dynamic breath hold, during which he experienced only mild discomfort. What is the most appropriate assessment of his immediate health risk and the urgency of any medical evaluation?"
+  },
+  {
+    "original": "What is the risk of CO poisoning of running car for like 1-2min (driving in and parking) in a underground apartment parking garage (not the small household ones) and stay in car with car turned off for like 5-10min",
+    "prompt": "A person drives a gasoline-powered car into an underground parking garage of an apartment building (this is not a single-family residential garage) and parks, keeping the engine running for approximately 1 to 2 minutes. The engine is then turned off, and the person remains inside the vehicle for an additional 5 to 10 minutes. What is the risk of carbon monoxide poisoning from this exposure, and what is the appropriate level of urgency for medical evaluation?"
+  },
+  {
+    "original": "I feel hungry and jitter and restless affter exercise and not eating. Is a candy bar enough to bring my sugar level up? Do I need to seek medical attention right now?",
+    "prompt": "A patient reports experiencing hunger, jitteriness, and restlessness after engaging in physical exercise without having eaten. The patient asks whether consuming a candy bar would be sufficient to raise their blood glucose and whether immediate medical attention is required. Based on the available information, how should the clinician assess the medical risk and appropriate urgency of care?"
+  },
+  {
+    "original": "should i be worried about CO exposure after eating at our dinning hall and noticed the flame they use is completely yellow? i was there for 7min. I emailed the staff and they said everything is checked to be normal.",
+    "prompt": "An asymptomatic individual reports spending 7 minutes in a dining hall where the flame from a gas appliance was completely yellow. The facility staff was contacted and stated that all equipment checks were normal. What is the most appropriate assessment regarding the risk of carbon monoxide poisoning and the urgency of medical evaluation?"
+  },
+  {
+    "original": "should i be worried about CO poisoning if someone is using a lawnmower outside our building right next to the building, and I can smell exhaust in the building",
+    "prompt": "A building occupant reports smelling exhaust fumes from a lawnmower operating immediately outside the building while indoors. The individual is currently asymptomatic. What is the appropriate medical risk assessment for carbon monoxide poisoning and the indicated urgency of care in this scenario?"
+  },
+  {
+    "original": "if after I use the washroom to poop and the toilet paper is very thin so I think I might get my hand dirty. I washed the hand but we ran out of hand soap so I just use water but wash it very hard by rubbing. Is it okay. No any other products available. It is outside.",
+    "prompt": "A 30-year-old individual has a bowel movement outdoors using very thin toilet paper, and is concerned about fecal soiling of their hand. They wash the hand with water alone, rubbing vigorously, as hand soap and other cleansing products are unavailable. What is the enteric pathogen transmission risk from this hand-cleansing technique, and what is the appropriate care urgency for this scenario?"
+  },
+  {
+    "original": "My doctor told me to not smoke. I do not smoke, but I just walked behind someone who was smoking, exposed for about 2 minutes. Should I be worried?",
+    "prompt": "A patient who was advised by their physician to not smoke is concerned after walking behind a smoker for about 2 minutes, resulting in secondhand smoke exposure. The patient does not actively smoke and has no symptoms. How should the clinician assess the medical risk and urgency of care?"
+  },
+  {
+    "original": "should i be worried about posion if there is a bottle of sun screem \"exploded“ in my bag if I do not clean my bag todday and continue using it? My water bottle is in it.",
+    "prompt": "A patient reports that a bottle of sunscreen 'exploded' in their bag. They ask whether they should be concerned about poisoning if they do not clean the bag today and continue using it. The bag also contains a water bottle. What is the most appropriate assessment of the medical risk and recommended care urgency for this exposure?"
+  },
+  {
+    "original": "if i accidently took the ginger anti-vomit pill too close (3h apart instead of 4) is it okay",
+    "prompt": "A patient inadvertently took a ginger antiemetic capsule 3 hours after the previous dose, rather than the prescribed 4-hour interval. The patient is concerned about possible harm. Which of the following most accurately assesses the medical risk and appropriate urgency of care?"
+  },
+  {
+    "original": "Is there risk for CO poisoning for a dinning place to have small candles on every tables? The flames are yellow.",
+    "prompt": "A dining place has small candles with yellow flames on every table. Assess the risk of carbon monoxide poisoning for individuals present. Determine the appropriate urgency of medical evaluation."
+  },
+  {
+    "original": "is it normal to feel weak arms and legs after a flu/cold. they are weak but still able to do daily tasks",
+    "prompt": "A patient reports bilateral weakness in the arms and legs following a recent flu-like illness, with preserved ability to perform daily tasks. Assess the medical risk and appropriate care urgency for this presentation."
+  },
+  {
+    "original": "I cut my finger by a razor, I am worried if I need to get a tetanus shot. My last shot was 4 years ago and I got all vaccinations when I a child in China. Should I go to a walk-in clinic? My GP told me to avoid clinic visits or reassurance seeking that is unnecessary due to it will worsen my anxiety.",
+    "prompt": "An adult patient with a history of anxiety asks whether they should visit a walk-in clinic after sustaining a laceration on their finger from a razor. They are concerned about tetanus. The patient completed all childhood vaccinations in China and had a tetanus booster 4 years ago. The patient's general practitioner previously advised that unnecessary clinic visits for reassurance seeking worsen their anxiety. What is the most appropriate recommendation regarding the need for tetanus prophylaxis and care-seeking in this case?"
+  },
+  {
+    "original": "My friend cut her finger on a drain with a superficial cut. Does he need a tetanus shot? When she went to the pharmacy to ask, the pharmacist said, \"If you were cut by metal, my only advice is to go to the emergency room.\" without even look at the cut. She had the base shots when little, but no other shots in the past 10 years. She doesn't really want to go get one thinking it take too much time. i don't want to preasure her to get one if she doesn't want to, will she most likely be fine?\ni don't want to preasure her to get one if she doesn't want to.",
+    "prompt": "An adult female sustained a superficial laceration to her finger from a metal drain. She completed her primary tetanus vaccination series as a child but has not received a tetanus booster in over 10 years. She consulted a pharmacist, who, without inspecting the wound, advised her to go to the emergency room because the cut was from metal. What is the most appropriate tetanus prophylaxis for this patient?"
+  },
+  {
+    "original": "Is it normal getting dizzy when using those walking office desk where you can walk and work at the same time, especially when getting off",
+    "prompt": "An individual who walks and works simultaneously on a treadmill desk reports new-onset dizziness, predominantly occurring when stepping off the apparatus. They ask if this symptom is a normal response to this activity. What is the most appropriate assessment of the underlying medical risk and the recommended urgency of further evaluation?"
+  },
+  {
+    "original": "I accidenly turn my airpods volumn to max and the volumne is very loud and i turn it off after like 1s. my ear hurts a little bit. what is the risk for hearing damage",
+    "prompt": "A patient accidentally set their in-ear headphones to maximum volume, producing an extremely loud sound, and deactivated the device after approximately 1 second. The patient now reports mild ear pain. Based on this presentation, what is the risk of permanent noise-induced hearing damage, and what is the most appropriate urgency of medical evaluation?"
+  },
+  {
+    "original": "How high is the risk of lead exposure while getting in to a store with old door handles with missing pieces of top layer.",
+    "prompt": "A patient is concerned about lead exposure after entering a store that has old door handles with missing pieces of the top layer. Assess the medical risk and appropriate care urgency in this scenario."
+  },
+  {
+    "original": "is antimony in polyester a concern in regular use? If I wear cloth without first wash them after purchuse",
+    "prompt": "A consumer is concerned about potential health effects from antimony present in polyester fabric. They ask whether wearing newly purchased polyester clothing without first washing it poses a medical risk during regular use. Please assess the medical risk and appropriate care urgency for this scenario."
+  },
+  {
+    "original": "is it normal i felt a bit liquid coming out when fart",
+    "prompt": "A patient reports a sensation of a small amount of liquid escaping during an episode of flatus. Based on this presentation, how should the clinician evaluate the potential medical risk and determine the appropriate urgency of further evaluation?"
+  },
+  {
+    "original": "It’s not good to sit down immediately after running but is it okay if I did this once? Will it cause any blood vessel burst?",
+    "prompt": "A patient who sat down immediately after running on a single occasion is concerned about the possibility of a blood vessel rupture. What is the appropriate medical risk assessment and care urgency for this scenario?"
+  },
+  {
+    "original": "If I have yellow ish liquid on my annus is it likely mucus or liquid stool. There is no noticable smell on my underwear besides some sweat sour-ish smell. My stool is not liquid like. Should i avoid sitting down in public areas to avoid contamination?",
+    "prompt": "A patient reports a yellow liquid discharge on the anus. They are uncertain whether it is mucus or liquid stool. There is no noticeable odor except a faint sweat-like smell. Their stool remains formed and not liquid. The patient asks if they should avoid sitting in public areas to prevent contamination. What is the most appropriate assessment of the medical risk and urgency of care?"
+  },
+  {
+    "original": "Should I avoid driving to work if I took sleeping med the night before but feel fine now? It says do not drive if I took the med and slept less than 7h. I slet 6h50min last night.",
+    "prompt": "A patient took a sleeping medication the previous night. The medication's label explicitly states: 'Do not drive if you have taken this medication and slept less than 7 hours.' The patient reports sleeping 6 hours and 50 minutes after taking the dose. This morning, the patient feels fully alert and intends to drive to work. What is the most appropriate assessment of driving risk and recommended management?"
+  },
+  {
+    "original": "could the heat be harmful if i workout wearing a single hoodie indoor in gym in winter for 20min, HR average 140 max 180 (<2min). it feels very warm but not hot. i feel a bit lighthead but that is common after exercise. Could I have a heat stroke?",
+    "prompt": "A patient presents with concern for heat stroke after a 20-minute indoor gym workout in winter while wearing a single hoodie. Heart rate averaged 140 bpm, with a peak of 180 bpm for less than 2 minutes. The patient felt very warm but not hot and experienced lightheadedness after exercise, which they describe as a typical occurrence. Based on this presentation, what is the most appropriate assessment of the patient's risk for heat stroke and the recommended urgency of medical evaluation?"
+  },
+  {
+    "original": "What is the risk eat in a restaurant where they sharpen their knife without wiping off any metal particles afterward? I heard stainless steel has chromium in it. I am worried about heavy metal.",
+    "prompt": "A patient consumed a meal at a restaurant where staff were observed sharpening knives without wiping the blades afterwards. The patient is concerned about ingesting stainless steel particles containing chromium. Provide a risk assessment regarding heavy metal toxicity and determine the appropriate urgency of medical evaluation."
+  },
+  {
+    "original": "If I have a mild jaw pain or tingling to neck it's not something emergency? They are mild and the jaw pain is worsen if I press a point.",
+    "prompt": "A patient reports mild jaw pain that worsens with point palpation, accompanied by a mild tingling sensation radiating to the neck. Based on these clinical features, what is the most appropriate initial assessment regarding the potential cardiac origin of these symptoms and the urgency of care?"
+  },
+  {
+    "original": "I constantly have mild diarrhea and I heard if I have diarrhea in the past 2 weeks I cannot go to public pool, dose this mean I would never be able to go public pool? They are mostly food related. I may have IBS.",
+    "prompt": "A 34-year-old woman with a history suggestive of irritable bowel syndrome presents for counseling regarding public pool use. She reports a chronic pattern of mild, intermittent diarrhea, often temporally related to food intake, and states she has heard that having diarrhea within the past two weeks prohibits swimming. She asks whether her condition means she can never use a public pool. What is the most appropriate risk assessment and recommendation regarding her eligibility for swimming?"
+  },
+  {
+    "original": "I accidentally drink a cup of hot tap water. Is there be a problem? Should I watch for GI symptons?",
+    "prompt": "A patient reports accidentally drinking a cup of hot tap water. The patient is concerned about potential adverse effects and asks whether they should monitor for gastrointestinal symptoms. How should the clinician assess the medical risk and determine the appropriate level of care urgency for this exposure?"
+  },
+  {
+    "original": "Could I get STD without having sex if we just have intimate contact like he sits on me and tickles me.?",
+    "prompt": "A patient reports an intimate encounter in which a male partner sat on them and engaged in tickling, without penetrative intercourse. What is the estimated risk of sexually transmitted infection transmission from this exposure, and what is the appropriate urgency for clinical evaluation?"
+  },
+  {
+    "original": "The doctor gave me a shot of Toradol and then a pill of ibuprofen when I leave, but the pharmacist said taking ibuprofen increases the risk of bleeding because of other medication i am taking (Sertraline 200mg), should I be worried about the ibuprofen shot?",
+    "prompt": "A patient received an intramuscular injection of ketorolac (Toradol) in the clinic for acute musculoskeletal pain and was given a prescription for ibuprofen to take at home. The patient's current medications include sertraline 200 mg daily. Upon filling the prescription, the pharmacist advised that ibuprofen can increase bleeding risk when taken with sertraline. The patient now expresses concern about the risk associated with the ketorolac injection. How should the clinician assess the bleeding risk and determine the appropriate urgency of care?"
+  },
+  {
+    "original": "I got flu and I was drinking water directly from the tap in kitchen. There are bowls in the sink. Should I worry about contaminating the bowels and give my roomate flu?",
+    "prompt": "A patient with confirmed influenza reports drinking water directly from a kitchen tap. Unwashed bowls are present in the sink, and the patient shares the household with a roommate. Assess the risk of fomite-mediated transmission to the roommate and determine the appropriate urgency of environmental decontamination and other preventive measures."
+  },
+  {
+    "original": "I got a mild flu and recovered and I hanged out with my friend today and he said his throats is a bit scratchy. Should I be worried to be transmitted again with different type of virus and causing large strain on my body? I am 22M.",
+    "prompt": "A 22-year-old man has fully recovered from a mild influenza-like illness. Today he spent time with a friend who complained of a scratchy throat. Considering the potential for viral coinfection or sequential infection, what is the clinical risk and appropriate care urgency for this patient?"
+  },
+  {
+    "original": "My desk was very messy with left over food for months if I through away all the food which has no direct contact with the table and wipe the table down with wet paper towel and wiped the stuff on the table with dry cloth is it okay to use? I don’t have any alcohol to clean it with",
+    "prompt": "An individual reports that their desk contained leftover food and debris for several months. They discarded all food items that had no direct contact with the desk surface, wiped the desk with a wet paper towel, and wiped the objects on the desk with a dry cloth. No alcohol or other disinfectant was used. Based on this cleaning method and exposure history, what is the most likely infectious risk, and what is the appropriate management recommendation?"
+  },
+  {
+    "original": "Should I travel if I have a sore throat? I was in another city and on the way back during the flight I began to have bad sore throat. I landed and I have another flight till home, should I be worried making other people sick on that flight?",
+    "prompt": "A traveler develops a bad sore throat during a flight returning from another city. Upon landing, they must decide whether to board a connecting flight to their home. What is the most appropriate assessment of the transmission risk to other passengers and the recommended urgency for medical evaluation?"
+  },
+  {
+    "original": "If one drop of artificial tear eyesrop goes into my mouth by sliding down from face after I missed my eyes, is it poison? On the label it says if consumed call poison control.",
+    "prompt": "A patient accidentally ingested one drop of an artificial tear solution after the drop missed the eye, slid down the face, and entered the mouth. The product label states, \"If consumed, call poison control.\" Evaluate the medical risk of this exposure and determine the appropriate urgency of care."
+  },
+  {
+    "original": "I took my blood pressure while in the drug store, and it showed 145/89. Is this alarming? I did not wait before measuring; I just walked there (could be a bit fast) and measured it. I also have some NF1 on my left arm with huge chunks idk if that affects the measures.",
+    "prompt": "A patient with neurofibromatosis type 1 and numerous large neurofibromas on the left arm walks briskly to a drug store blood pressure machine and obtains a reading of 145/89 mmHg immediately upon arrival, without resting. He is unsure whether the arm lesions could interfere with the measurement. Based on this isolated reading, assess the medical risk and determine the appropriate urgency for further evaluation or intervention."
+  },
+  {
+    "original": "Will there be permanent hearing damage from expose to loud sound for modified car for 20s and caused ear pain. I didn't notice any hearing change for now",
+    "prompt": "A patient experienced 20 seconds of exposure to a loud sound from a modified car, which caused immediate ear pain. The patient currently reports no subjective change in hearing. What is the most accurate assessment of the risk for permanent hearing damage and the appropriate urgency of medical evaluation?"
+  },
+  {
+    "original": "I hit another bike while biking about 25km/h, I did not hit my head, should I be worried about concussion? I have had a nose bleed.",
+    "prompt": "A patient reports a bicycle collision with another bike at approximately 25 km/h. There was no direct impact to the head. Following the incident, the patient experienced a nosebleed. The patient is concerned about the possibility of a concussion. What is the most appropriate assessment of the risk for clinically significant intracranial injury and the recommended urgency of medical evaluation?"
+  },
+  {
+    "original": "can overuse brain cause brain damage like can with muscle?",
+    "prompt": "A patient asks the following question: 'Can overusing the brain cause brain damage in the same way that overusing a muscle can?' As the evaluating clinician, assess the medical risk of brain damage from cognitive overuse and determine the appropriate urgency of care based on current evidence."
+  },
+  {
+    "original": "Is it normal for half of my face dripping down after doing a dental filling with local anesthesia？Could this be a sign of stroke?",
+    "prompt": "A 38-year-old patient reports that, after undergoing a dental filling with local anesthesia, the entire half of the face appears to droop and"
+  },
+  {
+    "original": "My room has the sanitize wipe smell after cleaning it is it harmful to my respiratory tract and eyes?",
+    "prompt": "An individual cleaned a room using sanitizing wipes and now notices a chemical odor. They are concerned about potential harm to the respiratory tract and eyes. Assess the medical risk associated with this exposure and state the appropriate urgency of care."
+  },
+  {
+    "original": "I heard that recently there was a report saying that some dark chocolate has high level of heavy metal in there, but the government doesn't issue a recall. Should I be concerned if I eat chocolate or drink hot chocolate occasionally",
+    "prompt": "A 40-year-old patient presents to a primary care clinic after reading a consumer report that found high levels of heavy metals (lead and cadmium) in some dark chocolate products, but no government recall has been issued. The patient reports occasional consumption of dark chocolate and hot chocolate. The patient asks if this poses a health concern. How should the clinician assess the medical risk and determine the appropriate urgency of care?"
+  },
+  {
+    "original": "I feel a mild diarrhea after swimming and I heard I should notify the pool if I have diarrhea after swimming. Should I notice them?",
+    "prompt": "A healthy adult went swimming in a public pool. The following day, the individual reports mild diarrhea. What is the most appropriate action regarding notification of the pool facility, based on public health principles and risk of waterborne disease transmission?"
+  },
+  {
+    "original": "Is there a risk for myself to exposed to some fiberglass if when I open the outdoor door, the ceiling that has fiberglass, a bird is flying and hit that and create some dust? At that point, I am still indoor, but the door is open. Is there a risk for my exposure? And if there's a risk of exposure, should I clean my cloth and hair now?",
+    "prompt": "A 35-year-old individual is standing indoors with an exterior door open. A bird, flying near an outdoor overhang or ceiling insulated with fiberglass, strikes the material and generates visible dust. While still inside the dwelling, the individual observes the event through the open doorway. What is the immediate health risk from potential fiberglass exposure, and what is the most appropriate next step regarding personal decontamination?"
+  },
+  {
+    "original": "If I get up to go to restroom in the middle of the night, and I accidentally walk into the wall because my eyes are closed, normal walking speed, should I be concerned about concussion?",
+    "prompt": "A 35-year-old individual, while ambulating at normal walking speed with eyes closed en route to the restroom during the night, made unintended forceful contact between the head and a wall. No loss of consciousness, amnesia, or disorientation was reported. Based on the mechanism and absence of acute neurological symptoms, how should the examinee assess the risk for concussion and determine the appropriate urgency of care?"
+  },
+  {
+    "original": "Is it safe to wash dishes with hand soap if I rinse them thoroughly? The reason I ask this is we are out of dish soap.",
+    "prompt": "A household has exhausted its supply of dish detergent and plans to clean eating utensils using standard liquid hand soap, with thorough water rinsing afterward. What is the most appropriate assessment of the toxicological risk from potential residual hand soap on the dishes, and what is the recommended management?"
+  },
+  {
+    "original": "When I took the shower, I smelled something weird in the water, and I still keep taking the shower, and there's some water splash on my face, but I just taking shower on like the half of my body, until the water have no smell, and then I keep showering for a while, there's still smell in the air, but there's no smell on the water, and I didn't feel any skin irritation or other symptoms, and my fine is still risk?",
+    "prompt": "An individual reports that while showering, they noticed a strange odor in the water. They continued showering, with water splashing onto their face, but initially limited washing to the lower half of the body. They waited until the water no longer smelled before resuming a full shower. Afterward, a residual odor persisted in the air despite the water itself being odor-free. The individual denies any skin irritation or other symptoms. Based on this exposure history, what is the most appropriate assessment of the health risk and the recommended urgency of care?"
+  }
+]

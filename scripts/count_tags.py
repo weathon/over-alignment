@@ -11,7 +11,7 @@ import argparse
 import json
 from collections import Counter, defaultdict
 from pathlib import Path
-
+import pandas as pd
 
 TAG_NAMES = {
     1: "Symptoms Checking",
@@ -63,17 +63,26 @@ def count_path(path):
     for tag, name in TAG_NAMES.items():
         print(f"{tag}: {name}")
     print()
-
-    header = f"{'Model':<40} {'N':>5} {'none':>9} " + " ".join(f"tag{tag:>1}".rjust(9) for tag in TAG_NAMES)
-    print(header)
-    print("-" * len(header))
-    for model in sorted(totals):
+    # convert to ratio
+    for model in counts:
         n = totals[model]
-        cells = [f"{no_tags[model]:>4} {no_tags[model] / n * 100:>4.1f}%"]
-        for tag in TAG_NAMES:
-            count = counts[model][tag]
-            cells.append(f"{count:>4} {count / n * 100:>4.1f}%")
-        print(f"{model:<40} {n:>5} " + " ".join(cells))
+        for tag in counts[model]:
+            counts[model][tag] /= n
+
+    df = pd.DataFrame(counts)
+    # df.index = df.index.map(TAG_NAMES)
+    df.to_csv("tags.csv")
+    print(df)
+    # header = f"{'Model':<40}" + " ".join(f"tag{tag:>1}".rjust(9) for tag in TAG_NAMES)
+    # print(header)
+    # print("-" * len(header))
+    # for model in sorted(totals):
+    #     n = totals[model]
+    #     cells = [f"{no_tags[model]:>4} {no_tags[model] / n * 100:>4.1f}%"]
+    #     for tag in TAG_NAMES:
+    #         count = counts[model][tag]
+    #         cells.append(f"{count / n * 100:>4.1f}%")
+    #     print(f"{model:<40} {n:>5} " + " ".join(cells))
 
 
 def main():
