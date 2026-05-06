@@ -1,0 +1,12 @@
+{
+  "model": "deepseek/deepseek-v4-pro",
+  "excluded_gp_risk_tiers": [
+    "High"
+  ],
+  "n": 42,
+  "human_mean": 3.8333333333333335,
+  "predicted_mean": 3.357142857142857,
+  "pearson": 0.6928221045198485,
+  "spearman": 0.6985181076986224,
+  "mae": 1.7619047619047619
+}

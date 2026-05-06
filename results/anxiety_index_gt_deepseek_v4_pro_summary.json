@@ -1,0 +1,9 @@
+{
+  "model": "deepseek/deepseek-v4-pro",
+  "n": 50,
+  "human_mean": 4.28,
+  "predicted_mean": 3.88,
+  "pearson": 0.7047677579244868,
+  "spearman": 0.7130274561998012,
+  "mae": 1.76
+}
