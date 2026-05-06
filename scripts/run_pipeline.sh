@@ -13,9 +13,6 @@ cleanup() {
 
 trap cleanup INT TERM
 
-python scripts/rewrite_exam_questions.py
-python scripts/rewrite_real_emergency_exam_questions.py
-
 python scripts/bench_dataset.py &
 python scripts/bench_real_emergency.py &
 wait
