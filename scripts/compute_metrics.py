@@ -2,7 +2,7 @@
 
 Usage:
   python3 scripts/compute_metrics.py
-  python3 scripts/compute_metrics.py --eval-path results/eval_results_exam.json --real-emergency-path results/eval_results_real_emergency_exam.json --out results/metrics_exam.csv
+  python3 scripts/compute_metrics.py --eval-path results/eval_results.json --real-emergency-path results/eval_results_real_emergency.json --out results/metrics.csv
 
 Both inputs may be eval JSON files or flat CSV exports with the same fields.
 """
@@ -186,17 +186,17 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--eval-path",
-        default=str(root / "results" / "eval_results_exam.json"),
+        default=str(root / "results" / "eval_results.json"),
         help="Over-caution eval JSON/CSV with model, stated_risk_level, and gt_level.",
     )
     parser.add_argument(
         "--real-emergency-path",
-        default=str(root / "results" / "eval_results_real_emergency_exam.json"),
+        default=str(root / "results" / "eval_results_real_emergency.json"),
         help="Real-emergency eval JSON/CSV with model and stated_risk_level.",
     )
     parser.add_argument(
         "--out",
-        default=str(root / "results" / "metrics_exam.csv"),
+        default=str(root / "results" / "metrics.csv"),
         help="Output CSV path.",
     )
     args = parser.parse_args()
