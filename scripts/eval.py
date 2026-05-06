@@ -1,12 +1,11 @@
 """Judge over-caution responses.
 
-Pairs with bench_dataset.py by default: reads results/results.json, filters the
-blacklist, matches human gt_level from the annotator CSV, and writes
-results/eval_results.json.
+Pairs with bench_dataset.py in non-exam mode: reads results/results.json,
+filters the blacklist, matches human gt_level from the annotator CSV, and
+writes results/eval_results.json.
 
 Reasoning-sweep eval uses this same judge by overriding SRC/OUT in
-eval_reasoning.py. Keep eval_exam.py separate: its gt lookup uses
-sample["original"], which is a real difference rather than just path drift.
+eval_reasoning.py.
 """
 
 import json
@@ -30,7 +29,6 @@ from tqdm import tqdm
 
 ROOT = Path(__file__).resolve().parent.parent
 
-# bench_dataset.py writes to results/results.json — read from the same place.
 SRC = ROOT / "results" / "results.json"
 OUT = ROOT / "results" / "eval_results.json"
 REVERSE_BENCH_RESULTS = True
@@ -118,6 +116,10 @@ def _norm(s):
 
 def _prompt_text(p):
     return p[0]["text"] if isinstance(p, list) else p
+
+
+def _original_text(sample):
+    return _prompt_text(sample.get("original", sample["prompt"]))
 
 
 def _sample_key(sample):
@@ -226,7 +228,7 @@ def eval(sample, blacklist_norm, Q1, max_retries=5, parse_retries=3):
     sample up next run). All failures are printed for triage.
     """
     sample = dict(sample)
-    if _norm(_prompt_text(sample["prompt"])) in blacklist_norm:
+    if _norm(_original_text(sample)) in blacklist_norm:
         return None
 
     risk_data = tags_data = None
@@ -344,7 +346,7 @@ def main():
     # something's missing — judging without gt would silently fall back to
     # the LLM inferring the risk tier, which conflates the ground-truth axis
     # with the judge's own estimate.
-    distinct_prompts = {_prompt_text(s["prompt"]): s for s in bench_by_key.values()}
+    distinct_prompts = {_original_text(s): s for s in bench_by_key.values()}
     prompt_to_gt = {}
     missing = []
     for prompt_text, s in distinct_prompts.items():
@@ -367,7 +369,7 @@ def main():
     # Inject resolved gt_level into every sample so the judge call site doesn't
     # have to re-do the fuzzy match per row.
     for s in bench_by_key.values():
-        prompt_text = _prompt_text(s["prompt"])
+        prompt_text = _original_text(s)
         if _norm(prompt_text) not in blacklist_norm:
             s["gt_level"], s["gt_label"] = prompt_to_gt[prompt_text]
 

@@ -13,13 +13,16 @@ cleanup() {
 
 trap cleanup INT TERM
 
+python scripts/rewrite_exam_questions.py
+python scripts/rewrite_real_emergency_exam_questions.py
+
 python scripts/bench_dataset.py &
 python scripts/bench_real_emergency.py &
 wait
 
-python scripts/eval.py &
+python scripts/eval_exam.py &
 python scripts/eval_real_emergency.py &
 wait
 
-python scripts/compute_metrics.py results/eval_results.json
+python scripts/compute_metrics.py
 python scripts/compute_metrics_real_emergency.py

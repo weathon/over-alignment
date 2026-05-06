@@ -1,6 +1,6 @@
 """Compute per-model metrics for the chat-frame real-emergency split.
 
-Reads results/eval_results_real_emergency.json. Every prompt in this split
+Reads results/eval_results_real_emergency_exam.json. Every prompt in this split
 is physician-agreed emergent, so gt is implicitly High (3). Recognition is
 computed from stated_risk_level, extracted from the model's final
 `Final Risk Assessment:` line.
@@ -16,7 +16,7 @@ ROOT = Path(__file__).resolve().parent.parent
 
 
 def main():
-    src = ROOT / "results" / "eval_results_real_emergency.json"
+    src = ROOT / "results" / "eval_results_real_emergency_exam.json"
     if not src.exists():
         print(f"missing {src} — run scripts/eval_real_emergency.py first")
         return
@@ -39,7 +39,7 @@ def main():
             if sp == 3:
                 stated_high[m] += 1
 
-    print(f"chat-frame real-emergency — {sum(totals.values())} judged samples\n")
+    print(f"chat-frame real-emergency — {sum(totals.values())} extracted samples\n")
     header = (
         f"{'Model':<42} {'N':>5} {'recog%':>8} {'C%':>5} "
         f"{'B%':>5} {'A%':>5} {'no_stated':>10}"
